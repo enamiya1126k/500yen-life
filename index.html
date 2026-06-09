@@ -1,1 +1,37 @@
-あ
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500円ライフ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>💰500円ライフ</h1>
+
+    <div class="card">
+        <h2>残高</h2>
+        <div id="balance">0円</div>
+    </div>
+
+    <button id="dailyBtn">今日の500円を受け取る</button>
+
+    <button id="salaryBtn">🎁25日ボーナス(+15000円)</button>
+
+    <div class="card">
+        <input type="number" id="expense" placeholder="使った金額">
+        <button onclick="addExpense()">支出登録</button>
+    </div>
+
+    <div class="card">
+        <h3>履歴</h3>
+        <ul id="history"></ul>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
