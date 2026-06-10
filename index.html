@@ -48,10 +48,6 @@
             <button type="button" onclick="setMaxBet()">MAX</button>
         </div>
 
-        <button type="button" onclick="playSlot()" class="spin-button">
-            スロットを回す
-        </button>
-
         <div class="slot-machine">
             <div class="slot-cell" id="cell0">🎰</div>
             <div class="slot-cell" id="cell1">🎰</div>
@@ -69,11 +65,15 @@
             <div class="diagonal-right"></div>
         </div>
 
-    <div class="stop-buttons">
-        <button type="button" onclick="stopReel(0)">STOP</button>
-        <button type="button" onclick="stopReel(1)">STOP</button>
-        <button type="button" onclick="stopReel(2)">STOP</button>
-    </div>
+<div class="stop-buttons">
+    <button type="button" onclick="stopReel(0)">STOP</button>
+    <button type="button" onclick="stopReel(1)">STOP</button>
+    <button type="button" onclick="stopReel(2)">STOP</button>
+</div>
+
+<button type="button" onclick="playSlot()" class="spin-button">
+    スロットを回す
+</button>
 
         <p id="slotMessage"></p>
     </div>
