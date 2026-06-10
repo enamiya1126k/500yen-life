@@ -271,3 +271,27 @@ input{
         filter:brightness(1.8);
     }
 }
+
+.diagonal-left{
+    position:absolute;
+    width:90%;
+    height:4px;
+    background:#00ffff;
+    top:50%;
+    left:5%;
+    transform:rotate(35deg);
+    box-shadow:0 0 12px cyan;
+    pointer-events:none;
+}
+
+.diagonal-right{
+    position:absolute;
+    width:90%;
+    height:4px;
+    background:#00ffff;
+    top:50%;
+    left:5%;
+    transform:rotate(-35deg);
+    box-shadow:0 0 12px cyan;
+    pointer-events:none;
+}
