@@ -1,119 +1,138 @@
-    <!DOCTYPE html>
-    <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>500円ライフ</title>
-        <link rel="stylesheet" href="style.css?v=30">
-    </head>
-    <body>
-    
-    <div class="container">
-    
-        <h1>💰500円ライフ</h1>
-    
-        <div class="top-status">
-            <div class="balance-box">
-                <div class="balance-label">残高</div>
-                <div id="balance">0円</div>
-            </div>
-    
-            <div class="mini-ranking">
-                <div>最高残高：<span id="bestBalance">0円</span></div>
-                <div>最大勝利：<span id="bestWin">0円</span></div>
-                <div>総プレイ：<span id="totalPlays">0回</span></div>
-                <div>総BET：<span id="totalBet">0円</span></div>
-                <div>総獲得：<span id="totalReward">0円</span></div>
-                <div>収支：<span id="slotProfit">0円</span></div>
-            </div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500円ライフ</title>
+    <link rel="stylesheet" href="style.css?v=45">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>💰500円ライフ</h1>
+
+    <div class="top-status">
+        <div class="balance-box">
+            <div class="balance-label">残高</div>
+            <div id="balance">0円</div>
         </div>
-    
-        <div class="quick-bar">
-            <input type="number" id="expense" placeholder="使った金額">
-    
-            <button onclick="addExpense()" class="small-btn">
-                登録
-            </button>
-    
-            <button id="dailyBtn" class="bonus-mini">
-                500円
-                <span id="dailyTimer">受取</span>
-            </button>
-    
-            <button id="salaryBtn" class="bonus-mini">
-                🎁
-                <span id="salaryTimer">25日</span>
-            </button>
+
+        <div class="mini-ranking">
+            <div>最高残高：<span id="bestBalance">0円</span></div>
+            <div>最大勝利：<span id="bestWin">0円</span></div>
+            <div>総プレイ：<span id="totalPlays">0回</span></div>
+            <div>総BET：<span id="totalBet">0円</span></div>
+            <div>総獲得：<span id="totalReward">0円</span></div>
+            <div>収支：<span id="slotProfit">0円</span></div>
         </div>
-    
-        <div class="card slot-card">
-            <h3>🎰ボーナスチャレンジ</h3>
-    
-            <div class="slot-panel">
-                <div>BET <span id="betDisplay">5</span></div>
-                <div>PAY <span id="payoutDisplay">0</span></div>
-            </div>
-    
-            <div id="gogoLamp" class="gogo-lamp">GOGO!</div>
-    
-            <p id="maxBetText">最大賭け金：0円</p>
-    
-            <input type="number" id="betAmount" placeholder="賭け金" value="5">
-    
-            <div class="bet-buttons">
-                <button type="button" onclick="setBet(5)">5円</button>
-                <button type="button" onclick="setBet(10)">10円</button>
-                <button type="button" onclick="setBet(50)">50円</button>
-                <button type="button" onclick="setMaxBet()">MAX</button>
-            </div>
-    
-            <div class="slot-machine">
-                <div class="slot-cell" id="cell0">🎰</div>
-                <div class="slot-cell" id="cell1">🎰</div>
-                <div class="slot-cell" id="cell2">🎰</div>
-    
-                <div class="slot-cell" id="cell3">🎰</div>
-                <div class="slot-cell" id="cell4">🎰</div>
-                <div class="slot-cell" id="cell5">🎰</div>
-    
-                <div class="slot-cell" id="cell6">🎰</div>
-                <div class="slot-cell" id="cell7">🎰</div>
-                <div class="slot-cell" id="cell8">🎰</div>
-    
-                <div class="diagonal-left"></div>
-                <div class="diagonal-right"></div>
-            </div>
-    
-            <div class="stop-buttons">
-                <button type="button" onclick="stopReel(0)">STOP</button>
-                <button type="button" onclick="stopReel(1)">STOP</button>
-                <button type="button" onclick="stopReel(2)">STOP</button>
-            </div>
-    
-            <button type="button" onclick="playSlot()" class="spin-button">
-                スロットを回す
-            </button>
-    
-            <p id="slotMessage"></p>
-        </div>
-    
-<div class="card timing-card">
-
-    <h3>🎯タイミングチャレンジ</h3>
-
-    <p>実力勝負！タイミングよく止めろ！</p>
-
-    <input type="number" id="timingBet" placeholder="賭け金" value="5">
-
-    <div class="timing-bar">
-        <div class="target-zone"></div>
-        <div id="timingCursor"></div>
     </div>
 
-<button type="button" id="timingMainBtn" onclick="toggleTiming()">
-    スタート
-</button>
+    <div class="quick-bar">
+        <input type="number" id="expense" placeholder="使った金額">
 
-    <p id="timingMessage">挑戦待ち</p>
+        <button type="button" onclick="addExpense()" class="small-btn">
+            登録
+        </button>
+
+        <button type="button" id="dailyBtn" class="bonus-mini">
+            500円
+            <span id="dailyTimer">受取</span>
+        </button>
+
+        <button type="button" id="salaryBtn" class="bonus-mini">
+            🎁
+            <span id="salaryTimer">25日</span>
+        </button>
+    </div>
+
+    <div class="card slot-card">
+        <h3>🎰ボーナスチャレンジ</h3>
+
+        <div class="slot-panel">
+            <div>BET <span id="betDisplay">5</span></div>
+            <div>PAY <span id="payoutDisplay">0</span></div>
+        </div>
+
+        <div id="gogoLamp" class="gogo-lamp">GOGO!</div>
+
+        <p id="maxBetText">最大賭け金：0円</p>
+
+        <input type="number" id="betAmount" placeholder="賭け金" value="5">
+
+        <div class="bet-buttons">
+            <button type="button" onclick="setBet(5)">5円</button>
+            <button type="button" onclick="setBet(10)">10円</button>
+            <button type="button" onclick="setBet(50)">50円</button>
+            <button type="button" onclick="setMaxBet()">MAX</button>
+        </div>
+
+        <div class="slot-machine">
+            <div class="slot-cell" id="cell0">🎰</div>
+            <div class="slot-cell" id="cell1">🎰</div>
+            <div class="slot-cell" id="cell2">🎰</div>
+
+            <div class="slot-cell" id="cell3">🎰</div>
+            <div class="slot-cell" id="cell4">🎰</div>
+            <div class="slot-cell" id="cell5">🎰</div>
+
+            <div class="slot-cell" id="cell6">🎰</div>
+            <div class="slot-cell" id="cell7">🎰</div>
+            <div class="slot-cell" id="cell8">🎰</div>
+
+            <div class="diagonal-left"></div>
+            <div class="diagonal-right"></div>
+        </div>
+
+        <div class="stop-buttons">
+            <button type="button" onclick="stopReel(0)">STOP</button>
+            <button type="button" onclick="stopReel(1)">STOP</button>
+            <button type="button" onclick="stopReel(2)">STOP</button>
+        </div>
+
+        <button type="button" onclick="playSlot()" class="spin-button">
+            スロットを回す
+        </button>
+
+        <p id="slotMessage"></p>
+    </div>
+
+    <div class="card timing-card">
+        <h3>🎯タイミングチャレンジ</h3>
+
+        <p>実力勝負！タイミングよく止めろ！</p>
+
+        <input type="number" id="timingBet" placeholder="賭け金" value="5">
+
+        <div class="timing-bar">
+            <div class="target-zone"></div>
+            <div id="timingCursor"></div>
+        </div>
+
+        <button type="button" id="timingMainBtn" onclick="toggleTiming()">
+            スタート
+        </button>
+
+        <p id="timingMessage">挑戦待ち</p>
+    </div>
+
+    <div class="history-area">
+        <div class="history-card">
+            <h3>生活履歴</h3>
+            <button type="button" onclick="resetHistory()">リセット</button>
+            <ul id="history"></ul>
+        </div>
+
+        <div class="history-card">
+            <h3>チャレンジ履歴</h3>
+            <button type="button" onclick="resetSlotHistory()">リセット</button>
+            <ul id="slotHistory"></ul>
+        </div>
+    </div>
 
 </div>
+
+<script src="script.js?v=45"></script>
+
+</body>
+</html>
