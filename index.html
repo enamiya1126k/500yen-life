@@ -9,6 +9,7 @@
 <body>
 
 <div class="container">
+
     <h1>💰500円ライフ</h1>
 
     <div class="card">
@@ -16,34 +17,94 @@
         <div id="balance">0円</div>
     </div>
 
-    <button id="dailyBtn">今日の500円を受け取る</button>
+    <button id="dailyBtn">
+        今日の500円を受け取る
+    </button>
 
-    <button id="salaryBtn">🎁25日ボーナス(+15000円)</button>
+    <button id="salaryBtn">
+        🎁25日ボーナス(+15000円)
+    </button>
 
     <div class="card">
-        <input type="number" id="expense" placeholder="使った金額">
-        <button onclick="addExpense()">支出登録</button>
+
+        <input
+            type="number"
+            id="expense"
+            placeholder="使った金額"
+        >
+
+        <button onclick="addExpense()">
+            支出登録
+        </button>
+
     </div>
 
-<div class="card">
-    <h3>🎰ボーナスチャレンジ</h3>
-    <p id="maxBetText">最大賭け金：0円</p>
+    <div class="card">
 
-<input type="number" id="betAmount" placeholder="賭け金" value="5">
-    <button onclick="playSlot()">スロットを回す</button>
+        <h3>🎰ボーナスチャレンジ</h3>
 
-    <div id="slotResult" class="slot-result">🎰 🎰 🎰</div>
-    <p id="slotMessage"></p>
-</div>
+        <p id="maxBetText">
+            最大賭け金：0円
+        </p>
 
-<div class="card">
-    <h3>生活履歴</h3>
-    <ul id="history"></ul>
-</div>
+        <input
+            type="number"
+            id="betAmount"
+            placeholder="賭け金"
+            value="5"
+        >
 
-<div class="card">
-    <h3>🎰ボーナスチャレンジ履歴</h3>
-    <ul id="slotHistory"></ul>
+        <div class="bet-buttons">
+
+            <button onclick="setBet(5)">
+                5円
+            </button>
+
+            <button onclick="setBet(10)">
+                10円
+            </button>
+
+            <button onclick="setBet(50)">
+                50円
+            </button>
+
+            <button onclick="setMaxBet()">
+                MAX
+            </button>
+
+        </div>
+
+        <button onclick="playSlot()">
+            スロットを回す
+        </button>
+
+        <div
+            id="slotResult"
+            class="slot-result"
+        >
+            🎰 🎰 🎰
+        </div>
+
+        <p id="slotMessage"></p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>生活履歴</h3>
+
+        <ul id="history"></ul>
+
+    </div>
+
+    <div class="card">
+
+        <h3>🎰ボーナスチャレンジ履歴</h3>
+
+        <ul id="slotHistory"></ul>
+
+    </div>
+
 </div>
 
 <script src="script.js"></script>
