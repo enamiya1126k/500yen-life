@@ -217,3 +217,12 @@ input{
 ul{
     padding-left:20px;
 }
+
+.gogo-lamp.premium{
+    background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+    color:white;
+    box-shadow:
+        0 0 30px red,
+        0 0 50px cyan,
+        0 0 80px violet;
+}
