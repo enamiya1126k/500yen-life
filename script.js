@@ -88,6 +88,12 @@ function playSlot(){
         return;
     }
 
+    playCoinSound();
+
+    document.getElementById("betDisplay").innerText = bet;
+    document.getElementById("payoutDisplay").innerText = 0;
+    document.getElementById("gogoLamp").classList.remove("on");
+
     const cells = [];
     for(let i = 0; i < 9; i++){
         const cell = document.getElementById(`cell${i}`);
@@ -111,7 +117,16 @@ function playSlot(){
 
         count++;
 
+        if(count === 15){
+            playStopSound();
+        }
+
+        if(count === 25){
+            playStopSound();
+        }
+
         if(count >= 35){
+            playStopSound();
             clearInterval(spin);
 
             cells.forEach(function(cell, index){
@@ -163,24 +178,21 @@ function finishSlot(result, bet){
             });
         });
 
-if(hitLines.length >= 3){
+        document.getElementById("gogoLamp").classList.add("on");
+        document.getElementById("payoutDisplay").innerText = totalReward;
+        playWinSound();
 
-    message =
-    `💥BIG BONUS💥 +${totalReward}円`;
+        if(hitLines.length >= 3){
+            message = `💥BIG BONUS💥 +${totalReward}円`;
+        }else if(hitLines.length >= 2){
+            message = `🔥SUPER HIT🔥 +${totalReward}円`;
+        }else{
+            message = `✨LINE HIT✨ +${totalReward}円`;
+        }
 
-}else if(hitLines.length >= 2){
-
-    message =
-    `🔥SUPER HIT🔥 +${totalReward}円`;
-
-}else{
-
-    message =
-    `✨LINE HIT✨ +${totalReward}円`;
-
-}
     }else{
         balance -= bet;
+        document.getElementById("payoutDisplay").innerText = 0;
         message = `😭ハズレ… -${bet}円`;
     }
 
@@ -193,6 +205,7 @@ if(hitLines.length >= 3){
     save();
 
     document.getElementById("betAmount").value = 5;
+    document.getElementById("betDisplay").innerText = 5;
 }
 
 function save(){
@@ -222,15 +235,23 @@ function update(){
         maxBetText.innerText =
         `最大賭け金：${Math.floor(balance * 0.1).toLocaleString()}円`;
     }
+
+    const betDisplay = document.getElementById("betDisplay");
+    if(betDisplay){
+        betDisplay.innerText =
+        document.getElementById("betAmount").value || 5;
+    }
 }
 
 window.setBet = function(amount){
     document.getElementById("betAmount").value = amount;
+    document.getElementById("betDisplay").innerText = amount;
 };
 
 window.setMaxBet = function(){
-    document.getElementById("betAmount").value =
-    Math.floor(balance * 0.1);
+    const maxBet = Math.floor(balance * 0.1);
+    document.getElementById("betAmount").value = maxBet;
+    document.getElementById("betDisplay").innerText = maxBet;
 };
 
 function getDateTime(){
@@ -258,3 +279,47 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     };
 });
+
+function playTone(freq, duration, type = "square", volume = 0.05){
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = new AudioContext();
+
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.value = freq;
+
+    gainNode.gain.value = volume;
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    oscillator.start();
+
+    setTimeout(function(){
+        oscillator.stop();
+        audioCtx.close();
+    }, duration);
+}
+
+function playCoinSound(){
+    playTone(880, 80, "square", 0.04);
+    setTimeout(function(){
+        playTone(1320, 90, "square", 0.04);
+    }, 90);
+}
+
+function playStopSound(){
+    playTone(300, 60, "square", 0.035);
+}
+
+function playWinSound(){
+    playTone(660, 120, "triangle", 0.05);
+    setTimeout(function(){
+        playTone(880, 120, "triangle", 0.05);
+    }, 120);
+    setTimeout(function(){
+        playTone(1320, 180, "triangle", 0.05);
+    }, 240);
+}
