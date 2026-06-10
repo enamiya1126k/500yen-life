@@ -267,7 +267,7 @@ const lines = [
         }else{
             balance -= bet;
             document.getElementById("payoutDisplay").innerText = 0;
-            message = `😭ハズレ… -${bet}円`;
+            message = `ハズレ… -${bet}円`;
         }
     
         document.getElementById("slotMessage").innerText = message;
