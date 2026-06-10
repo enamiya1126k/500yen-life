@@ -18,7 +18,7 @@ document.getElementById("dailyBtn").onclick = function(){
     balance += 500;
 
     history.unshift(
-        `${new Date().toLocaleDateString()} +500円`
+        `${getDateTime()} +500円`
     );
 
     localStorage.setItem("lastDaily", today);
@@ -46,7 +46,7 @@ document.getElementById("salaryBtn").onclick = function(){
     balance += 15000;
 
     history.unshift(
-        `${new Date().toLocaleDateString()} +15000円 給料`
+        `${getDateTime()} +15000円 給料`
     );
 
     localStorage.setItem("salaryMonth", monthKey);
@@ -64,7 +64,7 @@ function addExpense(){
     balance -= amount;
 
     history.unshift(
-        `${new Date().toLocaleDateString()} -${amount}円`
+        `${getDateTime()} -${amount}円`
     );
 
     save();
@@ -167,7 +167,7 @@ function playSlot(){
     message;
 
 slotHistory.unshift(
-    `${new Date().toLocaleDateString()} 🎰 ${result.join("")} ${message}`
+    `${getDateTime()} 🎰 ${result.join("")} ${message}`
 );
 
     save();
@@ -234,3 +234,28 @@ window.setMaxBet = function(){
     document.getElementById("betAmount").value =
     Math.floor(balance * 0.1);
 };
+
+function getDateTime(){
+
+    const now = new Date();
+
+    return now.toLocaleDateString() + " " +
+    now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+function resetHistory(){
+    if(confirm("生活履歴をリセットする？")){
+        history = [];
+        save();
+    }
+}
+
+function resetSlotHistory(){
+    if(confirm("スロット履歴をリセットする？")){
+        slotHistory = [];
+        save();
+    }
+}
