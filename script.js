@@ -226,11 +226,11 @@ function update(){
     }
 }
 
-function setBet(amount){
+window.setBet = function(amount){
     document.getElementById("betAmount").value = amount;
-}
+};
 
-function setMaxBet(){
+window.setMaxBet = function(){
     document.getElementById("betAmount").value =
     Math.floor(balance * 0.1);
-}
+};
