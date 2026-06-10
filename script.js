@@ -261,7 +261,7 @@ const lines = [
             }else if(hitLines.length >= 2){
                 message = `🔥SUPER HIT🔥 +${totalReward}円`;
             }else{
-                message = `✨LINE HIT✨ +${totalReward}円`;
+                message = `HIT +${totalReward}円`;
             }
     
         }else{
