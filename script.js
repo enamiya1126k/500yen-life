@@ -259,5 +259,3 @@ window.resetSlotHistory = function(){
         save();
     }
 };
-
-alert("最新script.js読み込めてる");
