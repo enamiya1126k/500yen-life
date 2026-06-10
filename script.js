@@ -1,7 +1,9 @@
 let balance = Number(localStorage.getItem("balance")) || 0;
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
-update();
+window.onload = function () {
+    update();
+};
 
 document.getElementById("dailyBtn").onclick = function(){
 
@@ -18,7 +20,7 @@ document.getElementById("dailyBtn").onclick = function(){
         `${new Date().toLocaleDateString()} +500円`
     );
 
-    localStorage.setItem("lastDaily",today);
+    localStorage.setItem("lastDaily", today);
 
     save();
 };
@@ -46,7 +48,7 @@ document.getElementById("salaryBtn").onclick = function(){
         `${new Date().toLocaleDateString()} +15000円 給料`
     );
 
-    localStorage.setItem("salaryMonth",monthKey);
+    localStorage.setItem("salaryMonth", monthKey);
 
     save();
 };
@@ -66,35 +68,7 @@ function addExpense(){
 
     save();
 
-    document.getElementById("expense").value="";
-}
-
-function save(){
-
-    localStorage.setItem("balance",balance);
-
-    localStorage.setItem(
-        "history",
-        JSON.stringify(history)
-    );
-
-    update();
-}
-
-function update(){
-
-    document.getElementById("balance").innerText =
-    balance.toLocaleString()+"円";
-
-    document.getElementById("history").innerHTML =
-    history.map(x=>`<li>${x}</li>`).join("");
-
-    const maxBetText = document.getElementById("maxBetText");
-
-    if(maxBetText){
-        maxBetText.innerText =
-        `最大賭け金：${Math.floor(balance * 0.1).toLocaleString()}円`;
-    }
+    document.getElementById("expense").value = "";
 }
 
 function playSlot(){
@@ -124,17 +98,25 @@ function playSlot(){
         return;
     }
 
-    const symbols = ["🔥", "🌶️", "🐝", "🍒", "🎰", "💰", "🎁"];
-    
+    const symbols = [
+        "🔥",
+        "🌶️",
+        "🐝",
+        "🍒",
+        "🎰",
+        "💰",
+        "🎁"
+    ];
+
     const payout = {
-    "🍒": 3,
-    "🐝": 5,
-    "🔥": 7,
-    "🌶️": 10,
-    "💰": 15,
-    "🎁": 20,
-    "🎰": 50
-};
+        "🍒": 3,
+        "🐝": 5,
+        "🔥": 7,
+        "🌶️": 10,
+        "💰": 15,
+        "🎁": 20,
+        "🎰": 50
+    };
 
     const result = [
         symbols[Math.floor(Math.random() * symbols.length)],
@@ -146,17 +128,35 @@ function playSlot(){
     let message = "";
 
     if(result[0] === result[1] && result[1] === result[2]){
+
         const rate = payout[result[0]];
+
         reward = bet * rate;
-        message = `大当たり！${rate}倍！ +${reward}円`;
+
         balance += reward;
-    } else if(result[0] === result[1] || result[1] === result[2] || result[0] === result[2]){
+
+        message =
+        `🎉大当たり！${rate}倍！ +${reward}円`;
+
+    }else if(
+        result[0] === result[1] ||
+        result[1] === result[2] ||
+        result[0] === result[2]
+    ){
+
         reward = Math.floor(bet * 1.5);
-        message = `ニアピン！ +${reward}円`;
+
         balance += reward;
-    } else {
-        message = `ハズレ… -${bet}円`;
+
+        message =
+        `✨ニアピン！ +${reward}円`;
+
+    }else{
+
         balance -= bet;
+
+        message =
+        `😭ハズレ… -${bet}円`;
     }
 
     document.getElementById("slotResult").innerText =
@@ -171,5 +171,40 @@ function playSlot(){
 
     save();
 
-    document.getElementById("betAmount").value="";
+    document.getElementById("betAmount").value = "";
+}
+
+function save(){
+
+    localStorage.setItem(
+        "balance",
+        balance
+    );
+
+    localStorage.setItem(
+        "history",
+        JSON.stringify(history)
+    );
+
+    update();
+}
+
+function update(){
+
+    document.getElementById("balance").innerText =
+    balance.toLocaleString() + "円";
+
+    document.getElementById("history").innerHTML =
+    history.map(
+        x => `<li>${x}</li>`
+    ).join("");
+
+    const maxBetText =
+    document.getElementById("maxBetText");
+
+    if(maxBetText){
+
+        maxBetText.innerText =
+        `最大賭け金：${Math.floor(balance * 0.1).toLocaleString()}円`;
+    }
 }
