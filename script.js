@@ -81,8 +81,8 @@
         }
     
         const bet = Number(document.getElementById("betAmount").value);
-        const maxBet = Math.floor(balance * 0.1);
-    
+        const maxBet = Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
+        
         if(!bet || bet <= 0){
             alert("賭け金を入力してね！");
             return;
@@ -120,6 +120,8 @@
         document.getElementById("betDisplay").innerText = bet;
         document.getElementById("payoutDisplay").innerText = 0;
         document.getElementById("gogoLamp").classList.remove("on");
+        document.querySelector(".diagonal-left").classList.remove("show");
+        document.querySelector(".diagonal-right").classList.remove("show");
         document.getElementById("slotMessage").innerText = "回転中！STOPを押してね！";
     
         spinTimer = setInterval(function(){
@@ -205,6 +207,20 @@
     
             document.getElementById("gogoLamp").classList.add("on");
             document.getElementById("payoutDisplay").innerText = totalReward;
+    
+    hitLines.forEach(function(hit){
+    if(
+        hit.line.toString() === [0,4,8].toString()
+    ){
+        document.querySelector(".diagonal-left").classList.add("show");
+    }
+
+    if(
+        hit.line.toString() === [6,4,2].toString()
+    ){
+        document.querySelector(".diagonal-right").classList.add("show");
+    }
+});
     
             playWinSound();
     
