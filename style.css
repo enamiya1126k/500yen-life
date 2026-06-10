@@ -135,3 +135,26 @@ input{
         filter:brightness(1.4);
     }
 }
+
+.slot-machine{
+    position:relative;
+}
+
+.slot-machine::after{
+    content:"";
+    position:absolute;
+
+    left:15px;
+    right:15px;
+
+    top:50%;
+    height:4px;
+
+    background:red;
+
+    box-shadow:
+        0 0 10px red,
+        0 0 20px red;
+
+    transform:translateY(-50%);
+}
