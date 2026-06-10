@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>500円ライフ</title>
-    <link rel="stylesheet" href="style.css?v=10">
+    <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
 
@@ -15,6 +15,16 @@
     <div class="card">
         <h2>残高</h2>
         <div id="balance">0円</div>
+    </div>
+
+    <div class="card">
+        <h3>🏆ランキング</h3>
+        <p>最高残高：<span id="bestBalance">0円</span></p>
+        <p>最大勝利：<span id="bestWin">0円</span></p>
+        <p>総プレイ数：<span id="totalPlays">0回</span></p>
+        <p>総BET：<span id="totalBet">0円</span></p>
+        <p>総獲得：<span id="totalReward">0円</span></p>
+        <p>収支：<span id="slotProfit">0円</span></p>
     </div>
 
     <button id="dailyBtn">今日の500円を受け取る</button>
@@ -33,9 +43,7 @@
             <div>PAY <span id="payoutDisplay">0</span></div>
         </div>
 
-        <div id="gogoLamp" class="gogo-lamp">
-            GOGO!
-        </div>
+        <div id="gogoLamp" class="gogo-lamp">GOGO!</div>
 
         <p id="maxBetText">最大賭け金：0円</p>
 
@@ -65,15 +73,15 @@
             <div class="diagonal-right"></div>
         </div>
 
-<div class="stop-buttons">
-    <button type="button" onclick="stopReel(0)">STOP</button>
-    <button type="button" onclick="stopReel(1)">STOP</button>
-    <button type="button" onclick="stopReel(2)">STOP</button>
-</div>
+        <div class="stop-buttons">
+            <button type="button" onclick="stopReel(0)">STOP</button>
+            <button type="button" onclick="stopReel(1)">STOP</button>
+            <button type="button" onclick="stopReel(2)">STOP</button>
+        </div>
 
-<button type="button" onclick="playSlot()" class="spin-button">
-    スロットを回す
-</button>
+        <button type="button" onclick="playSlot()" class="spin-button">
+            スロットを回す
+        </button>
 
         <p id="slotMessage"></p>
     </div>
@@ -92,7 +100,7 @@
 
 </div>
 
-<script src="script.js?v=11"></script>
+<script src="script.js?v=20"></script>
 
 </body>
 </html>
