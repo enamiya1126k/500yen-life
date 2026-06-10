@@ -392,3 +392,31 @@ ul{
 .timing-buttons button{
     flex:1;
 }
+
+.timing-bar{
+    position:relative;
+    height:34px;
+    background:#222;
+    border-radius:999px;
+    margin:18px 0;
+    overflow:hidden;
+}
+
+.target-zone{
+    position:absolute;
+    left:45%;
+    width:10%;
+    height:100%;
+    background:#00ff66;
+    box-shadow:0 0 15px #00ff66;
+}
+
+#timingCursor{
+    position:absolute;
+    top:0;
+    left:0;
+    width:14px;
+    height:100%;
+    background:red;
+    box-shadow:0 0 15px red;
+}
