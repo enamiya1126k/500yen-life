@@ -2,7 +2,7 @@ body{
     font-family:sans-serif;
     background:radial-gradient(circle,#2b2b2b,#111);
     margin:0;
-    padding:12px;
+    padding:8px;
 }
 
 .container{
@@ -10,71 +10,143 @@ body{
     margin:auto;
 }
 
-.card{
-    background:white;
-    padding:14px;
-    border-radius:18px;
-    margin-bottom:14px;
-    box-shadow:0 8px 22px rgba(0,0,0,.25);
-}
-
 h1{
     text-align:center;
     color:white;
     text-shadow:0 0 15px gold;
-    margin:10px 0;
+    margin:8px 0 10px;
+}
+
+.top-status{
+    display:grid;
+    grid-template-columns:2fr 1.25fr;
+    gap:6px;
+    margin-bottom:8px;
+}
+
+.balance-box{
+    background:white;
+    border-radius:16px 0 0 16px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.balance-label{
+    font-size:24px;
+    font-weight:bold;
+    writing-mode:vertical-rl;
 }
 
 #balance{
-    font-size:36px;
+    font-size:48px;
+    font-weight:bold;
+    line-height:1;
+}
+
+.mini-ranking{
+    background:#ddd;
+    border-radius:0 16px 16px 0;
+    padding:10px;
+    font-size:12px;
+    line-height:1.25;
     font-weight:bold;
 }
 
-button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:12px;
+.quick-bar{
+    display:grid;
+    grid-template-columns:1.8fr .55fr .7fr .7fr;
+    gap:4px;
     margin-bottom:8px;
-    font-size:16px;
-    font-weight:bold;
+}
+
+.quick-bar input{
+    min-width:0;
 }
 
 input{
     width:100%;
     box-sizing:border-box;
-    padding:12px;
-    border-radius:12px;
-    border:3px solid #ddd;
-    margin-bottom:8px;
+    padding:10px;
+    border-radius:8px;
+    border:2px solid #ddd;
+    margin:0;
+    font-size:14px;
+}
+
+button{
+    width:100%;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.small-btn{
+    background:#777;
+    color:white;
+}
+
+.bonus-mini{
+    background:#eee;
+    color:#2276e8;
+    font-size:13px;
+    padding:6px 4px;
+    line-height:1.15;
+}
+
+.bonus-mini span{
+    display:block;
+    font-size:10px;
+    color:#333;
+    margin-top:3px;
+}
+
+.card{
+    background:white;
+    padding:10px;
+    border-radius:14px;
+    margin-bottom:10px;
+    box-shadow:0 8px 22px rgba(0,0,0,.25);
+}
+
+.slot-card{
+    background:linear-gradient(145deg,#220000,#080808);
+    border:2px solid #555;
+    color:white;
+}
+
+.slot-card h3{
+    margin:4px 0 8px;
 }
 
 .slot-panel{
     background:black;
     color:#54ff65;
-    border-radius:14px;
-    padding:10px 16px;
+    border-radius:10px;
+    padding:8px 12px;
     display:flex;
     justify-content:space-between;
-    font-size:18px;
+    font-size:16px;
     font-weight:bold;
-    margin-bottom:10px;
+    margin-bottom:8px;
     font-family:monospace;
 }
 
 .gogo-lamp{
-    width:170px;
-    height:50px;
-    margin:8px auto;
+    width:150px;
+    height:42px;
+    margin:6px auto;
     border-radius:999px;
     background:#050505;
     color:#222;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:26px;
+    font-size:22px;
     font-weight:bold;
-    border:4px solid #444;
+    border:3px solid #444;
 }
 
 .gogo-lamp.on{
@@ -83,27 +155,43 @@ input{
     box-shadow:0 0 30px #ff00ff,0 0 60px #ff00ff;
 }
 
+.gogo-lamp.premium{
+    background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+    color:white;
+    box-shadow:0 0 30px red,0 0 50px cyan,0 0 80px violet;
+}
+
+#maxBetText{
+    font-size:12px;
+    margin:6px 0;
+}
+
+#betAmount{
+    margin-bottom:6px;
+}
+
 .bet-buttons{
     display:flex;
-    gap:8px;
+    gap:6px;
 }
 
 .bet-buttons button{
     flex:1;
-    background:linear-gradient(#555,#000);
+    background:linear-gradient(#064ec8,#001b66);
     color:white;
+    padding:8px 0;
 }
 
 .slot-machine{
     position:relative;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:6px;
+    gap:5px;
     background:linear-gradient(145deg,#8f0000,#220000);
-    border:5px solid gold;
-    border-radius:22px;
-    padding:12px;
-    margin-top:18px;
+    border:4px solid gold;
+    border-radius:18px;
+    padding:10px;
+    margin-top:16px;
     box-shadow:0 0 18px gold,inset 0 0 16px rgba(0,0,0,.7);
 }
 
@@ -111,14 +199,14 @@ input{
     content:"BIG BONUS";
     position:absolute;
     left:50%;
-    top:-17px;
+    top:-15px;
     transform:translateX(-50%);
     background:#111;
     color:gold;
     border:2px solid gold;
     border-radius:999px;
-    padding:4px 18px;
-    font-size:16px;
+    padding:3px 14px;
+    font-size:14px;
     font-weight:bold;
     box-shadow:0 0 10px gold;
     z-index:5;
@@ -127,11 +215,11 @@ input{
 .slot-machine::after{
     content:"";
     position:absolute;
-    left:18px;
-    right:18px;
+    left:14px;
+    right:14px;
     top:50%;
-    height:5px;
-    background:red;
+    height:4px;
+    background:#ff2b2b;
     box-shadow:0 0 12px red,0 0 20px red;
     transform:translateY(-50%);
     pointer-events:none;
@@ -139,14 +227,14 @@ input{
 }
 
 .slot-cell{
-    height:62px;
+    height:54px;
     background:linear-gradient(#fff,#fff5bf,#fff);
     border:3px solid #333;
-    border-radius:11px;
+    border-radius:9px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:34px;
+    font-size:30px;
     box-shadow:inset 0 0 10px rgba(0,0,0,.3),0 2px 0 #000;
     position:relative;
     z-index:2;
@@ -161,8 +249,8 @@ input{
 .diagonal-right{
     position:absolute;
     top:58%;
-    left:22px;
-    right:22px;
+    left:18px;
+    right:18px;
     height:4px;
     pointer-events:none;
     z-index:1;
@@ -187,42 +275,61 @@ input{
 
 .stop-buttons{
     display:flex;
-    gap:10px;
-    margin-top:12px;
-    margin-bottom:8px;
+    gap:8px;
+    margin-top:8px;
+    margin-bottom:6px;
 }
 
 .stop-buttons button{
     flex:1;
-    height:50px;
+    height:42px;
     color:white;
     background:radial-gradient(circle,#ff7a7a,#8b0000);
     border-radius:999px;
-    box-shadow:0 5px 0 #520000,0 0 15px red;
+    box-shadow:0 4px 0 #520000,0 0 12px red;
 }
 
 .spin-button{
-    background:linear-gradient(#ffd95e,#d8a215);
-    margin-top:4px;
-    margin-bottom:12px;
+    background:linear-gradient(#8aff60,#169000);
+    color:white;
+    padding:10px;
+    margin-bottom:6px;
 }
 
 #slotMessage{
     text-align:center;
-    font-size:20px;
+    font-size:16px;
     font-weight:bold;
-    margin:8px 0;
+    margin:6px 0;
+}
+
+.history-area{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.history-card{
+    background:white;
+    border-radius:12px;
+    padding:8px;
+    min-height:180px;
+    font-size:10px;
+}
+
+.history-card h3{
+    text-align:center;
+    margin:4px 0 8px;
+    font-size:14px;
+}
+
+.history-card button{
+    padding:6px;
+    font-size:11px;
+    margin-bottom:6px;
 }
 
 ul{
-    padding-left:20px;
-}
-
-.gogo-lamp.premium{
-    background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-    color:white;
-    box-shadow:
-        0 0 30px red,
-        0 0 50px cyan,
-        0 0 80px violet;
+    padding-left:14px;
+    margin:0;
 }
