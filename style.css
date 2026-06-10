@@ -1,8 +1,9 @@
 body{
     font-family:sans-serif;
-    background:#f4f4f4;
+    background:radial-gradient(circle, #2b2b2b, #111);
     margin:0;
     padding:20px;
+    color:#222;
 }
 
 .container{
@@ -11,14 +12,17 @@ body{
 }
 
 .card{
-    background:white;
+    background:#fff;
     padding:15px;
-    border-radius:12px;
+    border-radius:14px;
     margin-bottom:15px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
 }
 
 h1{
     text-align:center;
+    color:white;
+    text-shadow:0 0 12px gold;
 }
 
 #balance{
@@ -33,6 +37,8 @@ button{
     border:none;
     border-radius:10px;
     font-size:16px;
+    font-weight:bold;
+    background:linear-gradient(#ffdf6b, #d99b00);
 }
 
 input{
@@ -40,6 +46,8 @@ input{
     padding:12px;
     margin-bottom:10px;
     box-sizing:border-box;
+    border-radius:8px;
+    border:2px solid #ddd;
 }
 
 .bet-buttons{
@@ -50,41 +58,80 @@ input{
 
 .bet-buttons button{
     flex:1;
+    padding:12px;
+    background:linear-gradient(#444, #111);
+    color:white;
 }
 
 .slot-machine{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
     gap:8px;
-    background:#1f1719;
+    background:
+        linear-gradient(145deg, #7a0000, #220000);
     padding:18px;
-    border-radius:18px;
+    border-radius:22px;
     margin:20px 0;
+    border:6px solid gold;
+    box-shadow:
+        0 0 18px gold,
+        inset 0 0 20px rgba(0,0,0,0.7);
+    position:relative;
+}
+
+.slot-machine::before{
+    content:"BIG BONUS";
+    position:absolute;
+    top:-18px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#111;
+    color:gold;
+    padding:4px 16px;
+    border-radius:999px;
+    border:2px solid gold;
+    font-weight:bold;
+    font-size:14px;
+    letter-spacing:1px;
 }
 
 .slot-cell{
     height:75px;
-    background:linear-gradient(#ffffff, #f5f0df, #ffffff);
-    border:4px solid #333;
-    border-radius:8px;
+    background:linear-gradient(#ffffff, #fff2b8, #ffffff);
+    border:4px solid #222;
+    border-radius:10px;
     font-size:38px;
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:inset 0 0 12px rgba(0,0,0,0.35);
+    box-shadow:
+        inset 0 0 12px rgba(0,0,0,0.35),
+        0 3px 0 #000;
 }
 
 .slot-cell.hit{
-    background:gold;
-    box-shadow:0 0 18px gold;
-    animation:hitFlash 0.4s infinite alternate;
+    background:linear-gradient(#fff7a8, gold, #fff7a8);
+    box-shadow:
+        0 0 18px gold,
+        0 0 30px orange,
+        inset 0 0 10px white;
+    animation:hitFlash 0.35s infinite alternate;
+}
+
+#slotMessage{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    color:#d10000;
 }
 
 @keyframes hitFlash{
     from{
         transform:scale(1);
+        filter:brightness(1);
     }
     to{
         transform:scale(1.08);
+        filter:brightness(1.4);
     }
 }
