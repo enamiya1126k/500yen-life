@@ -510,3 +510,99 @@ const lines = [
         }
     }
 }
+
+let timingInterval = null;
+let timingPosition = 0;
+let timingDirection = 1;
+let timingRunning = false;
+
+function startTiming(){
+
+    if(timingRunning){
+        return;
+    }
+
+    const bet = Number(document.getElementById("timingBet").value);
+
+    if(!bet || bet <= 0){
+        alert("賭け金を入力してね！");
+        return;
+    }
+
+    if(bet > balance){
+        alert("残高不足！");
+        return;
+    }
+
+    timingRunning = true;
+    timingPosition = 0;
+
+    const cursor = document.getElementById("timingCursor");
+
+    timingInterval = setInterval(function(){
+
+        timingPosition += 2 * timingDirection;
+
+        if(timingPosition >= 100){
+            timingDirection = -1;
+        }
+
+        if(timingPosition <= 0){
+            timingDirection = 1;
+        }
+
+        cursor.style.left = timingPosition + "%";
+
+    },15);
+
+    document.getElementById("timingMessage").innerText =
+    "STOPを押せ！";
+}
+
+function stopTiming(){
+
+    if(!timingRunning){
+        return;
+    }
+
+    timingRunning = false;
+
+    clearInterval(timingInterval);
+
+    const bet = Number(document.getElementById("timingBet").value);
+
+    let reward = 0;
+
+    if(timingPosition >= 45 && timingPosition <= 55){
+
+        reward = bet * 3;
+
+        balance += reward;
+
+        document.getElementById("timingMessage").innerText =
+        `🎯大成功！ +${reward}円`;
+
+        playWinSound();
+
+    }else if(timingPosition >= 40 && timingPosition <= 60){
+
+        reward = bet;
+
+        document.getElementById("timingMessage").innerText =
+        `😊セーフ！ ±0円`;
+
+    }else{
+
+        balance -= bet;
+
+        document.getElementById("timingMessage").innerText =
+        `💥失敗！ -${bet}円`;
+
+    }
+
+    history.unshift(
+        `${getDateTime()} 🎯 ${document.getElementById("timingMessage").innerText}`
+    );
+
+    save();
+}
