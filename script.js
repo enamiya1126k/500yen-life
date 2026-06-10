@@ -2,12 +2,23 @@ let balance = Number(localStorage.getItem("balance")) || 0;
 let history = JSON.parse(localStorage.getItem("history")) || [];
 let slotHistory = JSON.parse(localStorage.getItem("slotHistory")) || [];
 
-window.onload = function () {
+const symbols = ["🔥","🌶️","🐝","🍒","🎰","💰","🎁"];
+
+const payout = {
+    "🍒": 3,
+    "🐝": 5,
+    "🔥": 7,
+    "🌶️": 10,
+    "💰": 15,
+    "🎁": 20,
+    "🎰": 50
+};
+
+window.onload = function(){
     update();
 };
 
 document.getElementById("dailyBtn").onclick = function(){
-
     const today = new Date().toDateString();
 
     if(localStorage.getItem("lastDaily") === today){
@@ -16,18 +27,12 @@ document.getElementById("dailyBtn").onclick = function(){
     }
 
     balance += 500;
-
-    history.unshift(
-        `${getDateTime()} +500円`
-    );
-
+    history.unshift(`${getDateTime()} +500円`);
     localStorage.setItem("lastDaily", today);
-
     save();
 };
 
 document.getElementById("salaryBtn").onclick = function(){
-
     const now = new Date();
 
     if(now.getDate() !== 25){
@@ -35,8 +40,7 @@ document.getElementById("salaryBtn").onclick = function(){
         return;
     }
 
-    const monthKey =
-    `${now.getFullYear()}-${now.getMonth()+1}`;
+    const monthKey = `${now.getFullYear()}-${now.getMonth()+1}`;
 
     if(localStorage.getItem("salaryMonth") === monthKey){
         alert("今月は受取済み！");
@@ -44,36 +48,23 @@ document.getElementById("salaryBtn").onclick = function(){
     }
 
     balance += 15000;
-
-    history.unshift(
-        `${getDateTime()} +15000円 給料`
-    );
-
+    history.unshift(`${getDateTime()} +15000円 給料`);
     localStorage.setItem("salaryMonth", monthKey);
-
     save();
 };
 
 function addExpense(){
-
-    const amount =
-    Number(document.getElementById("expense").value);
-
+    const amount = Number(document.getElementById("expense").value);
     if(!amount) return;
 
     balance -= amount;
-
-    history.unshift(
-        `${getDateTime()} -${amount}円`
-    );
-
+    history.unshift(`${getDateTime()} -${amount}円`);
     save();
 
     document.getElementById("expense").value = "";
 }
 
 function playSlot(){
-
     if(balance <= 0){
         alert("残高がないのでスロットできません！");
         return;
@@ -97,84 +88,83 @@ function playSlot(){
         return;
     }
 
-    const symbols = ["🔥","🌶️","🐝","🍒","🎰","💰","🎁"];
-
-    const payout = {
-        "🍒": 3,
-        "🐝": 5,
-        "🔥": 7,
-        "🌶️": 10,
-        "💰": 15,
-        "🎁": 20,
-        "🎰": 50
-    };
-
-    const result = [
-        symbols[Math.floor(Math.random() * symbols.length)],
-        symbols[Math.floor(Math.random() * symbols.length)],
-        symbols[Math.floor(Math.random() * symbols.length)]
-    ];
-
-    const reels = [
-        document.getElementById("reel1"),
-        document.getElementById("reel2"),
-        document.getElementById("reel3")
-    ];
+    const cells = [];
+    for(let i = 0; i < 9; i++){
+        const cell = document.getElementById(`cell${i}`);
+        cell.classList.remove("hit");
+        cells.push(cell);
+    }
 
     document.getElementById("slotMessage").innerText = "回転中...";
 
-    let spinCount = 0;
+    const result = [];
+    for(let i = 0; i < 9; i++){
+        result.push(symbols[Math.floor(Math.random() * symbols.length)]);
+    }
+
+    let count = 0;
 
     const spin = setInterval(function(){
-
-        reels.forEach(function(reel){
-            reel.innerText =
-            symbols[Math.floor(Math.random() * symbols.length)];
+        cells.forEach(function(cell){
+            cell.innerText = symbols[Math.floor(Math.random() * symbols.length)];
         });
 
-        spinCount++;
+        count++;
 
-        if(spinCount === 15){
-            reels[0].innerText = result[0];
-        }
-
-        if(spinCount === 25){
-            reels[1].innerText = result[1];
-        }
-
-        if(spinCount === 35){
-            reels[2].innerText = result[2];
+        if(count >= 35){
             clearInterval(spin);
-            finishSlot(result, bet, payout);
-        }
 
-    }, 80);
+            cells.forEach(function(cell, index){
+                cell.innerText = result[index];
+            });
+
+            finishSlot(result, bet);
+        }
+    }, 70);
 }
 
-function finishSlot(result, bet, payout){
+function finishSlot(result, bet){
+    const lines = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,4,8],
+        [6,4,2]
+    ];
 
-    let reward = 0;
+    let totalReward = 0;
+    let hitLines = [];
+
+    lines.forEach(function(line){
+        const a = result[line[0]];
+        const b = result[line[1]];
+        const c = result[line[2]];
+
+        if(a === b && b === c){
+            const reward = bet * payout[a];
+            totalReward += reward;
+            hitLines.push({
+                line: line,
+                symbol: a,
+                reward: reward,
+                rate: payout[a]
+            });
+        }
+    });
+
     let message = "";
 
-    if(result[0] === result[1] && result[1] === result[2]){
+    if(hitLines.length > 0){
+        balance += totalReward;
 
-        const rate = payout[result[0]];
-        reward = bet * rate;
-        balance += reward;
-        message = `🎉大当たり！${rate}倍！ +${reward}円`;
+        hitLines.forEach(function(hit){
+            hit.line.forEach(function(index){
+                document.getElementById(`cell${index}`).classList.add("hit");
+            });
+        });
 
-    }else if(
-        result[0] === result[1] ||
-        result[1] === result[2] ||
-        result[0] === result[2]
-    ){
-
-        reward = Math.floor(bet * 1.5);
-        balance += reward;
-        message = `✨ニアピン！ +${reward}円`;
-
+        message = `🎉${hitLines.length}ライン当たり！ +${totalReward}円`;
     }else{
-
         balance -= bet;
         message = `😭ハズレ… -${bet}円`;
     }
@@ -191,51 +181,29 @@ function finishSlot(result, bet, payout){
 }
 
 function save(){
-
-    localStorage.setItem(
-        "balance",
-        balance
-    );
-
-    localStorage.setItem(
-        "history",
-        JSON.stringify(history)
-    );
-
-    localStorage.setItem(
-        "slotHistory",
-        JSON.stringify(slotHistory)
-    );
-
+    localStorage.setItem("balance", balance);
+    localStorage.setItem("history", JSON.stringify(history));
+    localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
     update();
 }
 
 function update(){
-
     document.getElementById("balance").innerText =
     balance.toLocaleString() + "円";
 
     document.getElementById("history").innerHTML =
-    history.map(
-        x => `<li>${x}</li>`
-    ).join("");
+    history.map(x => `<li>${x}</li>`).join("");
 
-    const slotHistoryList =
-    document.getElementById("slotHistory");
+    const slotHistoryList = document.getElementById("slotHistory");
 
     if(slotHistoryList){
-
         slotHistoryList.innerHTML =
-        slotHistory.map(
-            x => `<li>${x}</li>`
-        ).join("");
+        slotHistory.map(x => `<li>${x}</li>`).join("");
     }
 
-    const maxBetText =
-    document.getElementById("maxBetText");
+    const maxBetText = document.getElementById("maxBetText");
 
     if(maxBetText){
-
         maxBetText.innerText =
         `最大賭け金：${Math.floor(balance * 0.1).toLocaleString()}円`;
     }
@@ -251,18 +219,16 @@ window.setMaxBet = function(){
 };
 
 function getDateTime(){
-
     const now = new Date();
 
     return now.toLocaleDateString() + " " +
     now.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
+        hour: "2-digit",
+        minute: "2-digit"
     });
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-
     window.resetHistory = function(){
         if(confirm("生活履歴をリセットする？")){
             history = [];
@@ -276,5 +242,4 @@ document.addEventListener("DOMContentLoaded", function(){
             save();
         }
     };
-
 });
