@@ -88,4 +88,89 @@ function update(){
 
     document.getElementById("history").innerHTML =
     history.map(x=>`<li>${x}</li>`).join("");
+
+    const maxBetText = document.getElementById("maxBetText");
+
+    if(maxBetText){
+        maxBetText.innerText =
+        `最大賭け金：${Math.floor(balance * 0.1).toLocaleString()}円`;
+    }
+}
+
+function playSlot(){
+
+    if(balance <= 0){
+        alert("残高がないのでスロットできません！");
+        return;
+    }
+
+    const bet =
+    Number(document.getElementById("betAmount").value);
+
+    const maxBet = Math.floor(balance * 0.1);
+
+    if(!bet || bet <= 0){
+        alert("賭け金を入力してね！");
+        return;
+    }
+
+    if(bet > maxBet){
+        alert(`賭け金は残高の10%まで！最大${maxBet}円だよ`);
+        return;
+    }
+
+    if(bet > balance){
+        alert("残高が足りない！");
+        return;
+    }
+
+    const symbols = ["🔥", "🌶️", "🐝", "🍒", "🎰", "💰", "🎁", "❤️‍🔥"];
+
+    const payout = {
+        "🍒": 3,
+        "🐝": 5,
+        "🔥": 7,
+        "🌶️": 10,
+        "💰": 15,
+        "🎁": 20,
+        "❤️‍🔥": 30,
+        "🎰": 50
+    };
+
+    const result = [
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)]
+    ];
+
+    let reward = 0;
+    let message = "";
+
+    if(result[0] === result[1] && result[1] === result[2]){
+        const rate = payout[result[0]];
+        reward = bet * rate;
+        message = `大当たり！${rate}倍！ +${reward}円`;
+        balance += reward;
+    } else if(result[0] === result[1] || result[1] === result[2] || result[0] === result[2]){
+        reward = Math.floor(bet * 1.5);
+        message = `ニアピン！ +${reward}円`;
+        balance += reward;
+    } else {
+        message = `ハズレ… -${bet}円`;
+        balance -= bet;
+    }
+
+    document.getElementById("slotResult").innerText =
+    result.join(" ");
+
+    document.getElementById("slotMessage").innerText =
+    message;
+
+    history.unshift(
+        `${new Date().toLocaleDateString()} 🎰 ${result.join("")} ${message}`
+    );
+
+    save();
+
+    document.getElementById("betAmount").value="";
 }
