@@ -172,7 +172,7 @@ slotHistory.unshift(
 
     save();
 
-    document.getElementById("betAmount").value = "";
+document.getElementById("betAmount").value = 5;
 }
 
 function save(){
