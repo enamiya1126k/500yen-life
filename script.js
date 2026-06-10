@@ -79,9 +79,7 @@ function playSlot(){
         return;
     }
 
-    const bet =
-    Number(document.getElementById("betAmount").value);
-
+    const bet = Number(document.getElementById("betAmount").value);
     const maxBet = Math.floor(balance * 0.1);
 
     if(!bet || bet <= 0){
@@ -99,15 +97,7 @@ function playSlot(){
         return;
     }
 
-    const symbols = [
-        "🔥",
-        "🌶️",
-        "🐝",
-        "🍒",
-        "🎰",
-        "💰",
-        "🎁"
-    ];
+    const symbols = ["🔥","🌶️","🐝","🍒","🎰","💰","🎁"];
 
     const payout = {
         "🍒": 3,
@@ -131,35 +121,30 @@ function playSlot(){
         document.getElementById("reel3")
     ];
 
-    document.getElementById("slotMessage").innerText = "";
+    document.getElementById("slotMessage").innerText = "回転中...";
 
-    reels.forEach(function(reel){
-        reel.classList.add("spin");
-    });
+    let spinCount = 0;
 
-    let count = 0;
-
-    const spinning = setInterval(function(){
+    const spin = setInterval(function(){
 
         reels.forEach(function(reel){
             reel.innerText =
             symbols[Math.floor(Math.random() * symbols.length)];
         });
 
-        count++;
+        spinCount++;
 
-        if(count >= 15){
-
-            clearInterval(spinning);
-
-            reels.forEach(function(reel){
-                reel.classList.remove("spin");
-            });
-
+        if(spinCount === 15){
             reels[0].innerText = result[0];
-            reels[1].innerText = result[1];
-            reels[2].innerText = result[2];
+        }
 
+        if(spinCount === 25){
+            reels[1].innerText = result[1];
+        }
+
+        if(spinCount === 35){
+            reels[2].innerText = result[2];
+            clearInterval(spin);
             finishSlot(result, bet, payout);
         }
 
@@ -174,13 +159,9 @@ function finishSlot(result, bet, payout){
     if(result[0] === result[1] && result[1] === result[2]){
 
         const rate = payout[result[0]];
-
         reward = bet * rate;
-
         balance += reward;
-
-        message =
-        `🎉大当たり！${rate}倍！ +${reward}円`;
+        message = `🎉大当たり！${rate}倍！ +${reward}円`;
 
     }else if(
         result[0] === result[1] ||
@@ -189,22 +170,16 @@ function finishSlot(result, bet, payout){
     ){
 
         reward = Math.floor(bet * 1.5);
-
         balance += reward;
-
-        message =
-        `✨ニアピン！ +${reward}円`;
+        message = `✨ニアピン！ +${reward}円`;
 
     }else{
 
         balance -= bet;
-
-        message =
-        `😭ハズレ… -${bet}円`;
+        message = `😭ハズレ… -${bet}円`;
     }
 
-    document.getElementById("slotMessage").innerText =
-    message;
+    document.getElementById("slotMessage").innerText = message;
 
     slotHistory.unshift(
         `${getDateTime()} 🎰 ${result.join("")} ${message}`
