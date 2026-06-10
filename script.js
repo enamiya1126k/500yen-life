@@ -292,6 +292,12 @@ function save(){
 }
 
 function update(){
+
+    if(balance > stats.bestBalance){
+        stats.bestBalance = balance;
+        localStorage.setItem("stats", JSON.stringify(stats));
+    }
+
     document.getElementById("balance").innerText =
     balance.toLocaleString() + "円";
 
