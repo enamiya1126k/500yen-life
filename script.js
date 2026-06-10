@@ -5,6 +5,12 @@ let slotHistory = JSON.parse(localStorage.getItem("slotHistory")) || [];
 const symbols = ["🔥","🌶️","🐝","🍒","🎰","💰","🎁"];
 
 const payout = {
+    
+let spinning = false;
+let stopFlags = [false, false, false];
+let currentResult = [];
+let currentBet = 0;
+    
     "🍒": 3,
     "🐝": 5,
     "🔥": 7,
@@ -65,6 +71,12 @@ function addExpense(){
 }
 
 function playSlot(){
+
+    if(spinning){
+        alert("今スロット回転中！");
+        return;
+    }
+
     if(balance <= 0){
         alert("残高がないのでスロットできません！");
         return;
@@ -88,53 +100,59 @@ function playSlot(){
         return;
     }
 
-    playCoinSound();
+    spinning = true;
+    stopFlags = [false, false, false];
+    currentBet = bet;
 
     document.getElementById("betDisplay").innerText = bet;
     document.getElementById("payoutDisplay").innerText = 0;
     document.getElementById("gogoLamp").classList.remove("on");
+    document.getElementById("slotMessage").innerText = "回転中... STOPを押してね！";
 
     const cells = [];
+
     for(let i = 0; i < 9; i++){
         const cell = document.getElementById(`cell${i}`);
         cell.classList.remove("hit");
         cells.push(cell);
     }
 
-    document.getElementById("slotMessage").innerText = "回転中...";
+    currentResult = [];
 
-    const result = [];
     for(let i = 0; i < 9; i++){
-        result.push(symbols[Math.floor(Math.random() * symbols.length)]);
+        currentResult.push(
+            symbols[Math.floor(Math.random() * symbols.length)]
+        );
     }
 
-    let count = 0;
-
     const spin = setInterval(function(){
-        cells.forEach(function(cell){
-            cell.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        });
 
-        count++;
+        for(let col = 0; col < 3; col++){
 
-        if(count === 15){
-            playStopSound();
+            if(stopFlags[col]) continue;
+
+            for(let row = 0; row < 3; row++){
+
+                const index = row * 3 + col;
+
+                cells[index].innerText =
+                symbols[Math.floor(Math.random() * symbols.length)];
+            }
         }
 
-        if(count === 25){
-            playStopSound();
-        }
+        if(stopFlags[0] && stopFlags[1] && stopFlags[2]){
 
-        if(count >= 35){
-            playStopSound();
             clearInterval(spin);
 
-            cells.forEach(function(cell, index){
-                cell.innerText = result[index];
-            });
+            for(let i = 0; i < 9; i++){
+                cells[i].innerText = currentResult[i];
+            }
 
-            finishSlot(result, bet);
+            spinning = false;
+
+            finishSlot(currentResult, currentBet);
         }
+
     }, 70);
 }
 
@@ -323,3 +341,14 @@ function playWinSound(){
         playTone(1320, 180, "triangle", 0.05);
     }, 240);
 }
+
+window.stopReel = function(reelNumber){
+
+    if(!spinning){
+        return;
+    }
+
+    stopFlags[reelNumber] = true;
+
+    playStopSound();
+};
