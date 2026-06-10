@@ -17,90 +17,57 @@
         <div id="balance">0円</div>
     </div>
 
-    <button id="dailyBtn">
-        今日の500円を受け取る
-    </button>
-
-    <button id="salaryBtn">
-        🎁25日ボーナス(+15000円)
-    </button>
+    <button id="dailyBtn">今日の500円を受け取る</button>
+    <button id="salaryBtn">🎁25日ボーナス(+15000円)</button>
 
     <div class="card">
-
-        <input
-            type="number"
-            id="expense"
-            placeholder="使った金額"
-        >
-
-        <button onclick="addExpense()">
-            支出登録
-        </button>
-
+        <input type="number" id="expense" placeholder="使った金額">
+        <button onclick="addExpense()">支出登録</button>
     </div>
 
     <div class="card">
-
         <h3>🎰ボーナスチャレンジ</h3>
+        <p id="maxBetText">最大賭け金：0円</p>
 
-        <p id="maxBetText">
-            最大賭け金：0円
-        </p>
-
-        <input
-            type="number"
-            id="betAmount"
-            placeholder="賭け金"
-            value="5"
-        >
+        <input type="number" id="betAmount" placeholder="賭け金" value="5">
 
         <div class="bet-buttons">
-
-            <button onclick="setBet(5)">
-                5円
-            </button>
-
-            <button onclick="setBet(10)">
-                10円
-            </button>
-
-            <button onclick="setBet(50)">
-                50円
-            </button>
-
-            <button onclick="setMaxBet()">
-                MAX
-            </button>
-
+            <button onclick="setBet(5)">5円</button>
+            <button onclick="setBet(10)">10円</button>
+            <button onclick="setBet(50)">50円</button>
+            <button onclick="setMaxBet()">MAX</button>
         </div>
 
-        <button onclick="playSlot()">
-            スロットを回す
-        </button>
+        <button onclick="playSlot()">スロットを回す</button>
 
-<div class="slot-machine">
-    <div class="reel" id="reel1">🎰</div>
-    <div class="reel" id="reel2">🎰</div>
-    <div class="reel" id="reel3">🎰</div>
-</div>
+        <div class="slot-machine">
+            <div class="slot-cell" id="cell0">🎰</div>
+            <div class="slot-cell" id="cell1">🎰</div>
+            <div class="slot-cell" id="cell2">🎰</div>
 
-<div id="slotResult" class="slot-result"></div>
+            <div class="slot-cell" id="cell3">🎰</div>
+            <div class="slot-cell" id="cell4">🎰</div>
+            <div class="slot-cell" id="cell5">🎰</div>
+
+            <div class="slot-cell" id="cell6">🎰</div>
+            <div class="slot-cell" id="cell7">🎰</div>
+            <div class="slot-cell" id="cell8">🎰</div>
+        </div>
 
         <p id="slotMessage"></p>
-
     </div>
 
-<div class="card">
-    <h3>生活履歴</h3>
-    <button onclick="resetHistory()">生活履歴をリセット</button>
-    <ul id="history"></ul>
-</div>
+    <div class="card">
+        <h3>生活履歴</h3>
+        <button onclick="resetHistory()">生活履歴をリセット</button>
+        <ul id="history"></ul>
+    </div>
 
-<div class="card">
-    <h3>🎰ボーナスチャレンジ履歴</h3>
-    <button onclick="resetSlotHistory()">スロット履歴をリセット</button>
-    <ul id="slotHistory"></ul>
-</div>
+    <div class="card">
+        <h3>🎰ボーナスチャレンジ履歴</h3>
+        <button onclick="resetSlotHistory()">スロット履歴をリセット</button>
+        <ul id="slotHistory"></ul>
+    </div>
 
 </div>
 
