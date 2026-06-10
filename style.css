@@ -295,3 +295,22 @@ input{
     box-shadow:0 0 12px cyan;
     pointer-events:none;
 }
+
+.stop-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.stop-buttons button{
+    flex:1;
+    height:55px;
+    border-radius:999px;
+    background:radial-gradient(circle, #ff6666, #8b0000);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:
+        0 5px 0 #4a0000,
+        0 0 12px rgba(255,0,0,0.6);
+}
