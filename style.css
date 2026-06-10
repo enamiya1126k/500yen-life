@@ -351,3 +351,44 @@ ul{
     padding:4px 0;
     border-radius:16px;
 }
+
+.timing-card{
+    text-align:center;
+}
+
+.timing-bar{
+    position:relative;
+    height:30px;
+    background:#222;
+    border-radius:999px;
+    margin:20px 0;
+    overflow:hidden;
+}
+
+.target-zone{
+    position:absolute;
+    left:45%;
+    width:10%;
+    height:100%;
+    background:#00ff66;
+    box-shadow:0 0 15px #00ff66;
+}
+
+#timingCursor{
+    position:absolute;
+    top:0;
+    left:0;
+    width:12px;
+    height:100%;
+    background:red;
+    box-shadow:0 0 15px red;
+}
+
+.timing-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.timing-buttons button{
+    flex:1;
+}
