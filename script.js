@@ -143,7 +143,7 @@
             document.getElementById("slotMessage").innerText = "🌈プレミア気配…！";
             playPremiumSound();
         }else{
-            document.getElementById("slotMessage").innerText = "回転中！STOPを押してね！";
+            document.getElementById("slotMessage").innerText = "STOPを押して";
         }
     
         spinTimer = setInterval(function(){
