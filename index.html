@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>500円ライフ</title>
-    <link rel="stylesheet" href="style.css?v=20">
+    <link rel="stylesheet" href="style.css?v=30">
 </head>
 <body>
 
@@ -12,27 +12,38 @@
 
     <h1>💰500円ライフ</h1>
 
-    <div class="card">
-        <h2>残高</h2>
-        <div id="balance">0円</div>
+    <div class="top-status">
+        <div class="balance-box">
+            <div class="balance-label">残高</div>
+            <div id="balance">0円</div>
+        </div>
+
+        <div class="mini-ranking">
+            <div>最高残高：<span id="bestBalance">0円</span></div>
+            <div>最大勝利：<span id="bestWin">0円</span></div>
+            <div>総プレイ：<span id="totalPlays">0回</span></div>
+            <div>総BET：<span id="totalBet">0円</span></div>
+            <div>総獲得：<span id="totalReward">0円</span></div>
+            <div>収支：<span id="slotProfit">0円</span></div>
+        </div>
     </div>
 
-    <div class="card">
-        <h3>🏆ランキング</h3>
-        <p>最高残高：<span id="bestBalance">0円</span></p>
-        <p>最大勝利：<span id="bestWin">0円</span></p>
-        <p>総プレイ数：<span id="totalPlays">0回</span></p>
-        <p>総BET：<span id="totalBet">0円</span></p>
-        <p>総獲得：<span id="totalReward">0円</span></p>
-        <p>収支：<span id="slotProfit">0円</span></p>
-    </div>
-
-    <button id="dailyBtn">今日の500円を受け取る</button>
-    <button id="salaryBtn">🎁25日ボーナス(+15000円)</button>
-
-    <div class="card">
+    <div class="quick-bar">
         <input type="number" id="expense" placeholder="使った金額">
-        <button onclick="addExpense()">支出登録</button>
+
+        <button onclick="addExpense()" class="small-btn">
+            登録
+        </button>
+
+        <button id="dailyBtn" class="bonus-mini">
+            500円
+            <span id="dailyTimer">受取</span>
+        </button>
+
+        <button id="salaryBtn" class="bonus-mini">
+            🎁
+            <span id="salaryTimer">25日</span>
+        </button>
     </div>
 
     <div class="card slot-card">
@@ -86,21 +97,23 @@
         <p id="slotMessage"></p>
     </div>
 
-    <div class="card">
-        <h3>生活履歴</h3>
-        <button type="button" onclick="resetHistory()">生活履歴をリセット</button>
-        <ul id="history"></ul>
-    </div>
+    <div class="history-area">
+        <div class="history-card">
+            <h3>生活履歴</h3>
+            <button type="button" onclick="resetHistory()">リセット</button>
+            <ul id="history"></ul>
+        </div>
 
-    <div class="card">
-        <h3>🎰ボーナスチャレンジ履歴</h3>
-        <button type="button" onclick="resetSlotHistory()">スロット履歴をリセット</button>
-        <ul id="slotHistory"></ul>
+        <div class="history-card">
+            <h3>チャレンジ履歴</h3>
+            <button type="button" onclick="resetSlotHistory()">リセット</button>
+            <ul id="slotHistory"></ul>
+        </div>
     </div>
 
 </div>
 
-<script src="script.js?v=21"></script>
+<script src="script.js?v=30"></script>
 
 </body>
 </html>
