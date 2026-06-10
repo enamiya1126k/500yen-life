@@ -5,12 +5,6 @@ let slotHistory = JSON.parse(localStorage.getItem("slotHistory")) || [];
 const symbols = ["🔥","🌶️","🐝","🍒","🎰","💰","🎁"];
 
 const payout = {
-    
-let spinning = false;
-let stopFlags = [false, false, false];
-let currentResult = [];
-let currentBet = 0;
-    
     "🍒": 3,
     "🐝": 5,
     "🔥": 7,
@@ -19,6 +13,12 @@ let currentBet = 0;
     "🎁": 20,
     "🎰": 50
 };
+
+let spinning = false;
+let stopFlags = [false, false, false];
+let currentResult = [];
+let currentBet = 0;
+let spinTimer = null;
 
 window.onload = function(){
     update();
@@ -71,9 +71,7 @@ function addExpense(){
 }
 
 function playSlot(){
-
     if(spinning){
-        alert("今スロット回転中！");
         return;
     }
 
@@ -100,22 +98,11 @@ function playSlot(){
         return;
     }
 
+    playCoinSound();
+
     spinning = true;
     stopFlags = [false, false, false];
     currentBet = bet;
-
-    document.getElementById("betDisplay").innerText = bet;
-    document.getElementById("payoutDisplay").innerText = 0;
-    document.getElementById("gogoLamp").classList.remove("on");
-    document.getElementById("slotMessage").innerText = "回転中... STOPを押してね！";
-
-    const cells = [];
-
-    for(let i = 0; i < 9; i++){
-        const cell = document.getElementById(`cell${i}`);
-        cell.classList.remove("hit");
-        cells.push(cell);
-    }
 
     currentResult = [];
 
@@ -125,36 +112,55 @@ function playSlot(){
         );
     }
 
-    const spin = setInterval(function(){
+    for(let i = 0; i < 9; i++){
+        const cell = document.getElementById(`cell${i}`);
+        cell.classList.remove("hit");
+    }
 
+    document.getElementById("betDisplay").innerText = bet;
+    document.getElementById("payoutDisplay").innerText = 0;
+    document.getElementById("gogoLamp").classList.remove("on");
+    document.getElementById("slotMessage").innerText = "回転中！STOPを押してね！";
+
+    spinTimer = setInterval(function(){
         for(let col = 0; col < 3; col++){
-
             if(stopFlags[col]) continue;
 
             for(let row = 0; row < 3; row++){
-
                 const index = row * 3 + col;
 
-                cells[index].innerText =
+                document.getElementById(`cell${index}`).innerText =
                 symbols[Math.floor(Math.random() * symbols.length)];
             }
         }
-
-        if(stopFlags[0] && stopFlags[1] && stopFlags[2]){
-
-            clearInterval(spin);
-
-            for(let i = 0; i < 9; i++){
-                cells[i].innerText = currentResult[i];
-            }
-
-            spinning = false;
-
-            finishSlot(currentResult, currentBet);
-        }
-
     }, 70);
 }
+
+window.stopReel = function(col){
+    if(!spinning){
+        return;
+    }
+
+    if(stopFlags[col]){
+        return;
+    }
+
+    stopFlags[col] = true;
+    playStopSound();
+
+    for(let row = 0; row < 3; row++){
+        const index = row * 3 + col;
+        document.getElementById(`cell${index}`).innerText =
+        currentResult[index];
+    }
+
+    if(stopFlags[0] && stopFlags[1] && stopFlags[2]){
+        clearInterval(spinTimer);
+        spinTimer = null;
+        spinning = false;
+        finishSlot(currentResult, currentBet);
+    }
+};
 
 function finishSlot(result, bet){
     const lines = [
@@ -176,6 +182,7 @@ function finishSlot(result, bet){
         if(a === b && b === c){
             const reward = bet * payout[a];
             totalReward += reward;
+
             hitLines.push({
                 line: line,
                 symbol: a,
@@ -198,6 +205,7 @@ function finishSlot(result, bet){
 
         document.getElementById("gogoLamp").classList.add("on");
         document.getElementById("payoutDisplay").innerText = totalReward;
+
         playWinSound();
 
         if(hitLines.length >= 3){
@@ -255,6 +263,7 @@ function update(){
     }
 
     const betDisplay = document.getElementById("betDisplay");
+
     if(betDisplay){
         betDisplay.innerText =
         document.getElementById("betAmount").value || 5;
@@ -268,6 +277,7 @@ window.setBet = function(amount){
 
 window.setMaxBet = function(){
     const maxBet = Math.floor(balance * 0.1);
+
     document.getElementById("betAmount").value = maxBet;
     document.getElementById("betDisplay").innerText = maxBet;
 };
@@ -323,6 +333,7 @@ function playTone(freq, duration, type = "square", volume = 0.05){
 
 function playCoinSound(){
     playTone(880, 80, "square", 0.04);
+
     setTimeout(function(){
         playTone(1320, 90, "square", 0.04);
     }, 90);
@@ -334,21 +345,12 @@ function playStopSound(){
 
 function playWinSound(){
     playTone(660, 120, "triangle", 0.05);
+
     setTimeout(function(){
         playTone(880, 120, "triangle", 0.05);
     }, 120);
+
     setTimeout(function(){
         playTone(1320, 180, "triangle", 0.05);
     }, 240);
 }
-
-window.stopReel = function(reelNumber){
-
-    if(!spinning){
-        return;
-    }
-
-    stopFlags[reelNumber] = true;
-
-    playStopSound();
-};
