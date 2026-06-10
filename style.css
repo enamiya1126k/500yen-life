@@ -94,107 +94,66 @@ input{
     color:white;
 }
 
-.slot-machine{
+    .slot-machine{
     position:relative;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:7px;
+    gap:6px;
     background:linear-gradient(145deg,#8f0000,#220000);
-    border:6px solid gold;
-    border-radius:24px;
-    padding:14px;
+    border:5px solid gold;
+    border-radius:22px;
+    padding:12px;
     margin-top:18px;
-    box-shadow:0 0 22px gold,inset 0 0 18px rgba(0,0,0,.7);
+    box-shadow:0 0 18px gold,inset 0 0 16px rgba(0,0,0,.7);
+}
+
+.slot-cell{
+    height:62px;
+    background:linear-gradient(#fff,#fff5bf,#fff);
+    border:3px solid #333;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    box-shadow:inset 0 0 10px rgba(0,0,0,.3),0 2px 0 #000;
 }
 
 .slot-machine::before{
     content:"BIG BONUS";
     position:absolute;
     left:50%;
-    top:-20px;
+    top:-17px;
     transform:translateX(-50%);
     background:#111;
     color:gold;
-    border:3px solid gold;
+    border:2px solid gold;
     border-radius:999px;
-    padding:5px 24px;
-    font-size:18px;
+    padding:4px 18px;
+    font-size:16px;
     font-weight:bold;
-    box-shadow:0 0 12px gold;
+    box-shadow:0 0 10px gold;
 }
 
-.slot-machine::after{
-    content:"";
-    position:absolute;
-    left:18px;
-    right:18px;
-    top:50%;
-    height:5px;
-    background:red;
-    box-shadow:0 0 12px red,0 0 20px red;
-    transform:translateY(-50%);
-    pointer-events:none;
-    z-index:4;
-}
-
-.slot-cell{
-    height:78px;
-    background:linear-gradient(#fff,#fff5bf,#fff);
-    border:4px solid #333;
-    border-radius:13px;
+.gogo-lamp{
+    width:170px;
+    height:50px;
+    margin:8px auto;
+    border-radius:999px;
+    background:#050505;
+    color:#222;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:42px;
-    box-shadow:inset 0 0 12px rgba(0,0,0,.3),0 3px 0 #000;
-    position:relative;
-    z-index:2;
-}
-
-.slot-cell.hit{
-    background:linear-gradient(#fff799,#ffe100,#fff799);
-    box-shadow:0 0 20px gold,0 0 35px orange;
-}
-
-.diagonal-left,
-.diagonal-right{
-    position:absolute;
-    top:58%;
-    left:22px;
-    right:22px;
-    height:4px;
-    pointer-events:none;
-    z-index:1;
-}
-
-.diagonal-left{
-    transform:rotate(35deg);
-    background:#00ffff;
-    box-shadow:0 0 12px cyan;
-}
-
-.diagonal-right{
-    transform:rotate(-35deg);
-    background:#00ffff;
-    box-shadow:0 0 12px cyan;
-}
-
-.stop-buttons{
-    display:flex;
-    gap:10px;
-    margin-top:12px;
-    margin-bottom:8px;
+    font-size:26px;
+    font-weight:bold;
+    border:4px solid #444;
 }
 
 .stop-buttons button{
-    flex:1;
-    height:58px;
-    color:white;
-    background:radial-gradient(circle,#ff7a7a,#8b0000);
-    border-radius:999px;
-    box-shadow:0 5px 0 #520000,0 0 15px red;
+    height:50px;
 }
-
+    
 .spin-button{
     background:linear-gradient(#ffd95e,#d8a215);
     margin-top:4px;
