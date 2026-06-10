@@ -125,6 +125,49 @@ function playSlot(){
         symbols[Math.floor(Math.random() * symbols.length)]
     ];
 
+    const reels = [
+        document.getElementById("reel1"),
+        document.getElementById("reel2"),
+        document.getElementById("reel3")
+    ];
+
+    document.getElementById("slotMessage").innerText = "";
+
+    reels.forEach(function(reel){
+        reel.classList.add("spin");
+    });
+
+    let count = 0;
+
+    const spinning = setInterval(function(){
+
+        reels.forEach(function(reel){
+            reel.innerText =
+            symbols[Math.floor(Math.random() * symbols.length)];
+        });
+
+        count++;
+
+        if(count >= 15){
+
+            clearInterval(spinning);
+
+            reels.forEach(function(reel){
+                reel.classList.remove("spin");
+            });
+
+            reels[0].innerText = result[0];
+            reels[1].innerText = result[1];
+            reels[2].innerText = result[2];
+
+            finishSlot(result, bet, payout);
+        }
+
+    }, 80);
+}
+
+function finishSlot(result, bet, payout){
+
     let reward = 0;
     let message = "";
 
@@ -160,19 +203,16 @@ function playSlot(){
         `😭ハズレ… -${bet}円`;
     }
 
-    document.getElementById("slotResult").innerText =
-    result.join(" ");
-
     document.getElementById("slotMessage").innerText =
     message;
 
-slotHistory.unshift(
-    `${getDateTime()} 🎰 ${result.join("")} ${message}`
-);
+    slotHistory.unshift(
+        `${getDateTime()} 🎰 ${result.join("")} ${message}`
+    );
 
     save();
 
-document.getElementById("betAmount").value = 5;
+    document.getElementById("betAmount").value = 5;
 }
 
 function save(){
