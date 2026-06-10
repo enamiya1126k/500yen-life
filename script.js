@@ -1,5 +1,6 @@
 let balance = Number(localStorage.getItem("balance")) || 0;
 let history = JSON.parse(localStorage.getItem("history")) || [];
+let slotHistory = JSON.parse(localStorage.getItem("slotHistory")) || [];
 
 window.onload = function () {
     update();
@@ -165,9 +166,9 @@ function playSlot(){
     document.getElementById("slotMessage").innerText =
     message;
 
-    history.unshift(
-        `${new Date().toLocaleDateString()} 🎰 ${result.join("")} ${message}`
-    );
+slotHistory.unshift(
+    `${new Date().toLocaleDateString()} 🎰 ${result.join("")} ${message}`
+);
 
     save();
 
@@ -186,6 +187,11 @@ function save(){
         JSON.stringify(history)
     );
 
+    localStorage.setItem(
+        "slotHistory",
+        JSON.stringify(slotHistory)
+    );
+
     update();
 }
 
@@ -198,6 +204,17 @@ function update(){
     history.map(
         x => `<li>${x}</li>`
     ).join("");
+
+    const slotHistoryList =
+    document.getElementById("slotHistory");
+
+    if(slotHistoryList){
+
+        slotHistoryList.innerHTML =
+        slotHistory.map(
+            x => `<li>${x}</li>`
+        ).join("");
+    }
 
     const maxBetText =
     document.getElementById("maxBetText");
