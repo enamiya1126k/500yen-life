@@ -81,18 +81,49 @@ input{
 
 .slot-machine::before{
     content:"BIG BONUS";
+
     position:absolute;
+
     top:-18px;
     left:50%;
+
     transform:translateX(-50%);
+
     background:#111;
-    color:gold;
+
+    color:#ffd700;
+
     padding:4px 16px;
+
     border-radius:999px;
+
     border:2px solid gold;
+
     font-weight:bold;
-    font-size:14px;
-    letter-spacing:1px;
+
+    letter-spacing:2px;
+
+    text-shadow:
+        0 0 10px gold,
+        0 0 20px gold,
+        0 0 30px orange;
+
+    animation:bonusGlow 1s infinite alternate;
+}
+
+@keyframes bonusGlow{
+
+    from{
+        opacity:0.7;
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateX(-50%)
+        scale(1.05);
+    }
+
 }
 
 .slot-cell{
