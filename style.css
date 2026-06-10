@@ -46,12 +46,19 @@ h1{
 }
 
 .mini-ranking{
-    background:#ddd;
-    border-radius:0 16px 16px 0;
-    padding:10px;
+    background:#111;
+    color:#54ff65;
+    font-family:monospace;
     font-size:12px;
-    line-height:1.25;
-    font-weight:bold;
+    line-height:1.2;
+    padding:10px;
+}
+
+.mini-ranking span{
+    color:#54ff65;
+    text-shadow:
+        0 0 5px #54ff65,
+        0 0 10px #54ff65;
 }
 
 .quick-bar{
