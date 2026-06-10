@@ -1,9 +1,8 @@
 body{
     font-family:sans-serif;
-    background:radial-gradient(circle, #2b2b2b, #111);
+    background:radial-gradient(circle,#2b2b2b,#111);
     margin:0;
     padding:20px;
-    color:#222;
 }
 
 .container{
@@ -12,306 +11,227 @@ body{
 }
 
 .card{
-    background:#fff;
-    padding:15px;
-    border-radius:14px;
-    margin-bottom:15px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
 h1{
     text-align:center;
     color:white;
-    text-shadow:0 0 12px gold;
+    text-shadow:0 0 15px gold;
 }
 
 #balance{
-    font-size:40px;
+    font-size:42px;
     font-weight:bold;
 }
 
 button{
     width:100%;
     padding:15px;
-    margin-bottom:10px;
     border:none;
-    border-radius:10px;
-    font-size:16px;
+    border-radius:12px;
+    margin-bottom:10px;
+    font-size:18px;
     font-weight:bold;
-    background:linear-gradient(#ffdf6b, #d99b00);
 }
 
 input{
     width:100%;
-    padding:12px;
-    margin-bottom:10px;
     box-sizing:border-box;
-    border-radius:8px;
-    border:2px solid #ddd;
+    padding:15px;
+    border-radius:12px;
+    border:3px solid #ddd;
+    margin-bottom:10px;
 }
 
 .bet-buttons{
     display:flex;
-    gap:8px;
-    margin-bottom:10px;
+    gap:10px;
 }
 
 .bet-buttons button{
     flex:1;
-    padding:12px;
-    background:linear-gradient(#444, #111);
+    background:linear-gradient(#555,#000);
     color:white;
+}
+
+.spin-button{
+    background:linear-gradient(#ffd95e,#d8a215);
 }
 
 .slot-panel{
+    background:black;
+    color:#54ff65;
+    border-radius:15px;
+    padding:15px 20px;
     display:flex;
     justify-content:space-between;
-    gap:10px;
-    background:#111;
-    color:#00ff66;
-    padding:10px;
-    border-radius:10px;
-    margin-bottom:10px;
+    font-size:20px;
     font-weight:bold;
+    margin-bottom:20px;
     font-family:monospace;
-    box-shadow:inset 0 0 10px #000;
 }
 
 .gogo-lamp{
-    width:120px;
-    height:60px;
-    margin:0 auto 12px;
+    width:260px;
+    height:100px;
+    margin:20px auto;
     border-radius:999px;
-    background:#222;
-    color:#555;
+    background:#050505;
+    color:#222;
     display:flex;
     align-items:center;
     justify-content:center;
+    font-size:40px;
     font-weight:bold;
-    border:3px solid #555;
+    border:6px solid #444;
 }
 
 .gogo-lamp.on{
-    background:radial-gradient(circle, #ff8cff, #7d00ff);
+    background:radial-gradient(circle,#ffb8ff,#d436ff);
     color:white;
-    border-color:#ffb3ff;
     box-shadow:
-        0 0 15px #ff66ff,
-        0 0 30px #cc00ff,
-        0 0 50px #9900ff;
-    animation:gogoFlash 0.5s infinite alternate;
-}
-
-@keyframes gogoFlash{
-    from{
-        transform:scale(1);
-        filter:brightness(1);
-    }
-    to{
-        transform:scale(1.08);
-        filter:brightness(1.5);
-    }
+        0 0 30px #ff00ff,
+        0 0 60px #ff00ff,
+        0 0 100px #ff00ff;
 }
 
 .slot-machine{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:8px;
-    background:linear-gradient(145deg, #7a0000, #220000);
-    padding:18px;
-    border-radius:22px;
-    margin:20px 0;
-    border:6px solid gold;
-    box-shadow:
-        0 0 18px gold,
-        inset 0 0 20px rgba(0,0,0,0.7);
     position:relative;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+    background:
+    linear-gradient(145deg,#8f0000,#220000);
+
+    border:8px solid gold;
+
+    border-radius:30px;
+
+    padding:20px;
+
+    margin-top:20px;
+
+    box-shadow:
+    0 0 30px gold,
+    inset 0 0 20px rgba(0,0,0,.7);
 }
 
 .slot-machine::before{
     content:"BIG BONUS";
+
     position:absolute;
-    top:-18px;
+
     left:50%;
+    top:-24px;
+
     transform:translateX(-50%);
+
     background:#111;
-    color:#ffd700;
-    padding:4px 16px;
+
+    color:gold;
+
+    border:3px solid gold;
+
     border-radius:999px;
-    border:2px solid gold;
+
+    padding:8px 30px;
+
+    font-size:22px;
     font-weight:bold;
-    letter-spacing:2px;
-    text-shadow:
-        0 0 10px gold,
-        0 0 20px gold,
-        0 0 30px orange;
-    animation:bonusGlow 1s infinite alternate;
-}
 
-.slot-machine::after{
-    content:"";
-    position:absolute;
-    left:15px;
-    right:15px;
-    top:50%;
-    height:4px;
-    background:red;
-    box-shadow:
-        0 0 10px red,
-        0 0 20px red;
-    transform:translateY(-50%);
-    pointer-events:none;
-}
-
-@keyframes bonusGlow{
-    from{
-        opacity:0.7;
-    }
-    to{
-        opacity:1;
-        transform:translateX(-50%) scale(1.05);
-    }
+    box-shadow:0 0 15px gold;
 }
 
 .slot-cell{
-    height:75px;
-    background:linear-gradient(#ffffff, #fff2b8, #ffffff);
-    border:4px solid #222;
-    border-radius:10px;
-    font-size:38px;
+    height:110px;
+
+    background:
+    linear-gradient(#fff,#fff5bf,#fff);
+
+    border:5px solid #333;
+
+    border-radius:15px;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
+    font-size:52px;
+
     box-shadow:
-        inset 0 0 12px rgba(0,0,0,0.35),
-        0 3px 0 #000;
-    position:relative;
-    z-index:1;
+    inset 0 0 15px rgba(0,0,0,.3),
+    0 4px 0 #000;
 }
 
 .slot-cell.hit{
-    background:linear-gradient(#fff7a8, gold, #fff7a8);
-    box-shadow:
-        0 0 18px gold,
-        0 0 30px orange,
-        inset 0 0 10px white;
-    animation:hitFlash 0.35s infinite alternate;
-}
-
-#slotMessage{
-    text-align:center;
-    font-size:20px;
-    font-weight:bold;
-    color:#d10000;
-}
-
-@keyframes hitFlash{
-    from{
-        transform:scale(1);
-        filter:brightness(1);
-    }
-    to{
-        transform:scale(1.08);
-        filter:brightness(1.4);
-    }
-}
-
-.gogo-lamp{
-
-    width:180px;
-    height:70px;
-
-    margin:10px auto 20px;
-
-    border-radius:999px;
-
-    background:#111;
-
-    color:#222;
-
-    border:4px solid #333;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:24px;
-    font-weight:bold;
-
-    transition:0.3s;
-}
-
-.gogo-lamp.on{
-
-    color:white;
-
     background:
-    radial-gradient(circle,
-    #ff99ff,
-    #9900ff);
-
-    border-color:white;
+    linear-gradient(#fff799,#ffe100,#fff799);
 
     box-shadow:
-    0 0 20px #ff66ff,
-    0 0 40px #cc00ff,
-    0 0 80px #9900ff;
-
-    animation:gogoBlink 0.5s infinite alternate;
+    0 0 25px gold,
+    0 0 40px orange;
 }
 
-@keyframes gogoBlink{
-
-    from{
-        filter:brightness(1);
-    }
-
-    to{
-        filter:brightness(1.8);
-    }
+.diagonal-left,
+.diagonal-right{
+    position:absolute;
+    top:50%;
+    left:20px;
+    right:20px;
+    height:5px;
+    pointer-events:none;
 }
 
 .diagonal-left{
-    position:absolute;
-    width:90%;
-    height:4px;
-    background:#00ffff;
-    top:50%;
-    left:5%;
     transform:rotate(35deg);
-    box-shadow:0 0 12px cyan;
-    pointer-events:none;
+    background:#00ffff;
+    box-shadow:0 0 15px cyan;
 }
 
 .diagonal-right{
-    position:absolute;
-    width:90%;
-    height:4px;
-    background:#00ffff;
-    top:50%;
-    left:5%;
     transform:rotate(-35deg);
-    box-shadow:0 0 12px cyan;
-    pointer-events:none;
+    background:#00ffff;
+    box-shadow:0 0 15px cyan;
 }
 
 .stop-buttons{
     display:flex;
     gap:10px;
-    margin-top:15px;
-    margin-bottom:80px;
+    margin-top:20px;
+    margin-bottom:90px;
 }
 
 .stop-buttons button{
     flex:1;
-    height:60px;
-    border-radius:999px;
-    background:radial-gradient(circle, #ff6666, #8b0000);
+    height:70px;
+
     color:white;
-    font-size:20px;
-    font-weight:bold;
+
+    background:
+    radial-gradient(circle,#ff7a7a,#8b0000);
+
+    border-radius:999px;
+
     box-shadow:
-        0 5px 0 #4a0000,
-        0 0 12px rgba(255,0,0,0.6);
+    0 5px 0 #520000,
+    0 0 15px red;
+}
+
+#slotMessage{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+ul{
+    padding-left:20px;
 }
