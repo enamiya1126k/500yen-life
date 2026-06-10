@@ -246,16 +246,16 @@ function getDateTime(){
     });
 }
 
-function resetHistory(){
+window.resetHistory = function(){
     if(confirm("生活履歴をリセットする？")){
         history = [];
         save();
     }
-}
+};
 
-function resetSlotHistory(){
+window.resetSlotHistory = function(){
     if(confirm("スロット履歴をリセットする？")){
         slotHistory = [];
         save();
     }
-}
+};
