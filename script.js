@@ -163,7 +163,22 @@ function finishSlot(result, bet){
             });
         });
 
-        message = `🎉${hitLines.length}ライン当たり！ +${totalReward}円`;
+if(hitLines.length >= 3){
+
+    message =
+    `💥BIG BONUS💥 +${totalReward}円`;
+
+}else if(hitLines.length >= 2){
+
+    message =
+    `🔥SUPER HIT🔥 +${totalReward}円`;
+
+}else{
+
+    message =
+    `✨LINE HIT✨ +${totalReward}円`;
+
+}
     }else{
         balance -= bet;
         message = `😭ハズレ… -${bet}円`;
