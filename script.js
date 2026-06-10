@@ -10,7 +10,7 @@
         totalReward: 0
     };
     
-    const symbols = ["🔥","🌶️","🐝","🍒","🎰","💰","🎁"];
+    const symbols = ["🍄","🌶️","🐊","🍒","🎰","💰","☄️"];
     
     const payout = {
         "🍒": 3,
