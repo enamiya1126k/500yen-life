@@ -329,6 +329,11 @@ function update(){
 }
 
 function updateStats(){
+
+    if(balance > stats.bestBalance){
+        stats.bestBalance = balance;
+    }
+
     const profit = stats.totalReward - stats.totalBet;
 
     setText("bestBalance", `${stats.bestBalance.toLocaleString()}円`);
@@ -337,6 +342,8 @@ function updateStats(){
     setText("totalBet", `${stats.totalBet.toLocaleString()}円`);
     setText("totalReward", `${stats.totalReward.toLocaleString()}円`);
     setText("slotProfit", `${profit.toLocaleString()}円`);
+
+    localStorage.setItem("stats", JSON.stringify(stats));
 }
 
 function setText(id, text){
