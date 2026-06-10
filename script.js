@@ -124,18 +124,17 @@ function playSlot(){
         return;
     }
 
-    const symbols = ["🔥", "🌶️", "🐝", "🍒", "🎰", "💰", "🎁", "❤️‍🔥"];
-
+    const symbols = ["🔥", "🌶️", "🐝", "🍒", "🎰", "💰", "🎁"];
+    
     const payout = {
-        "🍒": 3,
-        "🐝": 5,
-        "🔥": 7,
-        "🌶️": 10,
-        "💰": 15,
-        "🎁": 20,
-        "❤️‍🔥": 30,
-        "🎰": 50
-    };
+    "🍒": 3,
+    "🐝": 5,
+    "🔥": 7,
+    "🌶️": 10,
+    "💰": 15,
+    "🎁": 20,
+    "🎰": 50
+};
 
     const result = [
         symbols[Math.floor(Math.random() * symbols.length)],
