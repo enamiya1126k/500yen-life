@@ -225,3 +225,12 @@ function update(){
         `最大賭け金：${Math.floor(balance * 0.1).toLocaleString()}円`;
     }
 }
+
+function setBet(amount){
+    document.getElementById("betAmount").value = amount;
+}
+
+function setMaxBet(){
+    document.getElementById("betAmount").value =
+    Math.floor(balance * 0.1);
+}
