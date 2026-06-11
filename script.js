@@ -155,10 +155,10 @@ function playSlot(){
 
     resetSlotCountIfNeeded();
 
-    if(todaySlotCount >= 50){
-        alert("今日は50回まで！");
-        return;
-    }
+if(todaySlotCount >= getDailySlotLimit()){
+    alert(`今日は${getDailySlotLimit()}回まで！`);
+    return;
+}
 
     if(balance <= 0){
         alert("残高がないのでスロットできません！");
@@ -191,7 +191,7 @@ function playSlot(){
     spinning = true;
     stopFlags = [false, false, false];
     currentBet = bet;
-    isPremium = Math.random() < 0.005;
+isPremium = Math.random() < getPremiumRate();
 
     currentResult = [];
 
@@ -454,8 +454,8 @@ function update(){
         document.getElementById("betAmount").value || 5;
     }
 
-    const remainSlot =
-    Math.max(0, 50 - todaySlotCount);
+const remainSlot =
+Math.max(0, getDailySlotLimit() - todaySlotCount);
 
     setText(
         "slotLimit",
@@ -463,7 +463,8 @@ function update(){
     );
 
     updateStats();
-    updateTimers();
+updateTimers();
+updateShopDisplay();
 }
 
 function updateStats(){
@@ -867,4 +868,302 @@ slotHistory.unshift(
     if(btn){
         btn.innerText = "スタート";
     }
+}
+
+const shopItems = {
+    title1: {
+        name: "🏅節約の見習い",
+        price: 50000,
+        type: "title",
+        slotBonus: 5
+    },
+    title2: {
+        name: "⚜️資産形成士",
+        price: 200000,
+        type: "title",
+        slotBonus: 10
+    },
+    title3: {
+        name: "💰億劫な浪費家を超えし者",
+        price: 1000000,
+        type: "title",
+        slotBonus: 15
+    },
+    title4: {
+        name: "👑500円皇帝",
+        price: 5000000,
+        type: "title",
+        slotBonus: 20
+    },
+    title5: {
+        name: "🌌500円宇宙の支配者",
+        price: 10000000,
+        type: "title",
+        slotBonus: 50
+    },
+
+    skin1: {
+        name: "🎨黒金スキン",
+        price: 100000,
+        type: "skin",
+        premiumBonus: 0.002
+    },
+    skin2: {
+        name: "🌈レインボー覚醒",
+        price: 500000,
+        type: "skin",
+        premiumBonus: 0.005
+    },
+    skin3: {
+        name: "☠️奈落モード",
+        price: 1000000,
+        type: "skin",
+        premiumBonus: 0.01
+    },
+
+    effect1: {
+        name: "✨GOGO覚醒",
+        price: 50000,
+        type: "effect",
+        continueBonus: 0.10
+    },
+    effect2: {
+        name: "🔥BIG BONUS極",
+        price: 100000,
+        type: "effect",
+        continueBonus: 0.20
+    },
+    effect3: {
+        name: "🌈プレミアサウンドパック",
+        price: 200000,
+        type: "effect",
+        continueBonus: 0.30
+    },
+
+    end1: {
+        name: "🏯500円王国建設",
+        price: 50000000,
+        type: "end",
+        slotBonus: 100
+    },
+    end2: {
+        name: "🌎500円文明創造",
+        price: 100000000,
+        type: "end",
+        premiumBonus: 0.02
+    },
+    end3: {
+        name: "🚀500円銀河開拓",
+        price: 500000000,
+        type: "end",
+        continueBonus: 0.50
+    },
+    end4: {
+        name: "⭐500円宇宙創造",
+        price: 1000000000,
+        type: "end",
+        doubleBuff: true
+    },
+    end5: {
+        name: "♾️500円という概念",
+        price: 10000000000,
+        type: "end",
+        specialTitle: "♾️500円そのもの"
+    },
+    end6: {
+        name: "🕳️500円特異点",
+        price: 100000000000,
+        type: "end",
+        specialTitle: "🕳️節約の終焉"
+    }
+};
+
+let ownedItems =
+JSON.parse(localStorage.getItem("ownedItems")) || [];
+
+function getShopBuffs(){
+
+    let slotBonus = 0;
+    let premiumBonus = 0;
+    let continueBonus = 0;
+    let doubleBuff = false;
+    let currentTitle = "なし";
+
+    ownedItems.forEach(function(id){
+
+        const item = shopItems[id];
+
+        if(!item) return;
+
+        if(item.slotBonus){
+            slotBonus += item.slotBonus;
+        }
+
+        if(item.premiumBonus){
+            premiumBonus += item.premiumBonus;
+        }
+
+        if(item.continueBonus){
+            continueBonus += item.continueBonus;
+        }
+
+        if(item.doubleBuff){
+            doubleBuff = true;
+        }
+
+        if(item.type === "title"){
+            currentTitle = item.name;
+        }
+
+        if(item.specialTitle){
+            currentTitle = item.specialTitle;
+        }
+    });
+
+    if(doubleBuff){
+        slotBonus *= 2;
+        premiumBonus *= 2;
+        continueBonus *= 2;
+    }
+
+    return {
+        slotBonus: slotBonus,
+        premiumBonus: premiumBonus,
+        continueBonus: continueBonus,
+        currentTitle: currentTitle
+    };
+}
+
+function getDailySlotLimit(){
+
+    const buffs = getShopBuffs();
+
+    return 50 + buffs.slotBonus;
+}
+
+function getPremiumRate(){
+
+    const buffs = getShopBuffs();
+
+    return 0.005 + buffs.premiumBonus;
+}
+
+function getContinueRate(){
+
+    const buffs = getShopBuffs();
+
+    return buffs.continueBonus;
+}
+
+function buyShopItem(id){
+
+    const item = shopItems[id];
+
+    if(!item){
+        return;
+    }
+
+    if(ownedItems.includes(id)){
+        alert("これはもう購入済み！");
+        return;
+    }
+
+    if(balance < item.price){
+        alert("残高が足りない！");
+        return;
+    }
+
+    if(!confirm(`${item.name} を購入する？\n${item.price.toLocaleString()}円を消費します。`)){
+        return;
+    }
+
+    balance -= item.price;
+
+    ownedItems.push(id);
+
+    localStorage.setItem(
+        "ownedItems",
+        JSON.stringify(ownedItems)
+    );
+
+    history.unshift(
+        `${getDateTime()} 🏪 ${item.name} 購入 -${item.price.toLocaleString()}円`
+    );
+
+    const shopMessage =
+    document.getElementById("shopMessage");
+
+    if(shopMessage){
+        shopMessage.innerText =
+        `${item.name} を購入しました！`;
+    }
+
+    save();
+
+    updateShopDisplay();
+}
+
+function updateShopDisplay(){
+
+    const buffs = getShopBuffs();
+
+    setText(
+        "buffSlotLimit",
+        `${getDailySlotLimit()}回`
+    );
+
+    setText(
+        "buffPremiumRate",
+        `${(getPremiumRate() * 100).toFixed(1)}%`
+    );
+
+    setText(
+        "buffContinueRate",
+        `${Math.round(getContinueRate() * 100)}%`
+    );
+
+    setText(
+        "currentTitle",
+        buffs.currentTitle
+    );
+
+    const collectionList =
+    document.getElementById("collectionList");
+
+    if(collectionList){
+
+        if(ownedItems.length === 0){
+
+            collectionList.innerText =
+            "未購入";
+
+        }else{
+
+            collectionList.innerHTML =
+            ownedItems
+            .map(function(id){
+                return `<div>${shopItems[id].name}</div>`;
+            })
+            .join("");
+        }
+    }
+
+    Object.keys(shopItems).forEach(function(id){
+
+        const btn =
+        document.getElementById(`shop-${id}`);
+
+        if(!btn) return;
+
+        if(ownedItems.includes(id)){
+
+            btn.classList.add("owned");
+            btn.disabled = true;
+
+        }else{
+
+            btn.classList.remove("owned");
+            btn.disabled = false;
+        }
+    });
 }
