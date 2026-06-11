@@ -1160,25 +1160,27 @@ window.buyShopItem = function (id) {
       return;
     }
   
+  const price = getItemPrice(item);
+  
     if (ownedItems.includes(id)) {
       alert("これはもう購入済み！");
       return;
     }
   
-    if (balance < item.price) {
+if (balance < price) {
       alert("残高が足りない！");
       return;
     }
   
     if (
       !confirm(
-        `${item.name} を購入する？\n${item.price.toLocaleString()}円を消費します。`,
+        `${item.name} を購入する？\n${price.toLocaleString()}円を消費します。`,
       )
     ) {
       return;
     }
   
-    balance -= item.price;
+balance -= price;
     addExp(50);
   
     ownedItems.push(id);
@@ -1186,7 +1188,7 @@ window.buyShopItem = function (id) {
     localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
   
     history.unshift(
-      `${getDateTime()} 🏪 ${item.name} 購入 -${item.price.toLocaleString()}円`,
+      `${getDateTime()} 🏪 ${item.name} 購入 -${price.toLocaleString()}円`,
     );
   
     const shopMessage = document.getElementById("shopMessage");
