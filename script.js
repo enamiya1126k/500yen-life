@@ -366,6 +366,17 @@ localStorage.setItem(
                         document.getElementById("betAmount").value || 5;
                     }
                 
+                const today = new Date().toDateString();
+
+if(lastSlotDate !== today){
+    todaySlotCount = 0;
+}
+
+const remainSlot =
+Math.max(0, 50 - todaySlotCount);
+
+setText("slotLimit", `${remainSlot}回`);
+                
                     updateStats();
                     updateTimers();
                 }
