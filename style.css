@@ -927,3 +927,7 @@ body.skin-black-gold .shop-grid button{
         0 0 18px gold,
         inset 0 0 18px rgba(255,215,0,.28);
 }
+
+#timingCard{
+    display:none;
+}
