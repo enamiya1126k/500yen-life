@@ -935,3 +935,10 @@ body.skin-black-gold .shop-grid button{
 #timingMessage{
     white-space:pre-line;
 }
+
+#timingTimer{
+    font-size:18px;
+    font-weight:bold;
+    color:#ffcc00;
+    margin-top:5px;
+}
