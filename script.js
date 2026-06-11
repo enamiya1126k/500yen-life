@@ -773,7 +773,7 @@ function startTiming(){
     setInterval(function(){
 
         timingPosition +=
-        2 * timingDirection;
+        5 * timingDirection;
 
         if(timingPosition >= 100){
 
@@ -793,7 +793,7 @@ function startTiming(){
             timingPosition + "%";
         }
 
-    }, 15);
+    }, 10);
 
     document.getElementById("timingMessage").innerText =
     "STOPを押せ！";
@@ -816,40 +816,41 @@ function stopTiming(){
 
     let message = "";
 
-    if(timingPosition >= 47 && timingPosition <= 53){
+if(timingPosition >= 48 && timingPosition <= 52){
 
-        const reward = bet * 5;
+    const reward = bet * 5;
+    balance += reward;
 
-        balance += reward;
+    message = `🎯PERFECT！ +${reward}円`;
+    playWinSound();
 
-        message =
-        `🎯PERFECT！ +${reward}円`;
+}else if(
+    timingPosition >= 37 && timingPosition < 47 ||
+    timingPosition > 53 && timingPosition <= 63
+){
 
-        playWinSound();
+    const penalty = bet * 2;
+    balance -= penalty;
 
-    }else if(timingPosition >= 42 && timingPosition <= 58){
+    message = `☠️危険ゾーン！ -${penalty}円`;
 
-        const reward = bet * 2;
+}else if(timingPosition >= 45 && timingPosition <= 55){
 
-        balance += reward;
+    const reward = bet * 2;
+    balance += reward;
 
-        message =
-        `✨GOOD！ +${reward}円`;
+    message = `✨GOOD！ +${reward}円`;
+    playWinSound();
 
-        playWinSound();
+}else if(timingPosition >= 30 && timingPosition <= 70){
 
-    }else if(timingPosition >= 35 && timingPosition <= 65){
+    message = `😮セーフ！ ±0円`;
 
-        message =
-        `😮セーフ！ ±0円`;
+}else{
 
-    }else{
-
-        balance -= bet;
-
-        message =
-        `💥失敗！ -${bet}円`;
-    }
+    balance -= bet;
+    message = `💥失敗！ -${bet}円`;
+}
 
     document.getElementById("timingMessage").innerText =
     message;
