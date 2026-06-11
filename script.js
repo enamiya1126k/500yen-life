@@ -80,7 +80,36 @@
                 }
                 
                 function playSlot(){
-                    if(spinning) return;
+                                
+                                const today = new Date().toDateString();
+
+let todaySlotCount =
+Number(localStorage.getItem("todaySlotCount")) || 0;
+
+let lastSlotDate =
+localStorage.getItem("lastSlotDate") || "";
+
+if(lastSlotDate !== today){
+    todaySlotCount = 0;
+    lastSlotDate = today;
+
+    localStorage.setItem(
+        "todaySlotCount",
+        todaySlotCount
+    );
+
+    localStorage.setItem(
+        "lastSlotDate",
+        lastSlotDate
+    );
+}
+
+if(todaySlotCount >= 50){
+    alert("今日は50回まで！");
+    return;
+}
+                                
+                                if(spinning) return;
                 
                     if(balance <= 0){
                         alert("残高がないのでスロットできません！");
@@ -275,6 +304,13 @@
                     slotHistory.unshift(
                         `${getDateTime()} 🎰 ${result.join("")} ${message}`
                     );
+                
+                todaySlotCount++;
+
+localStorage.setItem(
+    "todaySlotCount",
+    todaySlotCount
+);
                 
                     save();
                 
