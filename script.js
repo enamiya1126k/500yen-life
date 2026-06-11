@@ -637,7 +637,7 @@ setText("slotProfit", formatMoney(profit));
   
     timingCard.style.display = "block";
   
-    let seconds = 20;
+ let seconds = 20 + getLevelBuffs().guerillaBonus;
   
     document.getElementById("timingMessage").innerText =
       "⚡ゲリラチャレンジ発生⚡ 20秒間遊び放題！";
@@ -903,6 +903,17 @@ setText("slotProfit", formatMoney(profit));
     return title;
   }
   
+  function getLevelBuffs() {
+  const level = getLevel();
+
+  return {
+    slotBonus: Math.floor(level / 10) * 5,
+    premiumBonus: Math.floor(level / 20) * 0.001,
+    guerillaBonus: Math.floor(level / 50),
+    continueBonus: Math.floor(level / 200) * 0.1,
+  };
+}
+  
   const shopItems = {
 title1: {
   name: "🏅節約の見習い",
@@ -1064,23 +1075,26 @@ end6: {
     };
   }
   
-  function getDailySlotLimit() {
-    const buffs = getShopBuffs();
+function getDailySlotLimit() {
+  const shopBuffs = getShopBuffs();
+  const levelBuffs = getLevelBuffs();
+
+  return 50 + shopBuffs.slotBonus + levelBuffs.slotBonus;
+}
   
-    return 50 + buffs.slotBonus;
-  }
+function getPremiumRate() {
+  const shopBuffs = getShopBuffs();
+  const levelBuffs = getLevelBuffs();
+
+  return 0.005 + shopBuffs.premiumBonus + levelBuffs.premiumBonus;
+}
   
-  function getPremiumRate() {
-    const buffs = getShopBuffs();
-  
-    return 0.005 + buffs.premiumBonus;
-  }
-  
-  function getContinueRate() {
-    const buffs = getShopBuffs();
-  
-    return buffs.continueBonus;
-  }
+function getContinueRate() {
+  const shopBuffs = getShopBuffs();
+  const levelBuffs = getLevelBuffs();
+
+  return shopBuffs.continueBonus + levelBuffs.continueBonus;
+}
   
   window.buyShopItem = function (id) {
     const item = shopItems[id];
