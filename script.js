@@ -639,8 +639,8 @@ setText("slotProfit", formatMoney(profit));
   
  let seconds = 20 + getLevelBuffs().guerillaBonus;
   
-    document.getElementById("timingMessage").innerText =
-      "⚡ゲリラチャレンジ発生⚡ 20秒間遊び放題！";
+document.getElementById("timingMessage").innerText =
+  `⚡ゲリラチャレンジ発生⚡ ${seconds}秒間遊び放題！`;
   
     setText("timingTimer", `⏳残り${seconds}秒`);
   
@@ -909,7 +909,7 @@ setText("slotProfit", formatMoney(profit));
   return {
     slotBonus: Math.floor(level / 10) * 5,
     premiumBonus: Math.floor(level / 20) * 0.001,
-    guerillaBonus: Math.floor(level / 50),
+    guerillaBonus: Math.floor(level / 25),
     continueBonus: Math.floor(level / 200) * 0.1,
   };
 }
