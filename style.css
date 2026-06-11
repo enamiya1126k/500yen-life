@@ -505,12 +505,12 @@ ul{
 
 .shop-card{
     background:
-        radial-gradient(circle at top, #2b1600, #050505 70%);
+        radial-gradient(circle at top, #1a0a00, #050505 70%);
     color:white;
-    border:2px solid gold;
+    border:2px solid #555;
     box-shadow:
-        0 0 18px gold,
-        inset 0 0 20px rgba(255,180,0,.35);
+        0 0 12px rgba(255,255,255,.18),
+        inset 0 0 14px rgba(255,120,0,.18);
 }
 
 .shop-card h3{
@@ -680,4 +680,50 @@ body.skin-dark .gogo-lamp{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
+}
+
+body.skin-black-gold h1{
+    color:#ffd700;
+    text-shadow:
+        0 0 10px gold,
+        0 0 25px gold,
+        0 0 45px orange;
+}
+
+body.skin-black-gold .top-status{
+    box-shadow:
+        0 0 20px gold,
+        0 0 40px rgba(255,215,0,.45);
+}
+
+body.skin-black-gold .balance-box{
+    background:
+        linear-gradient(145deg,#fff8d0,#ffffff,#ffe680);
+    border:2px solid gold;
+}
+
+body.skin-black-gold .slot-card,
+body.skin-black-gold .shop-card,
+body.skin-black-gold .timing-card{
+    border-color:#ffd700;
+    box-shadow:
+        0 0 28px gold,
+        0 0 55px rgba(255,180,0,.55),
+        inset 0 0 28px rgba(255,215,0,.35);
+}
+
+body.skin-black-gold .slot-machine{
+    border-color:#ffd700;
+    box-shadow:
+        0 0 28px gold,
+        inset 0 0 22px rgba(255,180,0,.55);
+}
+
+body.skin-black-gold .shop-grid button{
+    background:
+        linear-gradient(145deg,#4a3200,#080808);
+    border-color:#ffd700;
+    box-shadow:
+        0 0 14px gold,
+        inset 0 0 14px rgba(255,215,0,.25);
 }
