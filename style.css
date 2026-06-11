@@ -931,3 +931,7 @@ body.skin-black-gold .shop-grid button{
 #timingCard{
     display:none;
 }
+
+#timingMessage{
+    white-space:pre-line;
+}
