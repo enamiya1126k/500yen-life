@@ -1,780 +1,896 @@
+        body{
+            font-family:sans-serif;
+            background:radial-gradient(circle,#2b2b2b,#111);
+            margin:0;
+            padding:8px;
+        }
+        
+        .container{
+            max-width:500px;
+            margin:auto;
+        }
+        
+        h1{
+            text-align:center;
+            color:white;
+            text-shadow:0 0 15px gold;
+            margin:8px 0 10px;
+        }
+        
+        .top-status{
+            display:grid;
+            grid-template-columns:2fr 1.25fr;
+            gap:6px;
+            margin-bottom:8px;
+        }
+        
+        .balance-box{
+            background:white;
+            border-radius:16px 0 0 16px;
+            padding:14px;
+            display:flex;
+            align-items:center;
+            gap:16px;
+        }
+        
+        .balance-label{
+            font-size:30px;
+            font-weight:bold;
+            writing-mode:vertical-rl;
+        }
+        
+        #balance{
+            font-size:25px;
+            font-weight:bold;
+            line-height:1;
+        }
+        
+        .mini-ranking{
+            background:#050505;
+            color:#54ff65;
+            font-family:monospace;
+            font-size:13px;
+            line-height:1.25;
+            padding:10px;
+            border:2px solid #333;
+            box-shadow:inset 0 0 12px #003b12;
+        }
+        
+        .mini-ranking span{
+            color:#7cff83;
+            text-shadow:
+                0 0 5px #54ff65,
+                0 0 10px #54ff65;
+        }
+        
+        .quick-bar{
+            display:grid;
+            grid-template-columns:1.8fr .55fr .7fr .7fr;
+            gap:4px;
+            margin-bottom:8px;
+        }
+        
+        .quick-bar input{
+            min-width:0;
+        }
+        
+        input{
+            width:100%;
+            box-sizing:border-box;
+            padding:10px;
+            border-radius:8px;
+            border:2px solid #ddd;
+            margin:0;
+            font-size:14px;
+        }
+        
+        button{
+            width:100%;
+            border:none;
+            border-radius:8px;
+            font-size:14px;
+            font-weight:bold;
+        }
+        
+        .small-btn{
+            background:#777;
+            color:white;
+        }
+        
+        .bonus-mini{
+            background:#eee;
+            color:#2276e8;
+            font-size:13px;
+            padding:6px 4px;
+            line-height:1.15;
+        }
+        
+        .bonus-mini span{
+            display:block;
+            font-size:10px;
+            color:#333;
+            margin-top:3px;
+        }
+        
+        .card{
+            background:white;
+            padding:10px;
+            border-radius:14px;
+            margin-bottom:10px;
+            box-shadow:0 8px 22px rgba(0,0,0,.25);
+        }
+        
+        .slot-card{
+            background:linear-gradient(145deg,#220000,#080808);
+            border:2px solid #555;
+            color:white;
+        }
+        
+        .slot-card h3{
+            margin:4px 0 8px;
+        }
+        
+        .slot-panel{
+            background:black;
+            color:#54ff65;
+            border-radius:10px;
+            padding:8px 12px;
+            display:flex;
+            justify-content:space-between;
+            font-size:16px;
+            font-weight:bold;
+            margin-bottom:8px;
+            font-family:monospace;
+        }
+        
+        .gogo-lamp{
+            width:150px;
+            height:42px;
+            margin:6px auto;
+            border-radius:999px;
+            background:#050505;
+            color:#222;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:22px;
+            font-weight:bold;
+            border:3px solid #444;
+        }
+        
+        .gogo-lamp.on{
+            background:radial-gradient(circle,#ffb8ff,#d436ff);
+            color:white;
+            box-shadow:0 0 30px #ff00ff,0 0 60px #ff00ff;
+        }
+        
+        .gogo-lamp.premium{
+            background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+            color:white;
+            box-shadow:0 0 30px red,0 0 50px cyan,0 0 80px violet;
+        }
+        
+        #maxBetText{
+            font-size:12px;
+            margin:6px 0;
+        }
+        
+        #betAmount{
+            margin-bottom:6px;
+        }
+        
+        .bet-buttons{
+            display:flex;
+            gap:6px;
+        }
+        
+        .bet-buttons button{
+            flex:1;
+            background:linear-gradient(#064ec8,#001b66);
+            color:white;
+            padding:8px 0;
+        }
+        
+        .slot-machine{
+            position:relative;
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:5px;
+            background:linear-gradient(145deg,#8f0000,#220000);
+            border:4px solid gold;
+            border-radius:18px;
+            padding:10px;
+            margin-top:16px;
+            box-shadow:0 0 18px gold,inset 0 0 16px rgba(0,0,0,.7);
+        }
+        
+        .slot-machine::before{
+            content:"BIG BONUS";
+            position:absolute;
+            left:50%;
+            top:-15px;
+            transform:translateX(-50%);
+            background:#111;
+            color:gold;
+            border:2px solid gold;
+            border-radius:999px;
+            padding:3px 14px;
+            font-size:14px;
+            font-weight:bold;
+            box-shadow:0 0 10px gold;
+            z-index:5;
+        }
+        
+        .slot-cell{
+            height:54px;
+            background:linear-gradient(#fff,#fff5bf,#fff);
+            border:3px solid #333;
+            border-radius:9px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:30px;
+            box-shadow:inset 0 0 10px rgba(0,0,0,.3),0 2px 0 #000;
+            position:relative;
+            z-index:2;
+        }
+        
+        .slot-cell.hit{
+            background:linear-gradient(#fff799,#ffe100,#fff799);
+            box-shadow:0 0 20px gold,0 0 35px orange;
+        }
+        
+        .diagonal-left,
+        .diagonal-right{
+            position:absolute;
+            top:58%;
+            left:18px;
+            right:18px;
+            height:4px;
+            pointer-events:none;
+            z-index:1;
+            opacity:0;
+        }
+        
+        .diagonal-left{
+            transform:rotate(35deg);
+            background:#00ffff;
+        }
+        
+        .diagonal-right{
+            transform:rotate(-35deg);
+            background:#00ffff;
+        }
+        
+        .diagonal-left.show,
+        .diagonal-right.show{
+            opacity:1;
+            box-shadow:0 0 12px cyan,0 0 24px cyan;
+        }
+        
+        .stop-buttons{
+            display:flex;
+            gap:8px;
+            margin-top:8px;
+            margin-bottom:6px;
+        }
+        
+        .stop-buttons button{
+            flex:1;
+            height:42px;
+            color:white;
+            background:radial-gradient(circle,#ff7a7a,#8b0000);
+            border-radius:999px;
+            box-shadow:0 4px 0 #520000,0 0 12px red;
+        }
+        
+        .spin-button{
+            background:linear-gradient(#8aff60,#169000);
+            color:white;
+            padding:10px;
+            margin-bottom:6px;
+        }
+        
+        #slotMessage{
+            text-align:center;
+            font-size:16px;
+            font-weight:bold;
+            margin:6px 0;
+        }
+        
+        .history-area{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:8px;
+        }
+        
+        .history-card{
+            background:white;
+            border-radius:12px;
+            padding:8px;
+            min-height:180px;
+            font-size:10px;
+        }
+        
+        .history-card h3{
+            text-align:center;
+            margin:4px 0 8px;
+            font-size:14px;
+        }
+        
+        .history-card button{
+            padding:6px;
+            font-size:11px;
+            margin-bottom:6px;
+        }
+        
+        ul{
+            padding-left:14px;
+            margin:0;
+        }
+        
+        .top-status{
+            position:sticky;
+            top:8px;
+            z-index:1000;
+            background:#111;
+            padding:4px 0;
+            border-radius:16px;
+        }
+        
+        .timing-bar::before,
+        .timing-bar::after{
+            content:"";
+            position:absolute;
+            top:0;
+            width:8%;
+            height:100%;
+            background:#ff2020;
+            box-shadow:0 0 15px red;
+            z-index:1;
+        }
+        
+        .timing-bar::before{
+            left:37%;
+        }
+        
+        .timing-bar::after{
+            left:55%;
+        }
+        
+        .target-zone{
+            left:47%;
+            width:6%;
+            z-index:2;
+        }
+        
+        #timingCursor{
+            z-index:3;
+        }
+        
+        .timing-card{
+            background:
+                radial-gradient(circle at top, #3b0000, #070000 70%);
+            color:white;
+            border:2px solid gold;
+            box-shadow:
+                0 0 20px gold,
+                inset 0 0 20px rgba(255,0,0,.45);
+        }
+        
+        .timing-card h3{
+            font-size:24px;
+            color:#ffd700;
+            text-shadow:
+                0 0 8px gold,
+                0 0 18px red;
+        }
+        
+        .timing-bar{
+            position:relative;
+            height:44px;
+            border:3px solid gold;
+            border-radius:999px;
+            margin:18px 0;
+            overflow:hidden;
+            background:
+                linear-gradient(90deg,
+                #120000 0%,
+                #ff0000 34%,
+                #222 42%,
+                #00ff66 47%,
+                #00ff66 53%,
+                #222 58%,
+                #ff0000 66%,
+                #120000 100%);
+            box-shadow:
+                0 0 18px gold,
+                inset 0 0 18px black;
+        }
+        
+        .timing-bar::before,
+        .timing-bar::after{
+            content:"危険ゾーン";
+            position:absolute;
+            top:-22px;
+            width:28%;
+            height:18px;
+            color:white;
+            font-size:11px;
+            text-align:center;
+            text-shadow:0 0 8px red;
+        }
+        
+        .timing-bar::before{
+            left:14%;
+        }
+        
+        .timing-bar::after{
+            right:14%;
+        }
+        
+        .target-zone{
+            position:absolute;
+            left:47%;
+            width:6%;
+            height:100%;
+            background:linear-gradient(#b6ff00,#00ff66,#b6ff00);
+            box-shadow:
+                0 0 18px #00ff66,
+                0 0 35px #00ff66;
+            z-index:2;
+        }
+        
+        .target-zone::before{
+            content:"ターゲット";
+            position:absolute;
+            top:-22px;
+            left:50%;
+            transform:translateX(-50%);
+            color:#7cff83;
+            font-size:11px;
+            white-space:nowrap;
+            text-shadow:0 0 8px #00ff66;
+        }
+        
+        #timingCursor{
+            position:absolute;
+            top:50%;
+            left:0;
+            width:18px;
+            height:18px;
+            transform:translateY(-50%);
+            background:white;
+            border-radius:50%;
+            box-shadow:
+                0 0 8px white,
+                0 0 15px red;
+            z-index:5;
+        }
+        
+        #timingMainBtn{
+            height:64px;
+            margin-top:12px;
+            border-radius:999px;
+            color:white;
+            font-size:24px;
+            font-weight:bold;
+            letter-spacing:2px;
+            background:
+                radial-gradient(circle at 30% 20%, #fff, #ff3b3b 18%, #b00000 60%, #4a0000);
+            box-shadow:
+                0 6px 0 #300000,
+                0 0 18px red,
+                0 0 35px red;
+            text-shadow:
+                0 0 8px white,
+                0 0 16px red;
+        }
+        
+        #timingMainBtn:active{
+            transform:translateY(5px);
+            box-shadow:
+                0 1px 0 #300000,
+                0 0 25px red;
+        }
+        
+        #timingMessage{
+            font-size:22px;
+            font-weight:bold;
+            color:#ffd700;
+            text-shadow:
+                0 0 8px gold,
+                0 0 18px orange;
+        }
+        
+        .shop-card{
+            background:
+                radial-gradient(circle at top, #1a0a00, #050505 70%);
+            color:white;
+            border:2px solid #555;
+            box-shadow:
+                0 0 12px rgba(255,255,255,.18),
+                inset 0 0 14px rgba(255,120,0,.18);
+        }
+        
+        .shop-card h3{
+            text-align:center;
+            color:#ffd700;
+            text-shadow:
+                0 0 8px gold,
+                0 0 18px orange;
+            font-size:22px;
+        }
+        
+        .shop-card h4{
+            margin:14px 0 8px;
+            color:#ffd700;
+            border-bottom:1px solid rgba(255,215,0,.45);
+            padding-bottom:4px;
+        }
+        
+        .buff-panel{
+            background:#050505;
+            border:2px solid #333;
+            border-radius:12px;
+            padding:10px;
+            color:#54ff65;
+            font-family:monospace;
+            font-size:13px;
+            box-shadow:inset 0 0 12px #003b12;
+        }
+        
+        .shop-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:8px;
+        }
+        
+        .shop-grid button{
+            min-height:86px;
+            padding:8px;
+            border-radius:12px;
+            background:
+                linear-gradient(145deg, #3a2600, #090909);
+            color:white;
+            border:1px solid gold;
+            font-size:12px;
+            line-height:1.25;
+            box-shadow:
+                0 0 8px rgba(255,215,0,.45),
+                inset 0 0 12px rgba(255,215,0,.18);
+        }
+        
+        .shop-grid button small{
+            color:#54ff65;
+            font-size:10px;
+        }
+        
+        .shop-grid button.owned{
+            background:
+                linear-gradient(145deg, #003b12, #050505);
+            color:#54ff65;
+            border-color:#54ff65;
+            box-shadow:
+                0 0 10px #54ff65,
+                inset 0 0 12px rgba(84,255,101,.25);
+        }
+        
+        .shop-grid button.owned::after{
+            content:"購入済";
+            display:block;
+            color:#ffd700;
+            font-size:11px;
+            margin-top:4px;
+        }
+        
+        .collection-box{
+            background:#050505;
+            border:1px solid #333;
+            border-radius:12px;
+            padding:10px;
+            margin-top:14px;
+            color:#54ff65;
+            font-family:monospace;
+            font-size:12px;
+            box-shadow:inset 0 0 12px #003b12;
+        }
+        
+        #shopMessage{
+            text-align:center;
+            color:#ffd700;
+            font-weight:bold;
+            text-shadow:0 0 8px gold;
+        }
+        
+        body.skin-black-gold{
+            background:
+                radial-gradient(circle at top, #5c4300, #050505 70%);
+        }
+        
+        body.skin-black-gold .slot-card,
+        body.skin-black-gold .shop-card{
+            border-color:#ffd700;
+            box-shadow:
+                0 0 25px gold,
+                inset 0 0 25px rgba(255,215,0,.3);
+        }
+        
+        body.skin-rainbow{
+            background:
+                linear-gradient(135deg,
+                #ff004c,
+                #ffae00,
+                #fff000,
+                #00ff66,
+                #00d9ff,
+                #6b4cff,
+                #ff00f2);
+            background-size:400% 400%;
+            animation:rainbowBg 8s ease infinite;
+        }
+        
+        body.skin-rainbow .slot-card,
+        body.skin-rainbow .shop-card,
+        body.skin-rainbow .timing-card{
+            border-color:white;
+            box-shadow:
+                0 0 25px white,
+                0 0 45px #ff00ff,
+                inset 0 0 25px rgba(255,255,255,.35);
+        }
+        
+        body.skin-rainbow .gogo-lamp{
+            background:
+                linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+            color:white;
+            box-shadow:
+                0 0 30px red,
+                0 0 50px cyan,
+                0 0 80px violet;
+        }
+        
+        body.skin-dark{
+            background:
+                radial-gradient(circle at top, #300000, #000 70%);
+        }
+        
+        body.skin-dark .slot-card,
+        body.skin-dark .shop-card,
+        body.skin-dark .timing-card{
+            background:
+                linear-gradient(145deg, #000, #1a0000, #050505);
+            border-color:#ff002b;
+            box-shadow:
+                0 0 25px red,
+                0 0 45px #7b00ff,
+                inset 0 0 25px rgba(255,0,0,.35);
+        }
+        
+        body.skin-dark .gogo-lamp{
+            background:#150000;
+            color:#ff003c;
+            border-color:#ff003c;
+            box-shadow:
+                0 0 25px red,
+                0 0 45px #7b00ff;
+        }
+        
+        @keyframes rainbowBg{
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
+        
+        body.skin-black-gold h1{
+            color:#ffd700;
+            text-shadow:
+                0 0 10px gold,
+                0 0 25px gold,
+                0 0 45px orange;
+        }
+        
+        body.skin-black-gold .top-status{
+            box-shadow:
+                0 0 20px gold,
+                0 0 40px rgba(255,215,0,.45);
+        }
+        
+        body.skin-black-gold .balance-box{
+            background:
+                linear-gradient(145deg,#fff8d0,#ffffff,#ffe680);
+            border:2px solid gold;
+        }
+        
+        body.skin-black-gold .slot-card,
+        body.skin-black-gold .shop-card,
+        body.skin-black-gold .timing-card{
+            border-color:#ffd700;
+            box-shadow:
+                0 0 28px gold,
+                0 0 55px rgba(255,180,0,.55),
+                inset 0 0 28px rgba(255,215,0,.35);
+        }
+        
+        body.skin-black-gold .slot-machine{
+            border-color:#ffd700;
+            box-shadow:
+                0 0 28px gold,
+                inset 0 0 22px rgba(255,180,0,.55);
+        }
+        
+        body.skin-black-gold .shop-grid button{
+            background:
+                linear-gradient(145deg,#4a3200,#080808);
+            border-color:#ffd700;
+            box-shadow:
+                0 0 14px gold,
+                inset 0 0 14px rgba(255,215,0,.25);
+        }
+        
+        body.skin-black-gold{
+            background:
+                radial-gradient(circle at top, #7a5a00 0%, #241800 35%, #050505 80%) !important;
+        }
+        
+        body.skin-black-gold .container{
+            background:
+                linear-gradient(180deg, rgba(255,215,0,.18), rgba(0,0,0,0));
+            border-left:2px solid rgba(255,215,0,.5);
+            border-right:2px solid rgba(255,215,0,.5);
+            box-shadow:
+                0 0 35px rgba(255,215,0,.45),
+                inset 0 0 30px rgba(255,215,0,.15);
+            padding:8px;
+        }
+        
+        body.skin-black-gold h1{
+            font-size:32px;
+            color:#fff6b0;
+            text-shadow:
+                0 0 8px #fff,
+                0 0 18px gold,
+                0 0 35px orange,
+                0 0 55px gold;
+        }
+        
+        body.skin-black-gold .top-status{
+            background:
+                linear-gradient(145deg,#0a0a0a,#3a2600,#050505);
+            border:2px solid gold;
+            box-shadow:
+                0 0 25px gold,
+                0 0 50px rgba(255,180,0,.55);
+        }
+        
+        body.skin-black-gold .balance-box{
+            background:
+                linear-gradient(145deg,#fff,#fff4b8,#d8a900);
+            border-right:2px solid gold;
+            box-shadow:
+                inset 0 0 18px rgba(255,215,0,.65);
+        }
+        
+        body.skin-black-gold .mini-ranking{
+            border:2px solid gold;
+            background:
+                radial-gradient(circle,#102400,#020602 70%);
+            box-shadow:
+                0 0 18px gold,
+                inset 0 0 18px #00ff66;
+        }
+        
+        body.skin-black-gold .slot-card,
+        body.skin-black-gold .timing-card,
+        body.skin-black-gold .shop-card{
+            background:
+                radial-gradient(circle at top, #4b0000, #120000 45%, #050505 100%);
+            border:3px solid #ffd700;
+            box-shadow:
+                0 0 22px gold,
+                0 0 45px rgba(255,180,0,.75),
+                inset 0 0 30px rgba(255,215,0,.25);
+        }
+        
+        body.skin-black-gold .slot-machine{
+            background:
+                linear-gradient(145deg,#b00000,#3a0000,#0a0000);
+            border:5px solid #ffd700;
+            box-shadow:
+                0 0 28px gold,
+                0 0 55px rgba(255,180,0,.7),
+                inset 0 0 22px rgba(0,0,0,.8);
+        }
+        
+        body.skin-black-gold .slot-machine::before{
+            background:
+                linear-gradient(#2b1a00,#050505);
+            color:#fff3a0;
+            border-color:#ffd700;
+            box-shadow:
+                0 0 15px gold,
+                0 0 30px orange;
+        }
+        
+        body.skin-black-gold .bet-buttons button,
+        body.skin-black-gold .spin-button{
+            box-shadow:
+                0 0 12px gold,
+                inset 0 0 10px rgba(255,255,255,.25);
+        }
+        
+        body.skin-black-gold .shop-grid button{
+            background:
+                linear-gradient(145deg,#5c3b00,#090909);
+            border:2px solid #ffd700;
+            color:#fff6c0;
+            box-shadow:
+                0 0 16px gold,
+                inset 0 0 16px rgba(255,215,0,.25);
+        }
+        
+        /* ===== 黒金VIPスキン 最終上書き ===== */
+    
     body{
-        font-family:sans-serif;
-        background:radial-gradient(circle,#2b2b2b,#111);
-        margin:0;
-        padding:8px;
+        overflow-x:hidden;
     }
     
     .container{
-        max-width:500px;
-        margin:auto;
-    }
-    
-    h1{
-        text-align:center;
-        color:white;
-        text-shadow:0 0 15px gold;
-        margin:8px 0 10px;
-    }
-    
-    .top-status{
-        display:grid;
-        grid-template-columns:2fr 1.25fr;
-        gap:6px;
-        margin-bottom:8px;
-    }
-    
-    .balance-box{
-        background:white;
-        border-radius:16px 0 0 16px;
-        padding:14px;
-        display:flex;
-        align-items:center;
-        gap:16px;
-    }
-    
-    .balance-label{
-        font-size:30px;
-        font-weight:bold;
-        writing-mode:vertical-rl;
+        width:100%;
+        box-sizing:border-box;
     }
     
     #balance{
-        font-size:25px;
-        font-weight:bold;
-        line-height:1;
-    }
-    
-    .mini-ranking{
-        background:#050505;
-        color:#54ff65;
-        font-family:monospace;
-        font-size:13px;
-        line-height:1.25;
-        padding:10px;
-        border:2px solid #333;
-        box-shadow:inset 0 0 12px #003b12;
-    }
-    
-    .mini-ranking span{
-        color:#7cff83;
-        text-shadow:
-            0 0 5px #54ff65,
-            0 0 10px #54ff65;
-    }
-    
-    .quick-bar{
-        display:grid;
-        grid-template-columns:1.8fr .55fr .7fr .7fr;
-        gap:4px;
-        margin-bottom:8px;
-    }
-    
-    .quick-bar input{
-        min-width:0;
-    }
-    
-    input{
-        width:100%;
-        box-sizing:border-box;
-        padding:10px;
-        border-radius:8px;
-        border:2px solid #ddd;
-        margin:0;
-        font-size:14px;
-    }
-    
-    button{
-        width:100%;
-        border:none;
-        border-radius:8px;
-        font-size:14px;
-        font-weight:bold;
-    }
-    
-    .small-btn{
-        background:#777;
-        color:white;
-    }
-    
-    .bonus-mini{
-        background:#eee;
-        color:#2276e8;
-        font-size:13px;
-        padding:6px 4px;
-        line-height:1.15;
-    }
-    
-    .bonus-mini span{
-        display:block;
-        font-size:10px;
-        color:#333;
-        margin-top:3px;
-    }
-    
-    .card{
-        background:white;
-        padding:10px;
-        border-radius:14px;
-        margin-bottom:10px;
-        box-shadow:0 8px 22px rgba(0,0,0,.25);
-    }
-    
-    .slot-card{
-        background:linear-gradient(145deg,#220000,#080808);
-        border:2px solid #555;
-        color:white;
-    }
-    
-    .slot-card h3{
-        margin:4px 0 8px;
-    }
-    
-    .slot-panel{
-        background:black;
-        color:#54ff65;
-        border-radius:10px;
-        padding:8px 12px;
-        display:flex;
-        justify-content:space-between;
-        font-size:16px;
-        font-weight:bold;
-        margin-bottom:8px;
-        font-family:monospace;
-    }
-    
-    .gogo-lamp{
-        width:150px;
-        height:42px;
-        margin:6px auto;
-        border-radius:999px;
-        background:#050505;
-        color:#222;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:22px;
-        font-weight:bold;
-        border:3px solid #444;
-    }
-    
-    .gogo-lamp.on{
-        background:radial-gradient(circle,#ffb8ff,#d436ff);
-        color:white;
-        box-shadow:0 0 30px #ff00ff,0 0 60px #ff00ff;
-    }
-    
-    .gogo-lamp.premium{
-        background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-        color:white;
-        box-shadow:0 0 30px red,0 0 50px cyan,0 0 80px violet;
-    }
-    
-    #maxBetText{
-        font-size:12px;
-        margin:6px 0;
-    }
-    
-    #betAmount{
-        margin-bottom:6px;
-    }
-    
-    .bet-buttons{
-        display:flex;
-        gap:6px;
-    }
-    
-    .bet-buttons button{
-        flex:1;
-        background:linear-gradient(#064ec8,#001b66);
-        color:white;
-        padding:8px 0;
-    }
-    
-    .slot-machine{
-        position:relative;
-        display:grid;
-        grid-template-columns:repeat(3,1fr);
-        gap:5px;
-        background:linear-gradient(145deg,#8f0000,#220000);
-        border:4px solid gold;
-        border-radius:18px;
-        padding:10px;
-        margin-top:16px;
-        box-shadow:0 0 18px gold,inset 0 0 16px rgba(0,0,0,.7);
-    }
-    
-    .slot-machine::before{
-        content:"BIG BONUS";
-        position:absolute;
-        left:50%;
-        top:-15px;
-        transform:translateX(-50%);
-        background:#111;
-        color:gold;
-        border:2px solid gold;
-        border-radius:999px;
-        padding:3px 14px;
-        font-size:14px;
-        font-weight:bold;
-        box-shadow:0 0 10px gold;
-        z-index:5;
-    }
-    
-    .slot-cell{
-        height:54px;
-        background:linear-gradient(#fff,#fff5bf,#fff);
-        border:3px solid #333;
-        border-radius:9px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:30px;
-        box-shadow:inset 0 0 10px rgba(0,0,0,.3),0 2px 0 #000;
-        position:relative;
-        z-index:2;
-    }
-    
-    .slot-cell.hit{
-        background:linear-gradient(#fff799,#ffe100,#fff799);
-        box-shadow:0 0 20px gold,0 0 35px orange;
-    }
-    
-    .diagonal-left,
-    .diagonal-right{
-        position:absolute;
-        top:58%;
-        left:18px;
-        right:18px;
-        height:4px;
-        pointer-events:none;
-        z-index:1;
-        opacity:0;
-    }
-    
-    .diagonal-left{
-        transform:rotate(35deg);
-        background:#00ffff;
-    }
-    
-    .diagonal-right{
-        transform:rotate(-35deg);
-        background:#00ffff;
-    }
-    
-    .diagonal-left.show,
-    .diagonal-right.show{
-        opacity:1;
-        box-shadow:0 0 12px cyan,0 0 24px cyan;
-    }
-    
-    .stop-buttons{
-        display:flex;
-        gap:8px;
-        margin-top:8px;
-        margin-bottom:6px;
-    }
-    
-    .stop-buttons button{
-        flex:1;
-        height:42px;
-        color:white;
-        background:radial-gradient(circle,#ff7a7a,#8b0000);
-        border-radius:999px;
-        box-shadow:0 4px 0 #520000,0 0 12px red;
-    }
-    
-    .spin-button{
-        background:linear-gradient(#8aff60,#169000);
-        color:white;
-        padding:10px;
-        margin-bottom:6px;
-    }
-    
-    #slotMessage{
-        text-align:center;
-        font-size:16px;
-        font-weight:bold;
-        margin:6px 0;
-    }
-    
-    .history-area{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:8px;
-    }
-    
-    .history-card{
-        background:white;
-        border-radius:12px;
-        padding:8px;
-        min-height:180px;
-        font-size:10px;
-    }
-    
-    .history-card h3{
-        text-align:center;
-        margin:4px 0 8px;
-        font-size:14px;
-    }
-    
-    .history-card button{
-        padding:6px;
-        font-size:11px;
-        margin-bottom:6px;
-    }
-    
-    ul{
-        padding-left:14px;
-        margin:0;
-    }
-    
-    .top-status{
-        position:sticky;
-        top:8px;
-        z-index:1000;
-        background:#111;
-        padding:4px 0;
-        border-radius:16px;
-    }
-    
-    .timing-bar::before,
-    .timing-bar::after{
-        content:"";
-        position:absolute;
-        top:0;
-        width:8%;
-        height:100%;
-        background:#ff2020;
-        box-shadow:0 0 15px red;
-        z-index:1;
-    }
-    
-    .timing-bar::before{
-        left:37%;
-    }
-    
-    .timing-bar::after{
-        left:55%;
-    }
-    
-    .target-zone{
-        left:47%;
-        width:6%;
-        z-index:2;
-    }
-    
-    #timingCursor{
-        z-index:3;
-    }
-    
-    .timing-card{
-        background:
-            radial-gradient(circle at top, #3b0000, #070000 70%);
-        color:white;
-        border:2px solid gold;
-        box-shadow:
-            0 0 20px gold,
-            inset 0 0 20px rgba(255,0,0,.45);
-    }
-    
-    .timing-card h3{
-        font-size:24px;
-        color:#ffd700;
-        text-shadow:
-            0 0 8px gold,
-            0 0 18px red;
-    }
-    
-    .timing-bar{
-        position:relative;
-        height:44px;
-        border:3px solid gold;
-        border-radius:999px;
-        margin:18px 0;
-        overflow:hidden;
-        background:
-            linear-gradient(90deg,
-            #120000 0%,
-            #ff0000 34%,
-            #222 42%,
-            #00ff66 47%,
-            #00ff66 53%,
-            #222 58%,
-            #ff0000 66%,
-            #120000 100%);
-        box-shadow:
-            0 0 18px gold,
-            inset 0 0 18px black;
-    }
-    
-    .timing-bar::before,
-    .timing-bar::after{
-        content:"危険ゾーン";
-        position:absolute;
-        top:-22px;
-        width:28%;
-        height:18px;
-        color:white;
-        font-size:11px;
-        text-align:center;
-        text-shadow:0 0 8px red;
-    }
-    
-    .timing-bar::before{
-        left:14%;
-    }
-    
-    .timing-bar::after{
-        right:14%;
-    }
-    
-    .target-zone{
-        position:absolute;
-        left:47%;
-        width:6%;
-        height:100%;
-        background:linear-gradient(#b6ff00,#00ff66,#b6ff00);
-        box-shadow:
-            0 0 18px #00ff66,
-            0 0 35px #00ff66;
-        z-index:2;
-    }
-    
-    .target-zone::before{
-        content:"ターゲット";
-        position:absolute;
-        top:-22px;
-        left:50%;
-        transform:translateX(-50%);
-        color:#7cff83;
-        font-size:11px;
-        white-space:nowrap;
-        text-shadow:0 0 8px #00ff66;
-    }
-    
-    #timingCursor{
-        position:absolute;
-        top:50%;
-        left:0;
-        width:18px;
-        height:18px;
-        transform:translateY(-50%);
-        background:white;
-        border-radius:50%;
-        box-shadow:
-            0 0 8px white,
-            0 0 15px red;
-        z-index:5;
-    }
-    
-    #timingMainBtn{
-        height:64px;
-        margin-top:12px;
-        border-radius:999px;
-        color:white;
-        font-size:24px;
-        font-weight:bold;
-        letter-spacing:2px;
-        background:
-            radial-gradient(circle at 30% 20%, #fff, #ff3b3b 18%, #b00000 60%, #4a0000);
-        box-shadow:
-            0 6px 0 #300000,
-            0 0 18px red,
-            0 0 35px red;
-        text-shadow:
-            0 0 8px white,
-            0 0 16px red;
-    }
-    
-    #timingMainBtn:active{
-        transform:translateY(5px);
-        box-shadow:
-            0 1px 0 #300000,
-            0 0 25px red;
-    }
-    
-    #timingMessage{
-        font-size:22px;
-        font-weight:bold;
-        color:#ffd700;
-        text-shadow:
-            0 0 8px gold,
-            0 0 18px orange;
-    }
-    
-    .shop-card{
-        background:
-            radial-gradient(circle at top, #1a0a00, #050505 70%);
-        color:white;
-        border:2px solid #555;
-        box-shadow:
-            0 0 12px rgba(255,255,255,.18),
-            inset 0 0 14px rgba(255,120,0,.18);
-    }
-    
-    .shop-card h3{
-        text-align:center;
-        color:#ffd700;
-        text-shadow:
-            0 0 8px gold,
-            0 0 18px orange;
-        font-size:22px;
-    }
-    
-    .shop-card h4{
-        margin:14px 0 8px;
-        color:#ffd700;
-        border-bottom:1px solid rgba(255,215,0,.45);
-        padding-bottom:4px;
-    }
-    
-    .buff-panel{
-        background:#050505;
-        border:2px solid #333;
-        border-radius:12px;
-        padding:10px;
-        color:#54ff65;
-        font-family:monospace;
-        font-size:13px;
-        box-shadow:inset 0 0 12px #003b12;
-    }
-    
-    .shop-grid{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:8px;
-    }
-    
-    .shop-grid button{
-        min-height:86px;
-        padding:8px;
-        border-radius:12px;
-        background:
-            linear-gradient(145deg, #3a2600, #090909);
-        color:white;
-        border:1px solid gold;
-        font-size:12px;
-        line-height:1.25;
-        box-shadow:
-            0 0 8px rgba(255,215,0,.45),
-            inset 0 0 12px rgba(255,215,0,.18);
-    }
-    
-    .shop-grid button small{
-        color:#54ff65;
-        font-size:10px;
-    }
-    
-    .shop-grid button.owned{
-        background:
-            linear-gradient(145deg, #003b12, #050505);
-        color:#54ff65;
-        border-color:#54ff65;
-        box-shadow:
-            0 0 10px #54ff65,
-            inset 0 0 12px rgba(84,255,101,.25);
-    }
-    
-    .shop-grid button.owned::after{
-        content:"購入済";
-        display:block;
-        color:#ffd700;
-        font-size:11px;
-        margin-top:4px;
-    }
-    
-    .collection-box{
-        background:#050505;
-        border:1px solid #333;
-        border-radius:12px;
-        padding:10px;
-        margin-top:14px;
-        color:#54ff65;
-        font-family:monospace;
-        font-size:12px;
-        box-shadow:inset 0 0 12px #003b12;
-    }
-    
-    #shopMessage{
-        text-align:center;
-        color:#ffd700;
-        font-weight:bold;
-        text-shadow:0 0 8px gold;
+        font-size:clamp(22px, 6vw, 34px);
+        word-break:break-all;
     }
     
     body.skin-black-gold{
         background:
-            radial-gradient(circle at top, #5c4300, #050505 70%);
-    }
-    
-    body.skin-black-gold .slot-card,
-    body.skin-black-gold .shop-card{
-        border-color:#ffd700;
-        box-shadow:
-            0 0 25px gold,
-            inset 0 0 25px rgba(255,215,0,.3);
-    }
-    
-    body.skin-rainbow{
-        background:
-            linear-gradient(135deg,
-            #ff004c,
-            #ffae00,
-            #fff000,
-            #00ff66,
-            #00d9ff,
-            #6b4cff,
-            #ff00f2);
-        background-size:400% 400%;
-        animation:rainbowBg 8s ease infinite;
-    }
-    
-    body.skin-rainbow .slot-card,
-    body.skin-rainbow .shop-card,
-    body.skin-rainbow .timing-card{
-        border-color:white;
-        box-shadow:
-            0 0 25px white,
-            0 0 45px #ff00ff,
-            inset 0 0 25px rgba(255,255,255,.35);
-    }
-    
-    body.skin-rainbow .gogo-lamp{
-        background:
-            linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-        color:white;
-        box-shadow:
-            0 0 30px red,
-            0 0 50px cyan,
-            0 0 80px violet;
-    }
-    
-    body.skin-dark{
-        background:
-            radial-gradient(circle at top, #300000, #000 70%);
-    }
-    
-    body.skin-dark .slot-card,
-    body.skin-dark .shop-card,
-    body.skin-dark .timing-card{
-        background:
-            linear-gradient(145deg, #000, #1a0000, #050505);
-        border-color:#ff002b;
-        box-shadow:
-            0 0 25px red,
-            0 0 45px #7b00ff,
-            inset 0 0 25px rgba(255,0,0,.35);
-    }
-    
-    body.skin-dark .gogo-lamp{
-        background:#150000;
-        color:#ff003c;
-        border-color:#ff003c;
-        box-shadow:
-            0 0 25px red,
-            0 0 45px #7b00ff;
-    }
-    
-    @keyframes rainbowBg{
-        0%{background-position:0% 50%;}
-        50%{background-position:100% 50%;}
-        100%{background-position:0% 50%;}
-    }
-    
-    body.skin-black-gold h1{
-        color:#ffd700;
-        text-shadow:
-            0 0 10px gold,
-            0 0 25px gold,
-            0 0 45px orange;
-    }
-    
-    body.skin-black-gold .top-status{
-        box-shadow:
-            0 0 20px gold,
-            0 0 40px rgba(255,215,0,.45);
-    }
-    
-    body.skin-black-gold .balance-box{
-        background:
-            linear-gradient(145deg,#fff8d0,#ffffff,#ffe680);
-        border:2px solid gold;
-    }
-    
-    body.skin-black-gold .slot-card,
-    body.skin-black-gold .shop-card,
-    body.skin-black-gold .timing-card{
-        border-color:#ffd700;
-        box-shadow:
-            0 0 28px gold,
-            0 0 55px rgba(255,180,0,.55),
-            inset 0 0 28px rgba(255,215,0,.35);
-    }
-    
-    body.skin-black-gold .slot-machine{
-        border-color:#ffd700;
-        box-shadow:
-            0 0 28px gold,
-            inset 0 0 22px rgba(255,180,0,.55);
-    }
-    
-    body.skin-black-gold .shop-grid button{
-        background:
-            linear-gradient(145deg,#4a3200,#080808);
-        border-color:#ffd700;
-        box-shadow:
-            0 0 14px gold,
-            inset 0 0 14px rgba(255,215,0,.25);
-    }
-    
-    body.skin-black-gold{
-        background:
-            radial-gradient(circle at top, #7a5a00 0%, #241800 35%, #050505 80%) !important;
+            radial-gradient(circle at top, #d6a900 0%, #3a2600 28%, #050505 78%) !important;
     }
     
     body.skin-black-gold .container{
         background:
-            linear-gradient(180deg, rgba(255,215,0,.18), rgba(0,0,0,0));
-        border-left:2px solid rgba(255,215,0,.5);
-        border-right:2px solid rgba(255,215,0,.5);
+            linear-gradient(180deg, rgba(255,215,0,.20), rgba(0,0,0,0) 40%);
+        border-left:2px solid rgba(255,215,0,.65);
+        border-right:2px solid rgba(255,215,0,.65);
         box-shadow:
-            0 0 35px rgba(255,215,0,.45),
-            inset 0 0 30px rgba(255,215,0,.15);
+            0 0 45px rgba(255,215,0,.65),
+            inset 0 0 35px rgba(255,215,0,.18);
         padding:8px;
     }
     
     body.skin-black-gold h1{
-        font-size:32px;
-        color:#fff6b0;
+        color:#fff4a8;
+        font-size:34px;
         text-shadow:
             0 0 8px #fff,
             0 0 18px gold,
-            0 0 35px orange,
-            0 0 55px gold;
+            0 0 38px orange,
+            0 0 70px gold;
     }
     
     body.skin-black-gold .top-status{
         background:
-            linear-gradient(145deg,#0a0a0a,#3a2600,#050505);
-        border:2px solid gold;
+            linear-gradient(145deg,#050505,#4b3200,#050505);
+        border:2px solid #ffd700;
         box-shadow:
             0 0 25px gold,
-            0 0 50px rgba(255,180,0,.55);
+            0 0 55px rgba(255,180,0,.75);
     }
     
     body.skin-black-gold .balance-box{
         background:
             linear-gradient(145deg,#fff,#fff4b8,#d8a900);
-        border-right:2px solid gold;
+        border:2px solid gold;
         box-shadow:
-            inset 0 0 18px rgba(255,215,0,.65);
+            inset 0 0 22px rgba(255,215,0,.75);
     }
     
     body.skin-black-gold .mini-ranking{
         border:2px solid gold;
-        background:
-            radial-gradient(circle,#102400,#020602 70%);
+        background:radial-gradient(circle,#102400,#020602 70%);
         box-shadow:
             0 0 18px gold,
             inset 0 0 18px #00ff66;
@@ -784,161 +900,57 @@
     body.skin-black-gold .timing-card,
     body.skin-black-gold .shop-card{
         background:
-            radial-gradient(circle at top, #4b0000, #120000 45%, #050505 100%);
+            radial-gradient(circle at top, #5a0000, #180000 45%, #030303 100%);
         border:3px solid #ffd700;
         box-shadow:
-            0 0 22px gold,
-            0 0 45px rgba(255,180,0,.75),
-            inset 0 0 30px rgba(255,215,0,.25);
+            0 0 28px gold,
+            0 0 65px rgba(255,180,0,.85),
+            inset 0 0 35px rgba(255,215,0,.28);
     }
     
     body.skin-black-gold .slot-machine{
         background:
-            linear-gradient(145deg,#b00000,#3a0000,#0a0000);
+            linear-gradient(145deg,#b00000,#3a0000,#050000);
         border:5px solid #ffd700;
         box-shadow:
-            0 0 28px gold,
-            0 0 55px rgba(255,180,0,.7),
-            inset 0 0 22px rgba(0,0,0,.8);
-    }
-    
-    body.skin-black-gold .slot-machine::before{
-        background:
-            linear-gradient(#2b1a00,#050505);
-        color:#fff3a0;
-        border-color:#ffd700;
-        box-shadow:
-            0 0 15px gold,
-            0 0 30px orange;
-    }
-    
-    body.skin-black-gold .bet-buttons button,
-    body.skin-black-gold .spin-button{
-        box-shadow:
-            0 0 12px gold,
-            inset 0 0 10px rgba(255,255,255,.25);
+            0 0 32px gold,
+            0 0 70px rgba(255,180,0,.75),
+            inset 0 0 28px rgba(0,0,0,.85);
     }
     
     body.skin-black-gold .shop-grid button{
         background:
-            linear-gradient(145deg,#5c3b00,#090909);
+            linear-gradient(145deg,#6b4700,#090909);
         border:2px solid #ffd700;
         color:#fff6c0;
         box-shadow:
-            0 0 16px gold,
-            inset 0 0 16px rgba(255,215,0,.25);
+            0 0 18px gold,
+            inset 0 0 18px rgba(255,215,0,.28);
     }
     
-    /* ===== 黒金VIPスキン 最終上書き ===== */
-
-body{
-    overflow-x:hidden;
-}
-
-.container{
-    width:100%;
-    box-sizing:border-box;
-}
-
-#balance{
-    font-size:clamp(22px, 6vw, 34px);
-    word-break:break-all;
-}
-
-body.skin-black-gold{
-    background:
-        radial-gradient(circle at top, #d6a900 0%, #3a2600 28%, #050505 78%) !important;
-}
-
-body.skin-black-gold .container{
-    background:
-        linear-gradient(180deg, rgba(255,215,0,.20), rgba(0,0,0,0) 40%);
-    border-left:2px solid rgba(255,215,0,.65);
-    border-right:2px solid rgba(255,215,0,.65);
-    box-shadow:
-        0 0 45px rgba(255,215,0,.65),
-        inset 0 0 35px rgba(255,215,0,.18);
-    padding:8px;
-}
-
-body.skin-black-gold h1{
-    color:#fff4a8;
-    font-size:34px;
-    text-shadow:
-        0 0 8px #fff,
-        0 0 18px gold,
-        0 0 38px orange,
-        0 0 70px gold;
-}
-
-body.skin-black-gold .top-status{
-    background:
-        linear-gradient(145deg,#050505,#4b3200,#050505);
-    border:2px solid #ffd700;
-    box-shadow:
-        0 0 25px gold,
-        0 0 55px rgba(255,180,0,.75);
-}
-
-body.skin-black-gold .balance-box{
-    background:
-        linear-gradient(145deg,#fff,#fff4b8,#d8a900);
-    border:2px solid gold;
-    box-shadow:
-        inset 0 0 22px rgba(255,215,0,.75);
-}
-
-body.skin-black-gold .mini-ranking{
-    border:2px solid gold;
-    background:radial-gradient(circle,#102400,#020602 70%);
-    box-shadow:
-        0 0 18px gold,
-        inset 0 0 18px #00ff66;
-}
-
-body.skin-black-gold .slot-card,
-body.skin-black-gold .timing-card,
-body.skin-black-gold .shop-card{
-    background:
-        radial-gradient(circle at top, #5a0000, #180000 45%, #030303 100%);
-    border:3px solid #ffd700;
-    box-shadow:
-        0 0 28px gold,
-        0 0 65px rgba(255,180,0,.85),
-        inset 0 0 35px rgba(255,215,0,.28);
-}
-
-body.skin-black-gold .slot-machine{
-    background:
-        linear-gradient(145deg,#b00000,#3a0000,#050000);
-    border:5px solid #ffd700;
-    box-shadow:
-        0 0 32px gold,
-        0 0 70px rgba(255,180,0,.75),
-        inset 0 0 28px rgba(0,0,0,.85);
-}
-
-body.skin-black-gold .shop-grid button{
-    background:
-        linear-gradient(145deg,#6b4700,#090909);
-    border:2px solid #ffd700;
-    color:#fff6c0;
-    box-shadow:
-        0 0 18px gold,
-        inset 0 0 18px rgba(255,215,0,.28);
-}
-
-#timingCard{
-    display:none;
-}
-
-#timingMessage{
-    white-space:pre-line;
-}
-
-#timingTimer{
-    font-size:18px;
+    #timingCard{
+        display:none;
+    }
+    
+    #timingMessage{
+        white-space:pre-line;
+    }
+    
+    #timingTimer{
+        font-size:18px;
+        font-weight:bold;
+        color:#ffcc00;
+        margin-top:5px;
+    }
+    
+    #timingTimer{
+    display:block;
+    font-size:22px;
     font-weight:bold;
-    color:#ffcc00;
-    margin-top:5px;
+    color:#ffd700;
+    text-align:center;
+    margin:8px 0 12px;
+    text-shadow:
+        0 0 8px gold,
+        0 0 18px orange;
 }
