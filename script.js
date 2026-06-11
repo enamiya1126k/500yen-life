@@ -41,7 +41,18 @@ let timingDirection = 1;
 let timingRunning = false;
 
 window.onload = function(){
-    resetSlotCountIfNeeded();
+
+    const lastBet =
+    localStorage.getItem("lastBet");
+
+    if(lastBet){
+        document.getElementById("betAmount").value =
+        lastBet;
+
+        document.getElementById("betDisplay").innerText =
+        lastBet;
+    }
+
     update();
 };
 
@@ -384,9 +395,6 @@ function finishSlot(result, bet){
 
     save();
 
-    document.getElementById("betAmount").value = 5;
-    document.getElementById("betDisplay").innerText = 5;
-
     isPremium = false;
 }
 
@@ -494,15 +502,19 @@ window.setBet = function(amount){
 
     document.getElementById("betAmount").value = amount;
     document.getElementById("betDisplay").innerText = amount;
+
+    localStorage.setItem("lastBet", amount);
 };
 
 window.setMaxBet = function(){
 
-    const maxBet =
-    Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
+    const maxBet = Math.min(balance,
+        Math.max(5, Math.floor(balance * 0.1)));
 
     document.getElementById("betAmount").value = maxBet;
     document.getElementById("betDisplay").innerText = maxBet;
+
+    localStorage.setItem("lastBet", maxBet);
 };
 
 function getDateTime(){
