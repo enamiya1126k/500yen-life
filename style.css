@@ -1072,7 +1072,7 @@
                     box-shadow:
                         0 0 8px #ff00ff;
                 
-                    display:none;
+                    display:inline-block;
                 }
                 
                 #toast{
