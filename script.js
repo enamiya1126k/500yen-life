@@ -855,9 +855,9 @@ if(timingPosition >= 48 && timingPosition <= 52){
     document.getElementById("timingMessage").innerText =
     message;
 
-    history.unshift(
-        `${getDateTime()} 🎯 ${message}`
-    );
+slotHistory.unshift(
+    `${getDateTime()} 🎯 ${message}`
+);
 
     save();
 
