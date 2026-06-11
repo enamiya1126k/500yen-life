@@ -845,41 +845,80 @@ setText("playerExp", playerExp.toLocaleString());
                         
                             let message = "";
                         
-                        if(timingPosition >= 48 && timingPosition <= 52){
-                        
-                            const reward = bet * 5;
-                            balance += reward;
-                        
-                            message = `🎯PERFECT！ +${reward}円`;
-                            playWinSound();
-                        
-                        }else if(
-                            timingPosition >= 37 && timingPosition < 47 ||
-                            timingPosition > 53 && timingPosition <= 63
-                        ){
-                        
-                            const penalty = bet * 2;
-                            balance -= penalty;
-                        
-                            message = `☠️危険ゾーン！ -${penalty}円`;
-                        
-                        }else if(timingPosition >= 45 && timingPosition <= 55){
-                        
-                            const reward = bet * 2;
-                            balance += reward;
-                        
-                            message = `✨GOOD！ +${reward}円`;
-                            playWinSound();
-                        
-                        }else if(timingPosition >= 30 && timingPosition <= 70){
-                        
-                            message = `😮セーフ！ ±0円`;
-                        
-                        }else{
-                        
-                            balance -= bet;
-                            message = `💥失敗！ -${bet}円`;
-                        }
+            if(timingPosition >= 48 && timingPosition <= 52){
+
+    let reward = bet * 999;
+
+    if(Math.random() < 0.005){
+
+        reward = bet * 9999;
+
+        message =
+        `🌈🌈🌈\n神降臨\nJACKPOT\n+${reward.toLocaleString()}円\n🌈🌈🌈`;
+
+        alert(
+`🌈🌈🌈
+神降臨
+JACKPOT
+🌈🌈🌈`
+        );
+
+        document.body.classList.add("skin-rainbow");
+
+        setTimeout(function(){
+            document.body.classList.remove("skin-rainbow");
+        }, 5000);
+
+    }else{
+
+        message =
+        `🎯PERFECT！ +${reward.toLocaleString()}円`;
+    }
+
+balance += reward;
+
+playWinSound();
+playWinSound();
+
+setTimeout(playWinSound,150);
+setTimeout(playWinSound,300);
+setTimeout(playWinSound,450);
+setTimeout(playWinSound,600);
+setTimeout(playWinSound,750);
+
+}else if(
+    timingPosition >= 44 &&
+    timingPosition <= 56
+){
+
+    const reward = bet * 2;
+
+    balance += reward;
+
+    message =
+    `✨GOOD！ +${reward.toLocaleString()}円`;
+
+    playWinSound();
+
+}else if(
+    timingPosition >= 25 &&
+    timingPosition <= 75
+){
+
+    const reward = bet;
+
+    balance += reward;
+
+    message =
+    `🛡️SAFE！ +${reward.toLocaleString()}円`;
+
+}else{
+
+    balance -= bet;
+
+    message =
+    `💥失敗！ -${bet.toLocaleString()}円`;
+}
                         
                             document.getElementById("timingMessage").innerText =
                             message;
