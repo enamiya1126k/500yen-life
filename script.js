@@ -2,6 +2,8 @@
   let history = JSON.parse(localStorage.getItem("history")) || [];
   let slotHistory = JSON.parse(localStorage.getItem("slotHistory")) || [];
   let playerExp = Number(localStorage.getItem("playerExp")) || 0;
+  let rebirthCount =
+  Number(localStorage.getItem("rebirthCount")) || 0;
   
   let todaySlotCount = Number(localStorage.getItem("todaySlotCount")) || 0;
   
@@ -881,10 +883,13 @@ document.getElementById("timingMessage").innerText =
     { level: 1000, title: "500円原初神" },
   ];
   
-  function addExp(amount) {
-    playerExp += amount;
-    localStorage.setItem("playerExp", playerExp);
-  }
+function addExp(amount) {
+  const expRate = Math.pow(2, rebirthCount);
+
+  playerExp += Math.floor(amount * expRate);
+
+  localStorage.setItem("playerExp", playerExp);
+}
   
   function getLevel() {
     return Math.min(1000, Math.floor(Math.sqrt(playerExp / 10)) + 1);
@@ -1020,7 +1025,11 @@ end6: {
   type: "end",
   specialTitle: "🕳️節約の終焉",
 },
-  };
+};
+
+function getItemPrice(item) {
+  return Math.floor(item.price * Math.pow(1.5, rebirthCount));
+}
   
   let ownedItems = JSON.parse(localStorage.getItem("ownedItems")) || [];
   
