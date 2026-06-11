@@ -24,9 +24,17 @@
 
   <div>Lv：<span id="playerLevel">1</span></div>
 
-  <div>転生：<span id="rebirthCount">0</span>回</div>
+<div>
+  転生：<span id="rebirthCount">0</span>回
 
-  <div>
+  <button
+    id="rebirthBtn"
+    onclick="rebirth()"
+    class="rebirth-mini-btn"
+  >
+    🌈
+  </button>
+</div>
     <span id="rankTitle">
       小銭に選ばれし者
     </span>
@@ -70,37 +78,6 @@
                 <span id="salaryTimer">25日</span>
             </button>
   </div>
-
-<div class="card">
-    <h3>🌈転生</h3>
-
-    <div>
-        転生：
-        <span id="rebirthCount">0回</span>
-    </div>
-
-    <button
-        type="button"
-        id="rebirthBtn"
-        onclick="rebirth()"
-        style="
-            display:none;
-            width:100%;
-            margin-top:12px;
-            padding:14px;
-            border:none;
-            border-radius:12px;
-            font-size:18px;
-            font-weight:bold;
-            background:linear-gradient(90deg,#ff4fd8,#8c52ff,#4fd8ff);
-            color:white;
-            box-shadow:0 0 20px rgba(255,255,255,0.4);
-            cursor:pointer;
-        "
-    >
-        🌈 Lv1000到達！転生する
-    </button>
-</div>
 
 <div class="card slot-card">
     <h3>🎰ボーナスチャレンジ</h3>
