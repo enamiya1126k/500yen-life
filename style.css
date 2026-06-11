@@ -455,12 +455,13 @@ ul{
 
 #timingCursor{
     position:absolute;
-    top:0;
+    top:50%;
     left:0;
-    width:12px;
-    height:100%;
-    background:#ffffff;
-    border-radius:999px;
+    width:18px;
+    height:18px;
+    transform:translateY(-50%);
+    background:white;
+    border-radius:50%;
     box-shadow:
         0 0 8px white,
         0 0 15px red;
