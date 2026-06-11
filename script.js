@@ -908,13 +908,13 @@ function getLevel() {
     return title;
   }
   
-  function getLevelBuffs() {
+function getLevelBuffs() {
   const level = getLevel();
 
   return {
     slotBonus: Math.floor(level / 10) * 5,
     premiumBonus: Math.floor(level / 20) * 0.001,
-    guerillaBonus: Math.floor(level / 25),
+    guerillaBonus: Math.floor(level / 50),
     continueBonus: Math.floor(level / 200) * 0.1,
   };
 }
