@@ -637,10 +637,10 @@ setText("slotProfit", formatMoney(profit));
   
     timingCard.style.display = "block";
   
-    let seconds = 60;
+    let seconds = 20;
   
     document.getElementById("timingMessage").innerText =
-      "⚡ゲリラチャレンジ発生⚡ 60秒間遊び放題！";
+      "⚡ゲリラチャレンジ発生⚡ 20秒間遊び放題！";
   
     setText("timingTimer", `⏳残り${seconds}秒`);
   
@@ -765,7 +765,7 @@ setText("slotProfit", formatMoney(profit));
   
     let message = "";
   
-    if (timingPosition >= 48 && timingPosition <= 52) {
+    if (timingPosition >= 49 && timingPosition <= 51) {
       let reward = bet * 999;
   
       if (Math.random() < 0.005) {
@@ -799,7 +799,7 @@ setText("slotProfit", formatMoney(profit));
       setTimeout(playWinSound, 450);
       setTimeout(playWinSound, 600);
       setTimeout(playWinSound, 750);
-    } else if (timingPosition >= 44 && timingPosition <= 56) {
+    } else if (timingPosition >= 46 && timingPosition <= 54) {
       const reward = bet * 2;
   
       balance += reward;
