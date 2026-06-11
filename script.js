@@ -395,8 +395,8 @@
       localStorage.setItem("playerExp", playerExp);
     }
   
-    document.getElementById("balance").innerText =
-      balance.toLocaleString() + "円";
+document.getElementById("balance").innerText =
+  formatMoney(balance);
   
     document.getElementById("history").innerHTML = history
       .map((x) => `<li>${x}</li>`)
@@ -438,13 +438,13 @@
   
     const profit = stats.totalReward - stats.totalBet;
   
-    setText("bestBalance", `${stats.bestBalance.toLocaleString()}円`);
-    setText("bestWin", `${stats.bestWin.toLocaleString()}円`);
-    setText("totalPlays", `${stats.totalPlays.toLocaleString()}回`);
-    setText("totalBet", `${stats.totalBet.toLocaleString()}円`);
-    setText("totalReward", `${stats.totalReward.toLocaleString()}円`);
-    setText("slotProfit", `${profit.toLocaleString()}円`);
-  
+setText("bestBalance", formatMoney(stats.bestBalance));
+setText("bestWin", formatMoney(stats.bestWin));
+setText("totalPlays", `${stats.totalPlays.toLocaleString()}回`);
+setText("totalBet", formatMoney(stats.totalBet));
+setText("totalReward", formatMoney(stats.totalReward));
+setText("slotProfit", formatMoney(profit));
+
     setText("playerLevel", getLevel());
     setText("rankTitle", getRankTitle());
     setText("playerExp", playerExp.toLocaleString());
@@ -475,6 +475,22 @@
   
     localStorage.setItem("lastBet", maxBet);
   };
+  
+  function formatMoney(num) {
+  if (num >= 1e16) {
+    return (num / 1e16).toFixed(1) + "京円";
+  }
+
+  if (num >= 1e12) {
+    return (num / 1e12).toFixed(1) + "兆円";
+  }
+
+  if (num >= 1e8) {
+    return (num / 1e8).toFixed(1) + "億円";
+  }
+
+  return num.toLocaleString() + "円";
+}
   
   function getDateTime() {
     const now = new Date();
