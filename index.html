@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>500円ライフ</title>
-    <link rel="stylesheet" href="style.css?v=47">
+    <title>500円LIFE</title>
+    <link rel="stylesheet" href="style.css?v=100">
 </head>
 <body>
 
@@ -25,8 +25,9 @@
             <div>総BET：<span id="totalBet">0円</span></div>
             <div>総獲得：<span id="totalReward">0円</span></div>
             <div>収支：<span id="slotProfit">0円</span></div>
-<div>本日残り：<span id="slotLimit">50回</span></div>
-                </div>
+            <div>本日残り：<span id="slotLimit">50回</span></div>
+            <div>称号：<span id="currentTitle">なし</span></div>
+        </div>
     </div>
 
     <div class="quick-bar">
@@ -106,7 +107,9 @@
         <input type="number" id="timingBet" placeholder="賭け金" value="5">
 
         <div class="timing-bar">
+            <div class="danger-zone left-danger"></div>
             <div class="target-zone"></div>
+            <div class="danger-zone right-danger"></div>
             <div id="timingCursor"></div>
         </div>
 
@@ -115,6 +118,56 @@
         </button>
 
         <p id="timingMessage">挑戦待ち</p>
+    </div>
+
+    <div class="card shop-card">
+        <h3>🏪500円LIFE SHOP</h3>
+
+        <div class="buff-panel">
+            <div>🎰回数上限：<span id="buffSlotLimit">50回</span></div>
+            <div>🌈確変率：<span id="buffPremiumRate">0.5%</span></div>
+            <div>♻️継続率：<span id="buffContinueRate">0%</span></div>
+        </div>
+
+        <h4>👑称号</h4>
+        <div class="shop-grid">
+            <button onclick="buyShopItem('title1')" id="shop-title1">🏅節約の見習い<br>50,000円<br><small>+5回/日</small></button>
+            <button onclick="buyShopItem('title2')" id="shop-title2">⚜️資産形成士<br>200,000円<br><small>+10回/日</small></button>
+            <button onclick="buyShopItem('title3')" id="shop-title3">💰億劫な浪費家を超えし者<br>1,000,000円<br><small>+15回/日</small></button>
+            <button onclick="buyShopItem('title4')" id="shop-title4">👑500円皇帝<br>5,000,000円<br><small>+20回/日</small></button>
+            <button onclick="buyShopItem('title5')" id="shop-title5">🌌500円宇宙の支配者<br>10,000,000円<br><small>+50回/日</small></button>
+        </div>
+
+        <h4>🎨スキン</h4>
+        <div class="shop-grid">
+            <button onclick="buyShopItem('skin1')" id="shop-skin1">🎨黒金スキン<br>100,000円<br><small>確変率+0.2%</small></button>
+            <button onclick="buyShopItem('skin2')" id="shop-skin2">🌈レインボー覚醒<br>500,000円<br><small>確変率+0.5%</small></button>
+            <button onclick="buyShopItem('skin3')" id="shop-skin3">☠️奈落モード<br>1,000,000円<br><small>確変率+1.0%</small></button>
+        </div>
+
+        <h4>✨演出</h4>
+        <div class="shop-grid">
+            <button onclick="buyShopItem('effect1')" id="shop-effect1">✨GOGO覚醒<br>50,000円<br><small>継続率+10%</small></button>
+            <button onclick="buyShopItem('effect2')" id="shop-effect2">🔥BIG BONUS極<br>100,000円<br><small>継続率+20%</small></button>
+            <button onclick="buyShopItem('effect3')" id="shop-effect3">🌈プレミアサウンドパック<br>200,000円<br><small>継続率+30%</small></button>
+        </div>
+
+        <h4>🌌エンドコンテンツ</h4>
+        <div class="shop-grid">
+            <button onclick="buyShopItem('end1')" id="shop-end1">🏯500円王国建設<br>50,000,000円<br><small>+100回/日</small></button>
+            <button onclick="buyShopItem('end2')" id="shop-end2">🌎500円文明創造<br>100,000,000円<br><small>確変率+2%</small></button>
+            <button onclick="buyShopItem('end3')" id="shop-end3">🚀500円銀河開拓<br>500,000,000円<br><small>継続率+50%</small></button>
+            <button onclick="buyShopItem('end4')" id="shop-end4">⭐500円宇宙創造<br>1,000,000,000円<br><small>全バフ2倍</small></button>
+            <button onclick="buyShopItem('end5')" id="shop-end5">♾️500円という概念<br>10,000,000,000円<br><small>称号解放</small></button>
+            <button onclick="buyShopItem('end6')" id="shop-end6">🕳️500円特異点<br>100,000,000,000円<br><small>節約の終焉</small></button>
+        </div>
+
+        <div class="collection-box">
+            <h4>🏆コレクション</h4>
+            <div id="collectionList">未購入</div>
+        </div>
+
+        <p id="shopMessage"></p>
     </div>
 
     <div class="history-area">
@@ -133,7 +186,7 @@
 
 </div>
 
-<script src="script.js?v=47"></script>
+<script src="script.js?v=100"></script>
 
 </body>
 </html>
