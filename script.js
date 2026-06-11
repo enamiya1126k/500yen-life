@@ -1002,10 +1002,10 @@
                                                                                                                                                                                                                             document.getElementById("timingMessage").innerText =
                                                                                                                                                                                                                             message;
                                                                                                                                                                                                                         
-                                                                                                                                                                                                                        slotHistory.unshift(
-                                                                                                                                                                                                                            `${getDateTime()} 🎯 ${message}`
-                                                                                                                                                                                                                        );
-                                                                                                                                                                                                                        
+slotHistory.unshift(
+    `${getDateTime()} 🎯 ${message}`
+);
+
 save();
 
 const btn =
@@ -1013,6 +1013,7 @@ document.getElementById("timingMainBtn");
 
 if(btn){
     btn.innerText = "スタート";
+}
 }
                                                                                                                                                                                                                         
                                                                                                                                                                                                                         const rankTable = [
