@@ -1138,11 +1138,16 @@ function getLevel() {
     }
   }
   
-  window.rebirth = function () {
-    if (getLevel() < 1000) {
-      alert("Lv1000で転生できます！");
-      return;
-    }
+window.rebirth = function () {
+
+  if (getLevel() < 1000) {
+
+    showToast(
+      `レベル1000で転生可能です\n現在Lv ${getLevel()}`
+    );
+
+    return;
+  }
   
     if (
       !confirm(
@@ -1285,3 +1290,24 @@ function getLevel() {
       });
     }
     
+    function showToast(text) {
+
+  let toast = document.getElementById("toast");
+
+  if (!toast) {
+
+    toast = document.createElement("div");
+
+    toast.id = "toast";
+
+    document.body.appendChild(toast);
+  }
+
+  toast.innerText = text;
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
