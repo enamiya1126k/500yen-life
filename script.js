@@ -824,7 +824,7 @@
                                                                                                     }, 60000);
                                                                                                 }
                                                                                                                                                                                                                         
-                                                                                                                                                                                                      window.toggleTiming = function(){
+window.toggleTiming = function(){
 
     const btn =
     document.getElementById("timingMainBtn");
