@@ -1006,24 +1006,7 @@
                                                                                                                                                                                                                             `${getDateTime()} 🎯 ${message}`
                                                                                                                                                                                                                         );
                                                                                                                                                                                                                         
-                                                                                                                                                                                                                           save();
-
-if(timingCountdown){
-    clearInterval(timingCountdown);
-    timingCountdown = null;
-}
-
-if(timingTimeout){
-    clearTimeout(timingTimeout);
-    timingTimeout = null;
-}
-
-const timingCard =
-document.getElementById("timingCard");
-
-if(timingCard){
-    timingCard.style.display = "none";
-}
+save();
 
 const btn =
 document.getElementById("timingMainBtn");
