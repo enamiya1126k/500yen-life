@@ -221,20 +221,6 @@ button{
     z-index:5;
 }
 
-.slot-machine::after{
-    content:"";
-    position:absolute;
-    left:14px;
-    right:14px;
-    top:50%;
-    height:4px;
-    background:#ff2b2b;
-    box-shadow:0 0 12px red,0 0 20px red;
-    transform:translateY(-50%);
-    pointer-events:none;
-    z-index:3;
-}
-
 .slot-cell{
     height:54px;
     background:linear-gradient(#fff,#fff5bf,#fff);
@@ -401,37 +387,85 @@ ul{
 }
 
 .timing-bar{
+    position:relative;
     height:44px;
     border:3px solid gold;
+    border-radius:999px;
+    margin:18px 0;
+    overflow:hidden;
     background:
         linear-gradient(90deg,
-        #111,
-        #5a0000,
-        #111,
-        #004d18,
-        #111,
-        #5a0000,
-        #111);
+        #120000 0%,
+        #ff0000 34%,
+        #222 42%,
+        #00ff66 47%,
+        #00ff66 53%,
+        #222 58%,
+        #ff0000 66%,
+        #120000 100%);
     box-shadow:
         0 0 18px gold,
         inset 0 0 18px black;
 }
 
+.timing-bar::before,
+.timing-bar::after{
+    content:"危険ゾーン";
+    position:absolute;
+    top:-22px;
+    width:28%;
+    height:18px;
+    color:white;
+    font-size:11px;
+    text-align:center;
+    text-shadow:0 0 8px red;
+}
+
+.timing-bar::before{
+    left:14%;
+}
+
+.timing-bar::after{
+    right:14%;
+}
+
 .target-zone{
+    position:absolute;
+    left:47%;
+    width:6%;
+    height:100%;
     background:linear-gradient(#b6ff00,#00ff66,#b6ff00);
     box-shadow:
         0 0 18px #00ff66,
         0 0 35px #00ff66;
+    z-index:2;
+}
+
+.target-zone::before{
+    content:"ターゲット";
+    position:absolute;
+    top:-22px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#7cff83;
+    font-size:11px;
+    white-space:nowrap;
+    text-shadow:0 0 8px #00ff66;
 }
 
 #timingCursor{
-    width:18px;
+    position:absolute;
+    top:-4px;
+    left:0;
+    width:16px;
+    height:52px;
     background:linear-gradient(#fff,#ff0000,#fff);
+    border-radius:999px;
     box-shadow:
         0 0 15px red,
         0 0 30px red,
         0 0 45px orange;
-    border-radius:999px;
+    z-index:5;
 }
 
 #timingMainBtn{
