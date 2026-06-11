@@ -1134,6 +1134,20 @@ function updateShopDisplay(){
         buffs.currentTitle
     );
 
+    document.body.classList.remove(
+        "skin-black-gold",
+        "skin-rainbow",
+        "skin-dark"
+    );
+
+    if(ownedItems.includes("skin3")){
+        document.body.classList.add("skin-dark");
+    }else if(ownedItems.includes("skin2")){
+        document.body.classList.add("skin-rainbow");
+    }else if(ownedItems.includes("skin1")){
+        document.body.classList.add("skin-black-gold");
+    }
+
     const collectionList =
     document.getElementById("collectionList");
 
