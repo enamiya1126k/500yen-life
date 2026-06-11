@@ -1111,3 +1111,35 @@ h1{
 #toast.show{
     opacity:1;
 }
+
+/* ===== ランキング欄・見やすさ修正 ===== */
+
+.mini-ranking{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4px 10px;
+
+    font-size:12px;
+    line-height:1.25;
+
+    padding:10px;
+    overflow:visible;
+}
+
+.mini-ranking .rank-full{
+    grid-column:1 / 3;
+}
+
+.mini-ranking .rank-title{
+    color:#54ff65;
+    font-weight:bold;
+    text-shadow:0 0 8px #54ff65;
+}
+
+.mini-ranking span{
+    word-break:keep-all;
+}
+
+.top-status{
+    align-items:stretch;
+}
