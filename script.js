@@ -42,7 +42,8 @@
                                                                                                                         let timingDirection = 1;
                                                                                                                         let timingRunning = false;
                                                                                                 let timingTimeout = null;
-                                                                                                                        
+                                                                                                           let timingCountdown = null;
+                                                                                                             
                                                                                                             window.onload = function(){
                                                                                                             
                                                                                                                 const lastBet =
@@ -770,8 +771,10 @@ function triggerTimingChallenge(){
 
     timingCard.style.display = "block";
 
+    let seconds = 60;
+
     document.getElementById("timingMessage").innerText =
-    "⚡ゲリラチャレンジ発生⚡ 60秒以内に挑戦！";
+    `⚡ゲリラチャレンジ発生⚡\n⏳残り${seconds}秒`;
 
     timingCard.scrollIntoView({
         behavior:"smooth",
@@ -782,11 +785,36 @@ function triggerTimingChallenge(){
         clearTimeout(timingTimeout);
     }
 
+    if(timingCountdown){
+        clearInterval(timingCountdown);
+    }
+
+    timingCountdown = setInterval(function(){
+
+        seconds--;
+
+        document.getElementById("timingMessage").innerText =
+        `⚡ゲリラチャレンジ発生⚡\n⏳残り${seconds}秒`;
+
+        if(seconds <= 0){
+
+            clearInterval(timingCountdown);
+
+            timingCard.style.display = "none";
+
+            document.getElementById("timingMessage").innerText =
+            "挑戦待ち";
+        }
+
+    }, 1000);
+
     timingTimeout = setTimeout(function(){
 
         if(timingRunning){
             return;
         }
+
+        clearInterval(timingCountdown);
 
         timingCard.style.display = "none";
 
@@ -794,7 +822,6 @@ function triggerTimingChallenge(){
         "挑戦待ち";
 
     }, 60000);
-
 }
                                                                                                                         
                                                                                                                         window.toggleTiming = function(){
@@ -989,6 +1016,15 @@ message =
                                                                                                                         
                                                                                                                             save();
                                                                                                                         
+                                                                                                clearInterval(timingCountdown);
+
+const timingCard =
+document.getElementById("timingCard");
+
+if(timingCard){
+    timingCard.style.display = "none";
+}
+                                                                                                
                                                                                                                             const btn =
                                                                                                                             document.getElementById("timingMainBtn");
                                                                                                                         
