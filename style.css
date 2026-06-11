@@ -359,8 +359,8 @@
         }
         
         .target-zone{
-            left:47%;
-            width:6%;
+            left:48.5%;
+            width:3%;
             z-index:2;
         }
         
@@ -431,8 +431,8 @@
         
         .target-zone{
             position:absolute;
-            left:47%;
-            width:6%;
+            left:48.5%;
+            width:3%;
             height:100%;
             background:linear-gradient(#b6ff00,#00ff66,#b6ff00);
             box-shadow:
