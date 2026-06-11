@@ -1055,7 +1055,7 @@ function getContinueRate(){
     return buffs.continueBonus;
 }
 
-function buyShopItem(id){
+window.buyShopItem = function(id){
 
     const item = shopItems[id];
 
@@ -1101,69 +1101,4 @@ function buyShopItem(id){
     save();
 
     updateShopDisplay();
-}
-
-function updateShopDisplay(){
-
-    const buffs = getShopBuffs();
-
-    setText(
-        "buffSlotLimit",
-        `${getDailySlotLimit()}回`
-    );
-
-    setText(
-        "buffPremiumRate",
-        `${(getPremiumRate() * 100).toFixed(1)}%`
-    );
-
-    setText(
-        "buffContinueRate",
-        `${Math.round(getContinueRate() * 100)}%`
-    );
-
-    setText(
-        "currentTitle",
-        buffs.currentTitle
-    );
-
-    const collectionList =
-    document.getElementById("collectionList");
-
-    if(collectionList){
-
-        if(ownedItems.length === 0){
-
-            collectionList.innerText =
-            "未購入";
-
-        }else{
-
-            collectionList.innerHTML =
-            ownedItems
-            .map(function(id){
-                return `<div>${shopItems[id].name}</div>`;
-            })
-            .join("");
-        }
-    }
-
-    Object.keys(shopItems).forEach(function(id){
-
-        const btn =
-        document.getElementById(`shop-${id}`);
-
-        if(!btn) return;
-
-        if(ownedItems.includes(id)){
-
-            btn.classList.add("owned");
-            btn.disabled = true;
-
-        }else{
-
-            btn.classList.remove("owned");
-            btn.disabled = false;
-        }
-    });
-}
+};
