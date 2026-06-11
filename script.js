@@ -355,7 +355,7 @@
   
     save();
   
-    if (Math.random() < 0.03) {
+    if (Math.random() < getGuerillaRate()) {
       if (
         confirm(
           `⚡⚡⚡
@@ -884,9 +884,7 @@ document.getElementById("timingMessage").innerText =
   ];
   
 function addExp(amount) {
-  const expRate = Math.pow(2, rebirthCount);
-
-  playerExp += Math.floor(amount * expRate);
+  playerExp += Math.floor(amount * getExpRate());
 
   localStorage.setItem("playerExp", playerExp);
 }
@@ -1108,6 +1106,23 @@ function getContinueRate() {
   return buffs.continueBonus + levelBuffs.continueBonus + rebirth.continueBonus;
 }
 
+function getContinueRate() {
+  const buffs = getShopBuffs();
+  const rebirth = getRebirthBuffs();
+
+  return buffs.continueBonus + rebirth.continueBonus;
+}
+
+function getExpRate() {
+  return 1 + rebirthCount;
+}
+
+function getGuerillaRate() {
+  return 0.03;
+}
+
+window.buyShopItem = function (id) {
+
 function getRebirthBuffs() {
   return {
     slotBonus: rebirthCount * 20,
@@ -1214,14 +1229,18 @@ balance -= price;
   function updateShopDisplay() {
     const buffs = getShopBuffs();
   
-    setAllText("buffSlotLimit", `${getDailySlotLimit()}回`);
-  
-    setAllText("buffPremiumRate", `${(getPremiumRate() * 100).toFixed(1)}%`);
-  
-    setAllText("buffContinueRate", `${Math.round(getContinueRate() * 100)}%`);
-  
-    setAllText("currentTitle", buffs.currentTitle);
-  
+setAllText("buffSlotLimit", `${getDailySlotLimit()}回`);
+
+setAllText("buffPremiumRate", `${(getPremiumRate() * 100).toFixed(1)}%`);
+
+setAllText("buffContinueRate", `${Math.round(getContinueRate() * 100)}%`);
+
+setAllText("buffExpRate", `${getExpRate()}倍`);
+
+setAllText("buffGuerillaRate", `${Math.round(getGuerillaRate() * 100)}%`);
+
+setAllText("currentTitle", buffs.currentTitle);
+
     document.body.classList.remove(
       "skin-black-gold",
       "skin-rainbow",
