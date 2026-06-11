@@ -1085,22 +1085,32 @@ function getItemPrice(item) {
   }
   
 function getDailySlotLimit() {
-  const shopBuffs = getShopBuffs();
-  const levelBuffs = getLevelBuffs();
+  const buffs = getShopBuffs();
+  const rebirth = getRebirthBuffs();
 
-  return 50 + shopBuffs.slotBonus + levelBuffs.slotBonus;
+  return 50 + buffs.slotBonus + rebirth.slotBonus;
 }
-  
+
 function getPremiumRate() {
-  const shopBuffs = getShopBuffs();
-  const levelBuffs = getLevelBuffs();
+  const buffs = getShopBuffs();
+  const rebirth = getRebirthBuffs();
 
-  return 0.005 + shopBuffs.premiumBonus + levelBuffs.premiumBonus;
+  return 0.005 + buffs.premiumBonus + rebirth.premiumBonus;
 }
-  
+
 function getContinueRate() {
   const buffs = getShopBuffs();
-  return buffs.continueBonus;
+  const rebirth = getRebirthBuffs();
+
+  return buffs.continueBonus + rebirth.continueBonus;
+}
+
+function getRebirthBuffs() {
+  return {
+    slotBonus: rebirthCount * 20,
+    premiumBonus: rebirthCount * 0.002,
+    continueBonus: rebirthCount * 0.1,
+  };
 }
 
 function updateRebirthButton() {
