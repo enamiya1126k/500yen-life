@@ -1131,11 +1131,11 @@ function getLevel() {
   
     if (!btn) return;
   
-    if (getLevel() >= 1000) {
-      btn.style.display = "block";
-    } else {
-      btn.style.display = "none";
-    }
+if (getLevel() >= 1000) {
+  btn.style.opacity = "1";
+} else {
+  btn.style.opacity = "0.35";
+}
   }
   
 window.rebirth = function () {
