@@ -450,3 +450,90 @@ ul{
 #timingCursor{
     z-index:3;
 }
+
+.timing-card{
+    background:
+        radial-gradient(circle at top, #3b0000, #070000 70%);
+    color:white;
+    border:2px solid gold;
+    box-shadow:
+        0 0 20px gold,
+        inset 0 0 20px rgba(255,0,0,.45);
+}
+
+.timing-card h3{
+    font-size:24px;
+    color:#ffd700;
+    text-shadow:
+        0 0 8px gold,
+        0 0 18px red;
+}
+
+.timing-bar{
+    height:44px;
+    border:3px solid gold;
+    background:
+        linear-gradient(90deg,
+        #111,
+        #5a0000,
+        #111,
+        #004d18,
+        #111,
+        #5a0000,
+        #111);
+    box-shadow:
+        0 0 18px gold,
+        inset 0 0 18px black;
+}
+
+.target-zone{
+    background:linear-gradient(#b6ff00,#00ff66,#b6ff00);
+    box-shadow:
+        0 0 18px #00ff66,
+        0 0 35px #00ff66;
+}
+
+#timingCursor{
+    width:18px;
+    background:linear-gradient(#fff,#ff0000,#fff);
+    box-shadow:
+        0 0 15px red,
+        0 0 30px red,
+        0 0 45px orange;
+    border-radius:999px;
+}
+
+#timingMainBtn{
+    height:64px;
+    margin-top:12px;
+    border-radius:999px;
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    letter-spacing:2px;
+    background:
+        radial-gradient(circle at 30% 20%, #fff, #ff3b3b 18%, #b00000 60%, #4a0000);
+    box-shadow:
+        0 6px 0 #300000,
+        0 0 18px red,
+        0 0 35px red;
+    text-shadow:
+        0 0 8px white,
+        0 0 16px red;
+}
+
+#timingMainBtn:active{
+    transform:translateY(5px);
+    box-shadow:
+        0 1px 0 #300000,
+        0 0 25px red;
+}
+
+#timingMessage{
+    font-size:22px;
+    font-weight:bold;
+    color:#ffd700;
+    text-shadow:
+        0 0 8px gold,
+        0 0 18px orange;
+}
