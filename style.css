@@ -455,16 +455,15 @@ ul{
 
 #timingCursor{
     position:absolute;
-    top:-4px;
+    top:0;
     left:0;
-    width:16px;
-    height:52px;
-    background:linear-gradient(#fff,#ff0000,#fff);
+    width:12px;
+    height:100%;
+    background:#ffffff;
     border-radius:999px;
     box-shadow:
-        0 0 15px red,
-        0 0 30px red,
-        0 0 45px orange;
+        0 0 8px white,
+        0 0 15px red;
     z-index:5;
 }
 
