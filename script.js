@@ -1099,13 +1099,51 @@ function getPremiumRate() {
 }
   
 function getContinueRate() {
-  const shopBuffs = getShopBuffs();
-  const levelBuffs = getLevelBuffs();
-
-  return shopBuffs.continueBonus + levelBuffs.continueBonus;
+  const buffs = getShopBuffs();
+  return buffs.continueBonus;
 }
-  
-  window.buyShopItem = function (id) {
+
+function updateRebirthButton() {
+  const btn = document.getElementById("rebirthBtn");
+
+  if (!btn) return;
+
+  if (getLevel() >= 1000) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+}
+
+window.rebirth = function () {
+  if (getLevel() < 1000) {
+    alert("Lv1000で転生できます！");
+    return;
+  }
+
+  if (
+    !confirm(
+      "転生しますか？\n\n所持金はそのまま。\nLvは1に戻ります。\nEXP獲得量と各種バフが強化されます。\nただしショップ価格もインフレします。"
+    )
+  ) {
+    return;
+  }
+
+  rebirthCount++;
+
+  playerExp = 0;
+
+  localStorage.setItem("rebirthCount", rebirthCount);
+  localStorage.setItem("playerExp", playerExp);
+
+  history.unshift(`${getDateTime()} 🌈${rebirthCount}回目の転生`);
+
+  save();
+
+  alert(`🌈転生完了！\n現在 ${rebirthCount}回転生`);
+};
+
+window.buyShopItem = function (id) {
     const item = shopItems[id];
   
     if (!item) {
