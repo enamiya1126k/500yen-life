@@ -431,6 +431,7 @@
       updateStats();
       updateTimers();
       updateShopDisplay();
+    updateRebirthButton();
     }
     
     function updateStats() {
@@ -889,9 +890,12 @@
     localStorage.setItem("playerExp", playerExp);
   }
     
-  function getLevel() {
-    return 1000;
-  }
+function getLevel() {
+  return Math.min(
+    1000,
+    Math.floor(Math.sqrt(playerExp / 10)) + 1
+  );
+}
     
     function getRankTitle() {
       const level = getLevel();
