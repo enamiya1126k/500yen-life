@@ -406,9 +406,48 @@ function triggerBalanceJackpot() {
 
   balanceBox.classList.add("balance-jackpot");
 
+  playJackpotSound();
+
+  if (navigator.vibrate) {
+    navigator.vibrate([100,50,100,50,300]);
+  }
+
   setTimeout(function () {
     balanceBox.classList.remove("balance-jackpot");
   }, 3000);
+}
+
+function triggerGodJackpot() {
+
+  document.body.classList.add("god-jackpot");
+
+  const flash = document.createElement("div");
+  flash.className = "god-flash";
+
+  document.body.appendChild(flash);
+
+  if (navigator.vibrate) {
+    navigator.vibrate([
+      300,100,
+      300,100,
+      500
+    ]);
+  }
+
+  playJackpotSound();
+  playJackpotSound();
+
+  showToast(
+    "💥 GOD JACKPOT 💥"
+  );
+
+  setTimeout(() => {
+    document.body.classList.remove("god-jackpot");
+  }, 3500);
+
+  setTimeout(() => {
+    flash.remove();
+  }, 1500);
 }
 
 function save() {
@@ -442,11 +481,20 @@ function save() {
   update();
 
   if (
-    beforeBalance > 0 &&
-    balance >= beforeBalance * 10
-  ) {
-    triggerBalanceJackpot();
-  }
+  beforeBalance > 0 &&
+  balance >= beforeBalance * 90
+) {
+
+  triggerGodJackpot();
+
+} else if (
+  beforeBalance > 0 &&
+  balance >= beforeBalance * 10
+) {
+
+  triggerBalanceJackpot();
+
+}
 
   previousBalanceForJackpot = balance;
 }
@@ -684,6 +732,24 @@ function playWinSound() {
   }, 240);
 }
 
+function playJackpotSound() {
+
+  playTone(1200, 100, "triangle", 0.08);
+
+  setTimeout(() => {
+    playTone(1600, 120, "triangle", 0.09);
+  }, 100);
+
+  setTimeout(() => {
+    playTone(2200, 150, "triangle", 0.10);
+  }, 220);
+
+  setTimeout(() => {
+    playTone(3200, 350, "triangle", 0.12);
+  }, 350);
+
+}
+
 function playPremiumSound() {
   playTone(520, 120, "triangle", 0.05);
 
@@ -694,6 +760,18 @@ function playPremiumSound() {
   setTimeout(function () {
     playTone(1040, 180, "triangle", 0.05);
   }, 240);
+}
+
+function playJackpotSound() {
+  playTone(1200, 100, "triangle", 0.08);
+
+  setTimeout(() => {
+    playTone(1600, 150, "triangle", 0.08);
+  }, 100);
+
+  setTimeout(() => {
+    playTone(2200, 250, "triangle", 0.08);
+  }, 250);
 }
 
 function updateTimers() {
