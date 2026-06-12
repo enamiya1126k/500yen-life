@@ -2017,10 +2017,16 @@ function chooseAbyss(index) {
     slotHistory.unshift(`${getDateTime()} 🕳️深淵の加護 EXP+100,000`);
   }
 
-  setText("abyssMessage", message);
+setText("abyssMessage", message);
 
-  closeAbyssChallenge(message);
-  save();
+const buttons = document.querySelectorAll(".abyss-hole");
+if (buttons[index]) {
+  buttons[index].disabled = true;
+  buttons[index].innerText = "済";
+  buttons[index].classList.add("used");
+}
+
+save();
 }
 
 function closeAbyssChallenge(message) {
