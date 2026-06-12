@@ -1940,6 +1940,8 @@ function chooseAbyss(index) {
 
     balance -= penalty;
 
+playAbyssBadEffect();
+
     message =
       `☠️本物の奈落☠️\n` +
       `残高10% × ${multiplier}倍\n` +
@@ -2048,4 +2050,12 @@ function closeAbyssChallenge(message) {
       abyssCard.style.display = "none";
     }, 1500);
   }
+}
+
+function playAbyssBadEffect() {
+  document.body.classList.add("abyss-bad-effect");
+
+  setTimeout(function () {
+    document.body.classList.remove("abyss-bad-effect");
+  }, 800);
 }
