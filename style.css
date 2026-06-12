@@ -1328,3 +1328,64 @@ body.skin-dark .timing-card{
     0 0 4px rgba(255,255,255,.6),
     0 0 10px rgba(255,215,0,.6);
 }
+
+/* ===== 残高10倍ペカ演出 ===== */
+
+.balance-wide.balance-jackpot{
+  animation: balanceJackpot 3s ease-out;
+}
+
+@keyframes balanceJackpot{
+  0%{
+    filter: brightness(1);
+    transform: scale(1);
+    box-shadow:
+      0 0 8px #54ff65,
+      inset 0 0 8px rgba(0,0,0,.15);
+  }
+
+  10%{
+    filter: brightness(3.5);
+    transform: scale(1.03);
+    box-shadow:
+      0 0 25px #fff,
+      0 0 45px gold,
+      0 0 80px #ff00ff,
+      inset 0 0 30px gold;
+  }
+
+  25%{
+    filter: brightness(1.3);
+    transform: scale(.99);
+  }
+
+  40%{
+    filter: brightness(4);
+    transform: scale(1.04);
+    box-shadow:
+      0 0 30px #fff,
+      0 0 60px #00ffff,
+      0 0 100px #ff00ff,
+      inset 0 0 35px #fff700;
+  }
+
+  60%{
+    filter: brightness(1.4);
+    transform: scale(1);
+  }
+
+  80%{
+    filter: brightness(3.2);
+    transform: scale(1.02);
+    box-shadow:
+      0 0 25px #fff,
+      0 0 60px gold,
+      0 0 110px #54ff65,
+      inset 0 0 35px gold;
+  }
+
+  100%{
+    filter: brightness(1);
+    transform: scale(1);
+  }
+}
