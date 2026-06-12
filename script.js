@@ -221,8 +221,11 @@
                     cell.classList.remove("hit");
                   }
                 
-                  document.getElementById("betDisplay").innerText = bet;
-                  document.getElementById("payoutDisplay").innerText = 0;
+document.getElementById("betDisplay").innerText =
+  formatMoney(bet);
+
+document.getElementById("payoutDisplay").innerText =
+  formatMoney(totalReward);
                 
                   document.getElementById("gogoLamp").classList.remove("on");
                   document.getElementById("gogoLamp").classList.remove("premium");
