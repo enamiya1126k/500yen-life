@@ -512,6 +512,10 @@ function updateStats() {
   setText("rebirthCount", rebirthCount);
   setText("rankTitle", getRankTitle());
   setText("playerExp", playerExp.toLocaleString());
+  setText(
+  "wealthBonus",
+  `${getWealthBonus().toFixed(1)}倍`
+);
   setText("debtorLevel", debtorLevel);
   setText("debtTitle", getDebtTitle());
 
