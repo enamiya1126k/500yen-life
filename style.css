@@ -833,3 +833,52 @@ body.skin-dark .timing-card{
     transform: translateX(0);
   }
 }
+
+.debt-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.debt-box {
+  width: 90%;
+  max-width: 500px;
+  background: #050505;
+  border: 3px solid red;
+  color: #ff4444;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 0 30px red, 0 0 80px red;
+}
+
+.debt-title {
+  font-size: 30px;
+  color: white;
+  margin-bottom: 18px;
+  text-shadow: 0 0 10px red, 0 0 20px red;
+}
+
+.debt-text {
+  white-space: pre-line;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+
+.debt-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.debt-buttons button {
+  flex: 1;
+  background: #220000;
+  color: white;
+  border: 1px solid red;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: bold;
+}
