@@ -910,7 +910,7 @@ message = `💥OUT！ -${formatMoney(penalty)}`;
 }
 
 const rankTable = [
-  { level: 1, title: "小銭に選ばれし者" },
+  { level: 1, title: "500円玉に選ばれし者" },
   { level: 2, title: "銭鬼の幼生" },
   { level: 3, title: "残高観測者" },
   { level: 4, title: "硬貨結界の見習い" },
@@ -1056,7 +1056,7 @@ function getLevel() {
 
 function getRankTitle() {
   const level = getLevel();
-  let title = "小銭に選ばれし者";
+  let title = "500円玉に選ばれし者";
 
   rankTable.forEach(function (rank) {
     if (level >= rank.level) {
