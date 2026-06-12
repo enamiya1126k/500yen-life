@@ -1334,10 +1334,50 @@
           const item = shopItems[id];
           const price = getItemPrice(item);
         
-          btn.innerHTML = `
-            ${item.name}<br>
-            <small>${formatMoney(price)}</small>
-          `;
+Object.keys(shopItems).forEach(function (id) {
+  const btn = document.getElementById(`shop-${id}`);
+
+  if (!btn) return;
+
+  const item = shopItems[id];
+  const price = getItemPrice(item);
+
+  let effectText = "";
+
+  if (item.slotBonus) {
+    effectText = `+${item.slotBonus}回/日`;
+  }
+
+  if (item.premiumBonus) {
+    effectText = `確変率+${(item.premiumBonus * 100).toFixed(1)}%`;
+  }
+
+  if (item.continueBonus) {
+    effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
+  }
+
+  if (item.doubleBuff) {
+    effectText = "全バフ2倍";
+  }
+
+  if (item.specialTitle) {
+    effectText = "称号解放";
+  }
+
+  btn.innerHTML = `
+    ${item.name}<br>
+    ${formatMoney(price)}<br>
+    <small>${effectText}</small>
+  `;
+
+  if (ownedItems.includes(id)) {
+    btn.classList.add("owned");
+    btn.disabled = true;
+  } else {
+    btn.classList.remove("owned");
+    btn.disabled = false;
+  }
+});
         
           if (ownedItems.includes(id)) {
             btn.classList.add("owned");
