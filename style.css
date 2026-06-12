@@ -768,11 +768,20 @@ body.skin-dark .timing-card{
   padding-bottom: 3px;
 }
 
-.buff-panel {
-  padding: 8px 10px;
-  font-size: 11px;
-  line-height: 1.2;
-  margin-bottom: 10px;
+.buff-panel{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:4px 12px;
+
+  padding:8px;
+
+  font-size:11px;
+
+  line-height:1.15;
+
+  margin-bottom:10px;
 }
 
 .shop-grid {
