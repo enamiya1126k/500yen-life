@@ -411,45 +411,39 @@ function triggerBalanceJackpot() {
   }, 3000);
 }
 
-function save() {
-  const beforeBalance = previousBalanceForJackpot;
-
-  if (balance <= 0) {
-    balance = 0;
-
-    localStorage.setItem("balance", balance);
-
-    update();
-
-    previousBalanceForJackpot = balance;
-
-    showDebtModal();
-
-    return;
-  }
+function update() {
+  resetSlotCountIfNeeded();
 
   if (balance > stats.bestBalance) {
     stats.bestBalance = balance;
+    localStorage.setItem("stats", JSON.stringify(stats));
+    localStorage.setItem("playerExp", playerExp);
   }
 
-  localStorage.setItem("balance", balance);
-  localStorage.setItem("history", JSON.stringify(history));
-  localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
-  localStorage.setItem("stats", JSON.stringify(stats));
-  localStorage.setItem("playerExp", playerExp);
-  localStorage.setItem("debtorLevel", debtorLevel);
+  document.getElementById("balance").innerText = formatMoney(balance);
 
-  update();
+  document.getElementById("history").innerHTML = history
+    .map((x) => `<li>${x}</li>`)
+    .join("");
 
-  if (
-    beforeBalance > 0 &&
-    balance >= beforeBalance * 10
-  ) {
-    triggerBalanceJackpot();
+  const slotHistoryList = document.getElementById("slotHistory");
+
+  if (slotHistoryList) {
+    slotHistoryList.innerHTML = slotHistory
+      .map((x) => `<li>${x}</li>`)
+      .join("");
   }
 
-  previousBalanceForJackpot = balance;
-}
+  const maxBetText = document.getElementById("maxBetText");
+
+  if (maxBetText) {
+    const currentMaxBet = Math.min(
+      balance,
+      Math.max(5, Math.floor(balance * 0.1)),
+    );
+
+    maxBetText.innerText = `最大賭け金：${formatMoney(currentMaxBet)}`;
+  }
 
   const betAmountInput = document.getElementById("betAmount");
   const betDisplay = document.getElementById("betDisplay");
@@ -473,19 +467,18 @@ function save() {
 
   setText("slotLimit", `${remainSlot}回`);
 
-updateStats();
-updateTimers();
-updateShopDisplay();
-updateRebirthButton();
-updateCompressDisplay();
+  updateStats();
+  updateTimers();
+  updateShopDisplay();
+  updateRebirthButton();
+  updateCompressDisplay();
 
-  /* ゲリラ中は賭け金を常に現在残高へ同期 */
   const timingBet = document.getElementById("timingBet");
   const timingCard = document.getElementById("timingCard");
 
-if (timingBet && timingCard && timingCard.style.display !== "none") {
-  syncTimingBetToMax();
-}
+  if (timingBet && timingCard && timingCard.style.display !== "none") {
+    syncTimingBetToMax();
+  }
 }
 
 function updateStats() {
