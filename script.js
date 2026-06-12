@@ -154,7 +154,13 @@
         return;
       }
     
-      const bet = Number(document.getElementById("betAmount").value);
+      let bet = Number(document.getElementById("betAmount").value);
+
+if (isMaxBetMode) {
+  bet = maxBet;
+  document.getElementById("betAmount").value = bet;
+  document.getElementById("betDisplay").innerText = bet;
+}
     
       localStorage.setItem("lastBet", bet);
     
