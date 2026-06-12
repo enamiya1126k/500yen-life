@@ -511,34 +511,48 @@ function setText(id, text) {
               localStorage.setItem("lastBet", maxBet);
             };
                 
-                function formatMoney(num) {
-                if (num >= 1e16) {
-                  return (num / 1e16).toFixed(1) + "京円";
-                }
-              
-                if (num >= 1e12) {
-                  return (num / 1e12).toFixed(1) + "兆円";
-                }
-              
-                if (num >= 1e8) {
-                  return (num / 1e8).toFixed(1) + "億円";
-                }
-              
-                return num.toLocaleString() + "円";
-              }
-                
-                function getDateTime() {
-                  const now = new Date();
-                
-                  return (
-                    now.toLocaleDateString() +
-                    " " +
-                    now.toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })
-                  );
-                }
+function formatMoney(num) {
+
+  const units = [
+    { value: 1e68, name: "無量大数" },
+    { value: 1e64, name: "不可思議" },
+    { value: 1e60, name: "那由他" },
+    { value: 1e56, name: "阿僧祇" },
+    { value: 1e52, name: "恒河沙" },
+    { value: 1e48, name: "極" },
+    { value: 1e44, name: "載" },
+    { value: 1e40, name: "正" },
+    { value: 1e36, name: "澗" },
+    { value: 1e32, name: "溝" },
+    { value: 1e28, name: "穣" },
+    { value: 1e24, name: "𥝱" },
+    { value: 1e20, name: "垓" },
+    { value: 1e16, name: "京" },
+    { value: 1e12, name: "兆" },
+    { value: 1e8, name: "億" }
+  ];
+
+  for (const unit of units) {
+    if (num >= unit.value) {
+      return (num / unit.value).toFixed(1) + unit.name + "円";
+    }
+  }
+
+  return Math.floor(num).toLocaleString() + "円";
+}
+
+function getDateTime() {
+  const now = new Date();
+
+  return (
+    now.toLocaleDateString() +
+    " " +
+    now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  );
+}
                 
                 document.addEventListener("DOMContentLoaded", function () {
                   window.resetHistory = function () {
