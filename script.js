@@ -1430,19 +1430,49 @@ function updateShopDisplay() {
 
   setAllText("currentTitle", buffs.currentTitle);
 
-  document.body.classList.remove(
-    "skin-black-gold",
-    "skin-rainbow",
-    "skin-dark",
-  );
+document.body.classList.remove(
+  "skin-black-gold",
+  "skin-rainbow",
+  "skin-dark",
+  "skin-god",
+  "skin-observer",
+  "skin-void",
+  "skin-causality",
+  "skin-transcend",
+  "skin-multiverse",
+  "skin-collapse"
+);
 
-  if (ownedItems.includes("skin3")) {
-    document.body.classList.add("skin-dark");
-  } else if (ownedItems.includes("skin2")) {
-    document.body.classList.add("skin-rainbow");
-  } else if (ownedItems.includes("skin1")) {
-    document.body.classList.add("skin-black-gold");
-  }
+if (ownedItems.includes("skin10")) {
+  document.body.classList.add("skin-collapse");
+
+} else if (ownedItems.includes("skin9")) {
+  document.body.classList.add("skin-multiverse");
+
+} else if (ownedItems.includes("skin8")) {
+  document.body.classList.add("skin-transcend");
+
+} else if (ownedItems.includes("skin7")) {
+  document.body.classList.add("skin-causality");
+
+} else if (ownedItems.includes("skin6")) {
+  document.body.classList.add("skin-void");
+
+} else if (ownedItems.includes("skin5")) {
+  document.body.classList.add("skin-observer");
+
+} else if (ownedItems.includes("skin4")) {
+  document.body.classList.add("skin-god");
+
+} else if (ownedItems.includes("skin3")) {
+  document.body.classList.add("skin-dark");
+
+} else if (ownedItems.includes("skin2")) {
+  document.body.classList.add("skin-rainbow");
+
+} else if (ownedItems.includes("skin1")) {
+  document.body.classList.add("skin-black-gold");
+}
 
   const collectionList = document.getElementById("collectionList");
 
