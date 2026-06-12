@@ -1190,12 +1190,22 @@ if (maxBetText) {
           return;
         }
       
-        rebirthCount++;
-      
-        playerExp = 0;
-      
-        localStorage.setItem("rebirthCount", rebirthCount);
-        localStorage.setItem("playerExp", playerExp);
+rebirthCount++;
+
+playerExp = 0;
+
+/* スキンだけ残す */
+ownedItems = ownedItems.filter(
+  id => shopItems[id]?.type === "skin"
+);
+
+localStorage.setItem(
+  "ownedItems",
+  JSON.stringify(ownedItems)
+);
+
+localStorage.setItem("rebirthCount", rebirthCount);
+localStorage.setItem("playerExp", playerExp);
       
         history.unshift(`${getDateTime()} 🌈${rebirthCount}回目の転生`);
       
