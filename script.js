@@ -821,13 +821,16 @@ function stopTiming() {
   clearInterval(timingInterval);
 
   const bet = Number(document.getElementById("timingBet").value);
+
   let message = "";
 
-if (timingPosition >= 48.5 && timingPosition <= 51.5)
+  if (timingPosition >= 45 && timingPosition <= 55) {
+
     const multiplier = getTimingMultiplier();
     const reward = bet * multiplier;
 
     if (multiplier >= 999) {
+
       message = `🌈🌈🌈
 神降臨
 ${multiplier}倍
@@ -835,18 +838,17 @@ ${multiplier}倍
 🌈🌈🌈`;
 
       alert(`🌈 ${multiplier}倍 JACKPOT！ 🌈`);
-      document.body.classList.add("skin-rainbow");
 
-      setTimeout(function () {
-        document.body.classList.remove("skin-rainbow");
-      }, 5000);
     } else if (multiplier >= 99) {
+
       message = `🔥🔥🔥
 激アツ
 ${multiplier}倍
 +${formatMoney(reward)}
 🔥🔥🔥`;
+
     } else {
+
       message = `🎯PERFECT！
 ${multiplier}倍
 +${formatMoney(reward)}`;
@@ -855,18 +857,13 @@ ${multiplier}倍
     balance += reward;
 
     playWinSound();
-    playWinSound();
 
-    setTimeout(playWinSound, 150);
-    setTimeout(playWinSound, 300);
-    setTimeout(playWinSound, 450);
-    setTimeout(playWinSound, 600);
-    setTimeout(playWinSound, 750);
-  } else if (timingPosition >= 49.2 && timingPosition <= 50.8) {
-    message = `🛡️SAFE！ ±0円`;
   } else {
+
     const penalty = bet * 2;
+
     balance -= penalty;
+
     message = `💥OUT！ -${formatMoney(penalty)}`;
   }
 
@@ -874,7 +871,7 @@ ${multiplier}倍
 
   slotHistory.unshift(`${getDateTime()} 🎯 ${message}`);
 
-syncTimingBetToMax();
+  syncTimingBetToMax();
 
   save();
 
