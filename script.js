@@ -1191,13 +1191,17 @@ skin3: {
 rebirthCount++;
 
 playerExp = 0;
+
+/* 転生時はスロット回数を全回復 */
 todaySlotCount = 0;
+lastSlotDate = new Date().toDateString();
+
+localStorage.setItem("todaySlotCount", todaySlotCount);
+localStorage.setItem("lastSlotDate", lastSlotDate);
 
 isMaxBetMode = false;
 localStorage.setItem("isMaxBetMode", "false");
 localStorage.removeItem("lastBet");
-
-localStorage.setItem("todaySlotCount", todaySlotCount);
         
         /* スキンだけ残す */
         ownedItems = ownedItems.filter(
