@@ -2134,6 +2134,12 @@ function triggerEnding() {
   btn.style.display = "none";
   modal.style.display = "flex";
 
+const finalLevel = getLevel();
+const finalRank = getRankTitle();
+const finalDebtTitle = getDebtTitle();
+const finalEvaluation = getFinalEvaluation();
+const finalArtifact = getShopBuffs().currentTitle;
+
   text.innerText = `
 貨幣は意味を失った。
 
@@ -2222,7 +2228,44 @@ Special Thanks
 
 最後までプレイした貴様へ
 
+────────────────
 
+最終観測結果
+
+────────────────
+
+プレイヤーLv
+${finalLevel}
+
+転生回数
+${rebirthCount}回
+
+最終称号
+${finalRank}
+
+最終遺物
+${finalArtifact}
+
+債務Lv
+${debtorLevel}
+
+債務称号
+${finalDebtTitle}
+
+最高残高
+${formatMoney(stats.bestBalance)}
+
+総プレイ回数
+${stats.totalPlays.toLocaleString()}回
+
+総賭け金
+${formatMoney(stats.totalBet)}
+
+総獲得金額
+${formatMoney(stats.totalReward)}
+
+世界政府評価
+${finalEvaluation}
 
 
 
@@ -2295,4 +2338,12 @@ function startNewGamePlus() {
   alert("初期残高\n\n500円\n\n500円 LIFE Ver.2\n\nようこそ。");
 
   save();
+}
+
+function getFinalEvaluation() {
+  if (debtorLevel >= 500) return "負債災害指定個体";
+  if (debtorLevel >= 100) return "危険観測対象";
+  if (debtorLevel >= 50) return "要監視対象";
+  if (debtorLevel >= 10) return "要観察個体";
+  return "優良観測個体";
 }
