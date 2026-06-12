@@ -1008,23 +1008,75 @@ const shopItems = {
     slotBonus: 50,
   },
 
-  skin1: {
-    name: "🎨黒金スキン",
-    price: 5000000,
-    type: "skin",
-  },
+skin1: {
+  name: "🎨黒金スキン",
+  price: 1000000,
+  type: "skin",
+  unlockRebirth: 1,
+},
 
-  skin2: {
-    name: "🌈レインボー覚醒",
-    price: 50000000,
-    type: "skin",
-  },
+skin2: {
+  name: "🌈レインボー覚醒",
+  price: 20000000,
+  type: "skin",
+  unlockRebirth: 5,
+},
 
-  skin3: {
-    name: "☠️奈落モード",
-    price: 500000000,
-    type: "skin",
-  },
+skin3: {
+  name: "☠️奈落モード",
+  price: 100000000,
+  type: "skin",
+  unlockRebirth: 10,
+},
+
+skin4: {
+  name: "👑黄金神格",
+  price: 100000000000,
+  type: "skin",
+  unlockRebirth: 20,
+},
+
+skin5: {
+  name: "⚡終焉の観測者",
+  price: 10000000000000,
+  type: "skin",
+  unlockRebirth: 25,
+},
+
+skin6: {
+  name: "🌌虚空宇宙",
+  price: 1e18,
+  type: "skin",
+  unlockRebirth: 30,
+},
+
+skin7: {
+  name: "🕳️因果律崩壊",
+  price: 1e20,
+  type: "skin",
+  unlockRebirth: 40,
+},
+
+skin8: {
+  name: "👁️超越存在",
+  price: 1e23,
+  type: "skin",
+  unlockRebirth: 50,
+},
+
+skin9: {
+  name: "🌠多元宇宙管理者",
+  price: 1e56,
+  type: "skin",
+  unlockRebirth: 75,
+},
+
+skin10: {
+  name: "♾️存在崩壊",
+  price: 1e71,
+  type: "skin",
+  unlockRebirth: 100,
+},
 
   effect1: {
     name: "✨GOGO覚醒",
