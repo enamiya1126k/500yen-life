@@ -1594,8 +1594,6 @@ window.buyShopItem = function (id) {
 
   localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
 
-  localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
-
   const afterLimit = getDailySlotLimit();
   const gainedLimit = afterLimit - beforeLimit;
 
