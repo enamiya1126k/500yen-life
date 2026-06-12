@@ -860,11 +860,9 @@ ${multiplier}倍
 
   } else {
 
-    const penalty = bet * 2;
-
-    balance -= penalty;
-
-    message = `💥OUT！ -${formatMoney(penalty)}`;
+const penalty = Math.min(balance, bet * 2);
+balance -= penalty;
+message = `💥OUT！ -${formatMoney(penalty)}`;
   }
 
   document.getElementById("timingMessage").innerText = message;
@@ -1228,9 +1226,14 @@ function getTimingMaxBet() {
 function syncTimingBetToMax() {
   const timingBet = document.getElementById("timingBet");
 
-  if (timingBet) {
-    timingBet.value = Math.max(5, Math.floor(balance * 0.5));
+  if (!timingBet) return;
+
+  if (balance <= 0) {
+    timingBet.value = 0;
+    return;
   }
+
+  timingBet.value = Math.max(5, Math.floor(balance * 0.5));
 }
 
 function getRebirthBuffs() {
