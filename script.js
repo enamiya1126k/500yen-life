@@ -980,9 +980,17 @@ function getDebtTitle() {
 }
 
 function addExp(amount) {
-  playerExp += Math.floor(amount * getExpRate());
 
-  localStorage.setItem("playerExp", playerExp);
+  playerExp += Math.floor(
+    amount *
+    getExpRate() *
+    getWealthBonus()
+  );
+
+  localStorage.setItem(
+    "playerExp",
+    playerExp
+  );
 }
 
 function getLevel() {
@@ -1331,6 +1339,15 @@ function getContinueRate() {
 
 function getExpRate() {
   return 1 + rebirthCount;
+}
+
+function getWealthBonus() {
+  return (
+    1 +
+    Math.log10(
+      Math.max(balance, 1)
+    )
+  );
 }
 
 function getGuerillaRate() {
