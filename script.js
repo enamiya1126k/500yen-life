@@ -322,15 +322,16 @@ function finishSlot(result, bet) {
 
   let message = "";
 
-  if (hitLines.length > 0) {
-    addExp(10);
+if (hitLines.length > 0) {
+  addExp(10);
 
-    balance += totalReward;
-    stats.totalReward += totalReward;
+  const beforeWinBalance = balance;
 
-    if (totalReward > stats.bestWin) {
-      stats.bestWin = totalReward;
-    }
+  balance += totalReward;
+
+  if (beforeWinBalance > 0 && balance >= beforeWinBalance * 10) {
+    triggerBalanceJackpot();
+  }
 
     hitLines.forEach(function (hit) {
       hit.line.forEach(function (index) {
