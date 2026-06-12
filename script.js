@@ -1417,7 +1417,7 @@ function getWealthBonus() {
 }
 
 function getGuerillaRate() {
-  return 0.03;
+  return 0.0001;
 }
 
 /* ゲリラ賭け金上限（残高50%） */
@@ -1819,7 +1819,7 @@ function updateCompressDisplay() {
 function maybeTriggerAbyss() {
   if (abyssActive) return;
 
-  if (Math.random() < 1) {
+  if (Math.random() < 0.0002) {
     triggerAbyssChallenge();
   }
 }
