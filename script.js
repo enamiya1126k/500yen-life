@@ -144,6 +144,13 @@ function playSlot() {
     spinning = false;
   }
 
+console.log(
+  "spinning",
+  spinning,
+  "spinTimer",
+  spinTimer
+);
+
   if (spinning) return;
 
   resetSlotCountIfNeeded();
