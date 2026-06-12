@@ -11,6 +11,8 @@ body{
     max-width:480px;
     margin:auto;
     box-sizing:border-box;
+
+    padding-top:190px;
     padding-bottom:90px;
 }
 
@@ -1034,11 +1036,15 @@ body.skin-dark .timing-card{
 }
 
 .top-dashboard{
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 9999;
+  left: 0;
+  right: 0;
+
+  z-index: 99999;
 
   background: #050000;
+
   padding-top: env(safe-area-inset-top);
   padding-bottom: 8px;
 
