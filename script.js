@@ -1836,9 +1836,9 @@ function triggerAbyssChallenge() {
   abyssGrid.innerHTML = "";
   abyssActions.style.display = "flex";
 
-  setText("abyssMessage", "⚠️異常な資産変動を検知。\n深淵の裂け目が出現した。");
+  setText("abyssMessage", "⚠️異常な資産変動を検知。\n深淵の裂け目が出現した。\n\n20秒以内に決断せよ。");
   
-  let seconds = 60;
+  let seconds = 20;
   setText("abyssTimer", `残り${seconds}秒`);
 
   abyssCard.scrollIntoView({
