@@ -2060,17 +2060,45 @@ playAbyssBadEffect();
     slotHistory.unshift(`${getDateTime()} 🕳️奈落OUT -${formatMoney(penalty)}`);
   }
 
-  if (result === "money") {
-    const reward = balance * 9;
-    balance += reward;
+if (result === "money") {
+  let multiplier;
 
-    message =
-      `💰黄金奈落💰\n` +
-      `残高が10倍になった\n` +
-      `+${formatMoney(reward)}`;
+  const roll = Math.random();
 
-    slotHistory.unshift(`${getDateTime()} 🕳️黄金奈落 +${formatMoney(reward)}`);
-  }
+if (roll < 0.50) {
+
+  multiplier = Math.floor(Math.random() * 9) + 2;
+  // 2～10倍
+
+} else if (roll < 0.85) {
+
+  multiplier = Math.floor(Math.random() * 40) + 10;
+  // 10～49倍
+
+} else if (roll < 0.97) {
+
+  multiplier = Math.floor(Math.random() * 450) + 50;
+  // 50～499倍
+
+} else {
+
+  multiplier = Math.floor(Math.random() * 500) + 500;
+  // 500～999倍
+}
+
+  const reward = balance * (multiplier - 1);
+
+  balance += reward;
+
+  message =
+    `💰黄金奈落💰\n` +
+    `残高${multiplier}倍\n` +
+    `+${formatMoney(reward)}`;
+
+  slotHistory.unshift(
+    `${getDateTime()} 🕳️黄金奈落 ${multiplier}倍 +${formatMoney(reward)}`
+  );
+}
 
   if (result === "exp") {
     playerExp = Math.max(1, playerExp * 1000);
