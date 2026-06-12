@@ -1583,26 +1583,16 @@ window.buyShopItem = function (id) {
     return;
   }
 
-  balance -= price;
+    balance -= price;
   addExp(50);
 
   ownedItems.push(id);
 
-if (id === "end15") {
+  if (id === "end15") {
+    triggerEnding();
+  }
 
-  alert(
-`⛧ 概念外存在覚醒 ⛧
-
-観測終了
-
-資産という概念は崩壊した
-
-おめでとう🎉
-
-500円LIFEを完全攻略しました`
-  );
-
-}
+  localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
 
   localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
 
