@@ -475,9 +475,10 @@
               setText("totalReward", formatMoney(stats.totalReward));
               setText("slotProfit", formatMoney(profit));
               
-                  setText("playerLevel", getLevel());
-                  setText("rankTitle", getRankTitle());
-                  setText("playerExp", playerExp.toLocaleString());
+ setText("playerLevel", getLevel());
+setText("rebirthCount", rebirthCount);
+setText("rankTitle", getRankTitle());
+setText("playerExp", playerExp.toLocaleString());
                 
                   localStorage.setItem("stats", JSON.stringify(stats));
                 }
