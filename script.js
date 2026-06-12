@@ -391,23 +391,38 @@ message = `ハズレ… -${formatMoney(bet)}`;
 }
 
 function save() {
-  if (balance <= 0) {
-    balance = 0;
+if (balance <= 0) {
+  balance = 0;
 
-    if (
-      confirm(
-        "⚠️残高0円⚠️\n\n⚠️債務者刻印 発動⚠️\n\n⚠️残高因果律が完全崩壊しました。⚠️\n\n救済契約を結びますか？"
-      )
-    ) {
-      debtorLevel++;
+  if (
+    confirm(
+      "☠️ 債務認定 ☠️\n\n残高消失を確認。\n\n世界政府は貴様を\n『生活維持不能個体』\nと認定した。\n\n救済契約を結びますか？"
+    )
+  ) {
+    const beforeDebtTitle = getDebtTitle();
 
-      balance = 500;
+    debtorLevel++;
 
+    balance = 500;
+
+    const afterDebtTitle = getDebtTitle();
+    const debtRank = getDebtRank();
+
+    history.unshift(
+      `${getDateTime()} ☠️債務認定 Lv${debtorLevel}「${afterDebtTitle}」`
+    );
+
+    alert(
+      "🪙創造主の慈悲🪙\n\n『500円を授ける。今度は計画的に使え。』\n\n残高が500円になりました。"
+    );
+
+    if (beforeDebtTitle !== afterDebtTitle) {
       alert(
-        "🪙創造主の慈悲🪙\n\n『500円を授ける。二度と欲望に呑まれるな。』\n\n残高が500円になりました。"
+        `☠️ 債務ランクアップ ☠️\n\n新称号\n${afterDebtTitle}\n\n${debtRank.comment}`
       );
     }
   }
+}
 
   if (balance > stats.bestBalance) {
     stats.bestBalance = balance;
@@ -957,18 +972,66 @@ const rankTable = [
 ];
 
 const debtRankTable = [
-  { level: 0, title: "無借金の民" },
-  { level: 1, title: "生活保護候補生" },
-  { level: 2, title: "借金見習い" },
-  { level: 3, title: "債務者" },
-  { level: 5, title: "多重債務兵" },
-  { level: 10, title: "闇金の友" },
-  { level: 15, title: "奈落の借金王" },
-  { level: 20, title: "破産魔導士" },
-  { level: 25, title: "債務冥王" },
-  { level: 30, title: "漆黒の連帯保証人" },
-  { level: 40, title: "負債神" },
-  { level: 50, title: "☠️借金という概念☠️" },
+  {
+    level: 0,
+    title: "無借金の民",
+    comment: "まだ人間として扱われている。"
+  },
+  {
+    level: 1,
+    title: "生活保護候補生",
+    comment: "世界政府は貴様を要保護対象に指定した。"
+  },
+  {
+    level: 3,
+    title: "借金見習い",
+    comment: "まだ引き返せる。たぶんな。"
+  },
+  {
+    level: 5,
+    title: "債務者",
+    comment: "信用情報が震え始めた。"
+  },
+  {
+    level: 10,
+    title: "多重債務兵",
+    comment: "借りる場所が増えただけで強くなった気がしている。"
+  },
+  {
+    level: 20,
+    title: "闇金の友",
+    comment: "もう友達ではない。"
+  },
+  {
+    level: 30,
+    title: "奈落の借金王",
+    comment: "返済計画は伝説となった。"
+  },
+  {
+    level: 50,
+    title: "破産魔導士",
+    comment: "魔法の言葉『来月なんとかなる』を習得。"
+  },
+  {
+    level: 75,
+    title: "債務冥王",
+    comment: "支払い期限という概念を冥界へ送った。"
+  },
+  {
+    level: 100,
+    title: "漆黒の連帯保証人",
+    comment: "知人が電話に出なくなった。"
+  },
+  {
+    level: 200,
+    title: "負債神",
+    comment: "借金が本体であり、人間部分は付属品。"
+  },
+  {
+    level: 500,
+    title: "☠️借金という概念☠️",
+    comment: "もはや貴様自身が負債である。"
+  }
 ];
 
 function getDebtTitle() {
@@ -981,6 +1044,18 @@ function getDebtTitle() {
   });
 
   return title;
+}
+
+function getDebtRank() {
+  let currentRank = debtRankTable[0];
+
+  debtRankTable.forEach(function(rank) {
+    if (debtorLevel >= rank.level) {
+      currentRank = rank;
+    }
+  });
+
+  return currentRank;
 }
 
 function addExp(amount) {
