@@ -50,6 +50,8 @@ let abyssResults = [];
 let nextSlotPremium = false;
 let premiumRush = false;
 
+let previousBalanceForJackpot = balance;
+
 window.onload = function () {
   const lastBet = localStorage.getItem("lastBet");
 
@@ -325,13 +327,7 @@ function finishSlot(result, bet) {
 if (hitLines.length > 0) {
   addExp(10);
 
-  const beforeWinBalance = balance;
-
-  balance += totalReward;
-
-  if (beforeWinBalance > 0 && balance >= beforeWinBalance * 10) {
-    triggerBalanceJackpot();
-  }
+balance += totalReward;
 
     hitLines.forEach(function (hit) {
       hit.line.forEach(function (index) {
@@ -399,41 +395,33 @@ maybeTriggerAbyss();
   isPremium = false;
 }
 
-let lastBalanceForJackpot =
-  Number(localStorage.getItem("lastBalanceForJackpot")) || balance;
+function triggerBalanceJackpot() {
+  const balanceBox = document.querySelector(".balance-wide");
 
-function checkBalanceJackpot(beforeBalance, afterBalance) {
-  if (beforeBalance <= 0) return;
+  if (!balanceBox) return;
 
-  if (afterBalance >= beforeBalance * 10) {
-    const balanceBox = document.querySelector(".balance-wide");
+  balanceBox.classList.remove("balance-jackpot");
 
-    if (!balanceBox) return;
+  void balanceBox.offsetWidth;
 
+  balanceBox.classList.add("balance-jackpot");
+
+  setTimeout(function () {
     balanceBox.classList.remove("balance-jackpot");
-
-    void balanceBox.offsetWidth;
-
-    balanceBox.classList.add("balance-jackpot");
-
-    setTimeout(function () {
-      balanceBox.classList.remove("balance-jackpot");
-    }, 3000);
-  }
+  }, 3000);
 }
 
 function save() {
-  const beforeSaveBalance = lastBalanceForJackpot;
+  const beforeBalance = previousBalanceForJackpot;
+
   if (balance <= 0) {
     balance = 0;
 
     localStorage.setItem("balance", balance);
 
-    checkBalanceJackpot(beforeSaveBalance, balance);
-lastBalanceForJackpot = balance;
-localStorage.setItem("lastBalanceForJackpot", lastBalanceForJackpot);
-    
     update();
+
+    previousBalanceForJackpot = balance;
 
     showDebtModal();
 
@@ -452,41 +440,16 @@ localStorage.setItem("lastBalanceForJackpot", lastBalanceForJackpot);
   localStorage.setItem("debtorLevel", debtorLevel);
 
   update();
+
+  if (
+    beforeBalance > 0 &&
+    balance >= beforeBalance * 10
+  ) {
+    triggerBalanceJackpot();
+  }
+
+  previousBalanceForJackpot = balance;
 }
-
-function update() {
-  resetSlotCountIfNeeded();
-
-  if (balance > stats.bestBalance) {
-    stats.bestBalance = balance;
-    localStorage.setItem("stats", JSON.stringify(stats));
-    localStorage.setItem("playerExp", playerExp);
-  }
-
-  document.getElementById("balance").innerText = formatMoney(balance);
-
-  document.getElementById("history").innerHTML = history
-    .map((x) => `<li>${x}</li>`)
-    .join("");
-
-  const slotHistoryList = document.getElementById("slotHistory");
-
-  if (slotHistoryList) {
-    slotHistoryList.innerHTML = slotHistory
-      .map((x) => `<li>${x}</li>`)
-      .join("");
-  }
-
-  const maxBetText = document.getElementById("maxBetText");
-
-  if (maxBetText) {
-    const currentMaxBet = Math.min(
-      balance,
-      Math.max(5, Math.floor(balance * 0.1)),
-    );
-
-    maxBetText.innerText = `最大賭け金：${formatMoney(currentMaxBet)}`;
-  }
 
   const betAmountInput = document.getElementById("betAmount");
   const betDisplay = document.getElementById("betDisplay");
