@@ -1471,14 +1471,6 @@ window.compressMoney = function (baseCost, exp) {
     return;
   }
 
-  if (
-    !confirm(
-      `${formatMoney(cost)}を圧縮して\nEXP+${exp.toLocaleString()}しますか？`,
-    )
-  ) {
-    return;
-  }
-
   balance -= cost;
 
   playerExp += exp;
