@@ -346,15 +346,15 @@ function finishSlot(result, bet) {
 
     playWinSound();
 
-    if (isPremium) {
-      message = `🌈レインボーGOGO！ +${totalReward}円`;
-    } else if (hitLines.length >= 3) {
-      message = `💥BIG BONUS💥 +${totalReward}円`;
-    } else if (hitLines.length >= 2) {
-      message = `🔥SUPER HIT🔥 +${totalReward}円`;
-    } else {
-      message = `HIT +${totalReward}円`;
-    }
+if (isPremium) {
+  message = `🌈レインボーGOGO！ +${formatMoney(totalReward)}`;
+} else if (hitLines.length >= 3) {
+  message = `💥BIG BONUS💥 +${formatMoney(totalReward)}`;
+} else if (hitLines.length >= 2) {
+  message = `🔥SUPER HIT🔥 +${formatMoney(totalReward)}`;
+} else {
+  message = `HIT +${formatMoney(totalReward)}`;
+}
   } else {
     balance -= bet;
 
@@ -836,7 +836,11 @@ function stopTiming() {
     if (Math.random() < 0.005) {
       reward = bet * 9999;
 
-      message = `🌈🌈🌈\n神降臨\nJACKPOT\n+${reward.toLocaleString()}円\n🌈🌈🌈`;
+message = `🌈🌈🌈
+神降臨
+JACKPOT
++${formatMoney(reward)}
+🌈🌈🌈`;
 
       alert(
         `🌈🌈🌈
@@ -851,7 +855,7 @@ function stopTiming() {
         document.body.classList.remove("skin-rainbow");
       }, 5000);
     } else {
-      message = `🎯PERFECT！ +${reward.toLocaleString()}円`;
+message = `🎯PERFECT！ +${formatMoney(reward)}`;
     }
 
     balance += reward;
@@ -869,7 +873,7 @@ function stopTiming() {
 
     balance += reward;
 
-    message = `✨GOOD！ +${reward.toLocaleString()}円`;
+message = `✨GOOD！ +${formatMoney(reward)}`;
 
     playWinSound();
   } else if (timingPosition >= 25 && timingPosition <= 75) {
@@ -881,7 +885,7 @@ function stopTiming() {
   } else {
     balance -= bet;
 
-    message = `💥失敗！ -${bet.toLocaleString()}円`;
+message = `💥失敗！ -${formatMoney(bet)}`;
   }
 
   document.getElementById("timingMessage").innerText = message;
