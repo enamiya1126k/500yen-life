@@ -1039,4 +1039,17 @@ body.skin-dark .timing-card{
   }
   to {
     transform: translateY(-100%);
- 
+  }
+}
+
+#newGamePlusBtn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #050505;
+  color: white;
+  border: 1px solid white;
+  padding: 14px 24px;
+  font-size: 18px;
+}
