@@ -1222,3 +1222,36 @@ body.skin-dark .timing-card{
   box-shadow:
     inset 0 0 6px rgba(84,255,101,.2);
 }
+
+/* ===== ショップ商品・読みやすさ改善 ===== */
+
+.shop-grid button{
+  min-height:46px !important;
+  padding:5px 4px !important;
+
+  font-size:11px !important;
+  line-height:1.15 !important;
+
+  letter-spacing:.02em;
+}
+
+.shop-grid button small{
+  display:block;
+
+  margin-top:3px;
+
+  font-size:8px !important;
+  line-height:1.15 !important;
+
+  opacity:.95;
+}
+
+.shop-grid button.owned{
+  min-height:38px !important;
+  font-size:10px !important;
+}
+
+.shop-grid button.owned::after{
+  top:3px;
+  right:5px;
+}
