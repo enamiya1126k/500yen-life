@@ -1344,3 +1344,41 @@ if (maxBetText) {
         toast.classList.remove("show");
       }, 2500);
     }
+
+window.compressMoney = function(cost, exp){
+
+  if(balance < cost){
+    showToast("残高が足りません");
+    return;
+  }
+
+  if(
+    !confirm(
+      `${formatMoney(cost)}を圧縮して\nEXP+${exp.toLocaleString()}しますか？`
+    )
+  ){
+    return;
+  }
+
+  balance -= cost;
+
+  playerExp += exp;
+
+  history.unshift(
+    `${getDateTime()} 🌀資産圧縮 ${formatMoney(cost)} → EXP+${exp.toLocaleString()}`
+  );
+
+  const msg =
+    document.getElementById("compressMessage");
+
+  if(msg){
+    msg.innerText =
+      `🌀圧縮成功！ EXP+${exp.toLocaleString()}`;
+  }
+
+  save();
+
+  showToast(
+    `🌀資産圧縮成功\nEXP+${exp.toLocaleString()}`
+  );
+};
