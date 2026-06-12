@@ -1836,3 +1836,210 @@ function updateCompressDisplay() {
   setText("compressCost4", `${formatMoney(getCompressCost(1000000000000))}消費`);
   setText("compressCost5", `${formatMoney(getCompressCost(100000000000000))}消費`);
 }
+
+function maybeTriggerAbyss() {
+  if (abyssActive) return;
+
+  if (Math.random() < 0.003) {
+    triggerAbyssChallenge();
+  }
+}
+
+function triggerAbyssChallenge() {
+  const abyssCard = document.getElementById("abyssCard");
+  const abyssGrid = document.getElementById("abyssGrid");
+  const abyssActions = document.getElementById("abyssActions");
+
+  if (!abyssCard || !abyssGrid || !abyssActions) return;
+
+  abyssActive = true;
+  abyssCard.style.display = "block";
+  abyssGrid.innerHTML = "";
+  abyssActions.style.display = "flex";
+
+  setText("abyssMessage", "⚠️異常な資産変動を検知。\n深淵の裂け目が出現した。");
+  
+  let seconds = 60;
+  setText("abyssTimer", `残り${seconds}秒`);
+
+  abyssCard.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+  });
+
+  if (abyssCountdown) {
+    clearInterval(abyssCountdown);
+  }
+
+  abyssCountdown = setInterval(function () {
+    seconds--;
+
+    setText("abyssTimer", `残り${seconds}秒`);
+
+    if (seconds <= 0) {
+      history.unshift(`${getDateTime()} 🕳️奈落を拒絶 欲望に勝利`);
+      closeAbyssChallenge("奈落は閉じた。\n貴様は欲望に勝利した。");
+      save();
+    }
+  }, 1000);
+}
+
+function startAbyssGame() {
+  const abyssGrid = document.getElementById("abyssGrid");
+  const abyssActions = document.getElementById("abyssActions");
+
+  if (!abyssGrid || !abyssActions) return;
+
+  abyssActions.style.display = "none";
+  abyssGrid.innerHTML = "";
+
+  setText("abyssMessage", "9つの奈落。\n3つは本物。\n選べ。");
+
+  abyssResults = [
+    "bad",
+    "bad",
+    "bad",
+    "money",
+    "exp",
+    "slot",
+    "premium",
+    "rush",
+    "blessing",
+  ].sort(() => Math.random() - 0.5);
+
+  abyssResults.forEach(function (_, index) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "abyss-hole";
+    btn.innerText = "🕳️";
+
+    btn.onclick = function () {
+      chooseAbyss(index);
+    };
+
+    abyssGrid.appendChild(btn);
+  });
+}
+
+function declineAbyss() {
+  history.unshift(`${getDateTime()} 🕳️奈落を拒絶 欲望に勝利`);
+  closeAbyssChallenge("奈落を見なかったことにした。\n理性が勝利した。");
+  save();
+}
+
+function chooseAbyss(index) {
+  if (!abyssActive) return;
+
+  const result = abyssResults[index];
+  let message = "";
+
+  if (result === "bad") {
+    const base = Math.floor(balance * 0.1);
+    const multiplier = Math.floor(Math.random() * 999) + 1;
+    const penalty = Math.min(balance, base * multiplier);
+
+    balance -= penalty;
+
+    message =
+      `☠️本物の奈落☠️\n` +
+      `残高10% × ${multiplier}倍\n` +
+      `-${formatMoney(penalty)}`;
+
+    slotHistory.unshift(`${getDateTime()} 🕳️奈落OUT -${formatMoney(penalty)}`);
+  }
+
+  if (result === "money") {
+    const reward = balance * 9;
+    balance += reward;
+
+    message =
+      `💰黄金奈落💰\n` +
+      `残高が10倍になった\n` +
+      `+${formatMoney(reward)}`;
+
+    slotHistory.unshift(`${getDateTime()} 🕳️黄金奈落 +${formatMoney(reward)}`);
+  }
+
+  if (result === "exp") {
+    playerExp = Math.max(1, playerExp * 1000);
+
+    message =
+      `🌌叡智奈落🌌\n` +
+      `EXPが1000倍になった`;
+
+    slotHistory.unshift(`${getDateTime()} 🕳️叡智奈落 EXP1000倍`);
+  }
+
+  if (result === "slot") {
+    const remain = Math.max(1, getDailySlotLimit() - todaySlotCount);
+    todaySlotCount = Math.max(0, todaySlotCount - remain * 99);
+
+    localStorage.setItem("todaySlotCount", todaySlotCount);
+
+    message =
+      `🎰回転奈落🎰\n` +
+      `スロット残回数が100倍になった`;
+
+    slotHistory.unshift(`${getDateTime()} 🕳️回転奈落 残回数100倍`);
+  }
+
+  if (result === "premium") {
+    nextSlotPremium = true;
+
+    message =
+      `🌈祝福奈落🌈\n` +
+      `次回スロット、プレミア確定`;
+
+    slotHistory.unshift(`${getDateTime()} 🕳️祝福奈落 次回プレミア確定`);
+  }
+
+  if (result === "rush") {
+    premiumRush = true;
+
+    setTimeout(function () {
+      premiumRush = false;
+    }, 60000);
+
+    message =
+      `⚡暴走奈落⚡\n` +
+      `60秒間、プレミア率100%`;
+
+    slotHistory.unshift(`${getDateTime()} 🕳️暴走奈落 プレミア率100%`);
+  }
+
+  if (result === "blessing") {
+    playerExp += 100000;
+
+    message =
+      `👑深淵の加護👑\n` +
+      `EXP+100,000`;
+
+    slotHistory.unshift(`${getDateTime()} 🕳️深淵の加護 EXP+100,000`);
+  }
+
+  setText("abyssMessage", message);
+
+  closeAbyssChallenge(message);
+  save();
+}
+
+function closeAbyssChallenge(message) {
+  const abyssCard = document.getElementById("abyssCard");
+
+  if (abyssCountdown) {
+    clearInterval(abyssCountdown);
+    abyssCountdown = null;
+  }
+
+  abyssActive = false;
+
+  if (message) {
+    setText("abyssTimer", message);
+  }
+
+  if (abyssCard) {
+    setTimeout(function () {
+      abyssCard.style.display = "none";
+    }, 1500);
+  }
+}
