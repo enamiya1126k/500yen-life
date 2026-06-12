@@ -715,3 +715,51 @@ body.skin-dark .timing-card{
     filter:hue-rotate(360deg);
   }
 }
+
+/* SHOP圧縮 */
+.shop-card {
+  padding: 16px 14px;
+}
+
+.shop-card h3 {
+  font-size: 28px;
+  margin: 10px 0 14px;
+}
+
+.shop-card h4 {
+  font-size: 24px;
+  margin: 22px 0 10px;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.shop-grid button {
+  min-height: 76px;
+  font-size: 16px;
+  padding: 8px 6px;
+}
+
+.shop-grid button small {
+  font-size: 14px;
+}
+
+.buff-panel {
+  padding: 12px 14px;
+  font-size: 18px;
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+
+.collection-box {
+  margin-top: 18px;
+  padding: 12px;
+}
+
+.collection-item {
+  font-size: 16px;
+  padding: 4px 0;
+}
