@@ -481,7 +481,7 @@ button{
     color:#ffd700;
     border-bottom:1px solid rgba(255,215,0,.45);
     padding-bottom:4px;
-    font-size:22px;
+    font-size:14px;
 }
 
 .buff-panel,
@@ -537,18 +537,25 @@ button{
 }
 
 .shop-grid button.owned{
-    background:linear-gradient(145deg, #003b12, #050505);
-    color:#54ff65;
-    border-color:#54ff65;
-    box-shadow:0 0 10px #54ff65,inset 0 0 12px rgba(84,255,101,.25);
-}
+    min-height:24px;
 
-.shop-grid button.owned::after{
-    content:"購入済";
-    display:block;
-    color:#ffd700;
-    font-size:11px;
-    margin-top:4px;
+    padding:2px 4px;
+
+    font-size:9px;
+
+    background:
+      linear-gradient(
+        145deg,
+        #003b12,
+        #050505
+      );
+
+    color:#54ff65;
+
+    border-color:#54ff65;
+
+    box-shadow:
+      0 0 6px #54ff65;
 }
 
 #shopMessage{
@@ -754,7 +761,7 @@ body.skin-dark .timing-card{
 }
 
 .shop-card h4 {
-  font-size: 16px;
+  font-size: 14px;
   margin: 14px 0 6px;
   padding-bottom: 3px;
 }
