@@ -458,10 +458,11 @@ function update() {
 
   setText("slotLimit", `${remainSlot}回`);
 
-  updateStats();
-  updateTimers();
-  updateShopDisplay();
-  updateRebirthButton();
+updateStats();
+updateTimers();
+updateShopDisplay();
+updateRebirthButton();
+updateCompressDisplay();
 
   /* ゲリラ中は賭け金を常に現在残高へ同期 */
   const timingBet = document.getElementById("timingBet");
@@ -1496,3 +1497,11 @@ window.compressMoney = function (baseCost, exp) {
 
   showToast(`🌀資産圧縮成功\nEXP+${exp.toLocaleString()}`);
 };
+
+function updateCompressDisplay() {
+  setText("compressCost1", `${formatMoney(getCompressCost(10000000))}消費`);
+  setText("compressCost2", `${formatMoney(getCompressCost(100000000))}消費`);
+  setText("compressCost3", `${formatMoney(getCompressCost(1000000000))}消費`);
+  setText("compressCost4", `${formatMoney(getCompressCost(1000000000000))}消費`);
+  setText("compressCost5", `${formatMoney(getCompressCost(100000000000000))}消費`);
+}
