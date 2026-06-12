@@ -2059,3 +2059,65 @@ function playAbyssBadEffect() {
     document.body.classList.remove("abyss-bad-effect");
   }, 800);
 }
+
+function showDebtModal() {
+  const modal = document.getElementById("debtModal");
+  const debtText = document.getElementById("debtText");
+
+  if (!modal || !debtText) return;
+
+  debtText.innerText =
+`世界政府 財務監視局より通達
+
+資産消失を確認
+
+対象個体：
+Lv${getLevel()}
+「${getRankTitle()}」
+
+生活維持不能個体に指定
+
+債務ランク +1
+
+救済契約を締結しますか？`;
+
+  modal.style.display = "flex";
+}
+
+function acceptDebt() {
+  const beforeDebtTitle = getDebtTitle();
+
+  debtorLevel++;
+  balance = 500;
+
+  const afterDebtTitle = getDebtTitle();
+  const debtRank = getDebtRank();
+
+  history.unshift(
+    `${getDateTime()} ☠️債務認定 Lv${debtorLevel}「${afterDebtTitle}」`
+  );
+
+  document.getElementById("debtModal").style.display = "none";
+
+  alert("🪙創造主の慈悲🪙\n\n500円を付与\n\n『次は計画的に使え』");
+
+  if (beforeDebtTitle !== afterDebtTitle) {
+    alert(
+      `☠️ 債務ランクアップ ☠️\n\n新称号\n${afterDebtTitle}\n\n${debtRank.comment}`
+    );
+  }
+
+  save();
+}
+
+function rejectDebt() {
+  document.getElementById("debtModal").style.display = "none";
+
+  alert(
+`☠️ GAME OVER ☠️
+
+世界は貴様を見捨てた。`
+  );
+
+  save();
+}
