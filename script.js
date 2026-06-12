@@ -468,9 +468,9 @@ updateCompressDisplay();
   const timingBet = document.getElementById("timingBet");
   const timingCard = document.getElementById("timingCard");
 
-  if (timingBet && timingCard && timingCard.style.display !== "none") {
-    timingBet.value = balance;
-  }
+if (timingBet && timingCard && timingCard.style.display !== "none") {
+  syncTimingBetToMax();
+}
 }
 
 function updateStats() {
@@ -697,13 +697,9 @@ function triggerTimingChallenge() {
 
   timingCard.style.display = "block";
 
-  const timingBet = document.getElementById("timingBet");
+syncTimingBetToMax();
 
-  if (timingBet) {
-    timingBet.value = balance;
-  }
-
-  let seconds = 20 + getLevelBuffs().guerillaBonus;
+let seconds = 20 + getLevelBuffs().guerillaBonus;
 
   document.getElementById("timingMessage").innerText =
     `⚡ゲリラチャレンジ発生⚡ ${seconds}秒間遊び放題！`;
@@ -869,7 +865,7 @@ ${multiplier}倍
   } else if (timingPosition >= 49.2 && timingPosition <= 50.8) {
     message = `🛡️SAFE！ ±0円`;
   } else {
-    const penalty = bet * 10;
+    const penalty = bet * 2;
     balance -= penalty;
     message = `💥OUT！ -${formatMoney(penalty)}`;
   }
@@ -878,11 +874,7 @@ ${multiplier}倍
 
   slotHistory.unshift(`${getDateTime()} 🎯 ${message}`);
 
-  const timingBet = document.getElementById("timingBet");
-
-  if (timingBet) {
-    timingBet.value = balance;
-  }
+syncTimingBetToMax();
 
   save();
 
@@ -1228,6 +1220,20 @@ function getExpRate() {
 
 function getGuerillaRate() {
   return 0.03;
+}
+
+/* ゲリラ賭け金上限（残高50%） */
+function getTimingMaxBet() {
+  return Math.max(5, Math.floor(balance * 0.5));
+}
+
+/* ゲリラ賭け金を自動同期 */
+function syncTimingBetToMax() {
+  const timingBet = document.getElementById("timingBet");
+
+  if (timingBet) {
+    timingBet.value = getTimingMaxBet();
+  }
 }
 
 function getRebirthBuffs() {
