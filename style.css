@@ -800,18 +800,41 @@ body.skin-dark .timing-card{
   line-height: 1;
 }
 
-.shop-grid button.owned {
-  min-height: 28px;
+.shop-grid button.owned{
+  min-height:28px;
 
-  padding: 2px;
+  padding:2px;
 
-  font-size: 9px;
+  font-size:9px;
+
+  opacity:.82;
+
+  transform:scale(.97);
+
+  border-color:#54ff65;
+
+  box-shadow:
+    0 0 8px #54ff65,
+    inset 0 0 6px rgba(84,255,101,.25);
+
+  position:relative;
 }
 
-.shop-grid button.owned::after {
-  content: "取得済";
-  font-size: 8px;
-  margin-top: 1px;
+.shop-grid button.owned::after{
+  content:"✔";
+
+  position:absolute;
+
+  top:2px;
+  right:4px;
+
+  font-size:9px;
+
+  color:#ffd700;
+
+  text-shadow:
+    0 0 4px gold,
+    0 0 8px gold;
 }
 
 .collection-box {
@@ -1111,4 +1134,65 @@ body.skin-dark .timing-card{
   border: 1px solid white;
   padding: 14px 24px;
   font-size: 18px;
+}
+
+/* ===== 購入済みボタン・脳汁コンパクト最終版 ===== */
+
+.shop-grid button.owned{
+  min-height:28px !important;
+  padding:2px 4px !important;
+  font-size:9px !important;
+
+  opacity:.86;
+  transform:scale(.97);
+
+  background:
+    linear-gradient(
+      145deg,
+      #003b12,
+      #050505
+    ) !important;
+
+  color:#54ff65 !important;
+  border-color:#54ff65 !important;
+
+  position:relative;
+
+  animation:ownedGlow 2s ease-in-out infinite;
+}
+
+.shop-grid button.owned::after{
+  content:"✔";
+  position:absolute;
+
+  top:2px;
+  right:4px;
+
+  font-size:9px;
+  color:#ffd700;
+
+  text-shadow:
+    0 0 4px gold,
+    0 0 8px gold;
+}
+
+@keyframes ownedGlow{
+  0%{
+    box-shadow:
+      0 0 4px #54ff65,
+      inset 0 0 4px rgba(84,255,101,.2);
+  }
+
+  50%{
+    box-shadow:
+      0 0 12px #54ff65,
+      0 0 18px #54ff65,
+      inset 0 0 8px rgba(84,255,101,.35);
+  }
+
+  100%{
+    box-shadow:
+      0 0 4px #54ff65,
+      inset 0 0 4px rgba(84,255,101,.2);
+  }
 }
