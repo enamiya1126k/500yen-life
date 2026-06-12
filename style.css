@@ -1389,3 +1389,39 @@ body.skin-dark .timing-card{
     transform: scale(1);
   }
 }
+
+@keyframes godShake {
+  0% { transform: translate(0,0); }
+  10% { transform: translate(-8px,-4px); }
+  20% { transform: translate(8px,4px); }
+  30% { transform: translate(-10px,6px); }
+  40% { transform: translate(10px,-6px); }
+  50% { transform: translate(-8px,4px); }
+  60% { transform: translate(8px,-4px); }
+  70% { transform: translate(-6px,2px); }
+  80% { transform: translate(6px,-2px); }
+  90% { transform: translate(-3px,1px); }
+  100% { transform: translate(0,0); }
+}
+
+.god-jackpot {
+  animation: godShake 0.8s linear 4;
+}
+
+.god-flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 99999;
+  pointer-events: none;
+  animation: godFlash 1.5s ease-out forwards;
+}
+
+@keyframes godFlash {
+  0% { opacity: 1; }
+  20% { opacity: 0; }
+  40% { opacity: 1; }
+  60% { opacity: 0; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
