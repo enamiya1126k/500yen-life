@@ -686,6 +686,12 @@ function getDateTime() {
                 
                   timingCard.style.display = "block";
                 
+                const timingBet = document.getElementById("timingBet");
+
+if (timingBet) {
+  timingBet.value = balance;
+}
+                
                let seconds = 20 + getLevelBuffs().guerillaBonus;
                 
               document.getElementById("timingMessage").innerText =
