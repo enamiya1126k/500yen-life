@@ -1255,3 +1255,76 @@ body.skin-dark .timing-card{
   top:3px;
   right:5px;
 }
+
+/* 終焉領域だけ見やすく */
+
+#shop-end1,
+#shop-end2,
+#shop-end3,
+#shop-end4,
+#shop-end5,
+#shop-end6,
+#shop-end7,
+#shop-end8,
+#shop-end9,
+#shop-end10,
+#shop-end11,
+#shop-end12,
+#shop-end13,
+#shop-end14,
+#shop-end15{
+
+  min-height:68px !important;
+
+  padding:8px 4px !important;
+
+  font-size:14px !important;
+
+  font-weight:700;
+
+  line-height:1.15;
+}
+
+#shop-end1 small,
+#shop-end2 small,
+#shop-end3 small,
+#shop-end4 small,
+#shop-end5 small,
+#shop-end6 small,
+#shop-end7 small,
+#shop-end8 small,
+#shop-end9 small,
+#shop-end10 small,
+#shop-end11 small,
+#shop-end12 small,
+#shop-end13 small,
+#shop-end14 small,
+#shop-end15 small{
+
+  font-size:11px !important;
+
+  margin-top:4px;
+
+  opacity:.95;
+}
+
+#shop-end1,
+#shop-end2,
+#shop-end3,
+#shop-end4,
+#shop-end5,
+#shop-end6,
+#shop-end7,
+#shop-end8,
+#shop-end9,
+#shop-end10,
+#shop-end11,
+#shop-end12,
+#shop-end13,
+#shop-end14,
+#shop-end15{
+
+  text-shadow:
+    0 0 4px rgba(255,255,255,.6),
+    0 0 10px rgba(255,215,0,.6);
+}
