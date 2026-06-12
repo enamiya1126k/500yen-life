@@ -797,3 +797,8 @@ body.skin-dark .timing-card{
   background: #111;
   cursor: pointer;
 }
+
+.abyss-hole.used {
+  opacity: 0.35;
+  pointer-events: none;
+}
