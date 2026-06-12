@@ -422,11 +422,16 @@ function checkBalanceJackpot(beforeBalance, afterBalance) {
 }
 
 function save() {
+  const beforeSaveBalance = lastBalanceForJackpot;
   if (balance <= 0) {
     balance = 0;
 
     localStorage.setItem("balance", balance);
 
+    checkBalanceJackpot(beforeSaveBalance, balance);
+lastBalanceForJackpot = balance;
+localStorage.setItem("lastBalanceForJackpot", lastBalanceForJackpot);
+    
     update();
 
     showDebtModal();
