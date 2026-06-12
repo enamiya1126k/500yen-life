@@ -399,38 +399,17 @@ maybeTriggerAbyss();
 }
 
 function save() {
-if (balance <= 0) {
-  balance = 0;
+  if (balance <= 0) {
+    balance = 0;
 
-  if (
-    confirm(
-      "☠️ 債務認定 ☠️\n\n残高消失を確認。\n\n世界政府は貴様を\n『生活維持不能個体』\nと認定した。\n\n救済契約を結びますか？"
-    )
-  ) {
-    const beforeDebtTitle = getDebtTitle();
+    localStorage.setItem("balance", balance);
 
-    debtorLevel++;
+    update();
 
-    balance = 500;
+    showDebtModal();
 
-    const afterDebtTitle = getDebtTitle();
-    const debtRank = getDebtRank();
-
-    history.unshift(
-      `${getDateTime()} ☠️債務認定 Lv${debtorLevel}「${afterDebtTitle}」`
-    );
-
-    alert(
-      "🪙創造主の慈悲🪙\n\n『500円を授ける。今度は計画的に使え。』\n\n残高が500円になりました。"
-    );
-
-    if (beforeDebtTitle !== afterDebtTitle) {
-      alert(
-        `☠️ 債務ランクアップ ☠️\n\n新称号\n${afterDebtTitle}\n\n${debtRank.comment}`
-      );
-    }
+    return;
   }
-}
 
   if (balance > stats.bestBalance) {
     stats.bestBalance = balance;
