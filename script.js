@@ -35,7 +35,9 @@
     let currentBet = 0;
     let spinTimer = null;
     let isPremium = false;
-    
+    let isMaxBetMode =
+  localStorage.getItem("isMaxBetMode") === "true";
+          
     let timingInterval = null;
     let timingPosition = 0;
     let timingDirection = 1;
@@ -464,20 +466,26 @@
     }
     
     window.setBet = function (amount) {
+        isMaxBetMode = false;
+        localStorage.setItem("isMaxBetMode", "false");
+
       document.getElementById("betAmount").value = amount;
       document.getElementById("betDisplay").innerText = amount;
     
       localStorage.setItem("lastBet", amount);
     };
     
-    window.setMaxBet = function () {
-      const maxBet = Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
-    
-      document.getElementById("betAmount").value = maxBet;
-      document.getElementById("betDisplay").innerText = maxBet;
-    
-      localStorage.setItem("lastBet", maxBet);
-    };
+window.setMaxBet = function () {
+  isMaxBetMode = true;
+  localStorage.setItem("isMaxBetMode", "true");
+
+  const maxBet = Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
+
+  document.getElementById("betAmount").value = maxBet;
+  document.getElementById("betDisplay").innerText = maxBet;
+
+  localStorage.setItem("lastBet", maxBet);
+};
     
     function formatMoney(num) {
     if (num >= 1e16) {
