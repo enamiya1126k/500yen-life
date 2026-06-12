@@ -104,7 +104,7 @@ document.getElementById("salaryBtn").onclick = function () {
   balance += 15000;
   addExp(30);
 
-  history.unshift(`${getDateTime()} +15000円 給料`);
+  history.unshift(`${getDateTime()} +150000000円 給料`);
 
   localStorage.setItem("salaryMonth", monthKey);
 
@@ -396,7 +396,7 @@ function save() {
 
     if (
       confirm(
-        "⚠️債務者刻印 発動⚠️\n\n残高因果律が完全崩壊しました。\n\n救済契約を結びますか？"
+        "⚠️残高0円⚠️\n\n⚠️債務者刻印 発動⚠️\n\n⚠️残高因果律が完全崩壊しました。⚠️\n\n救済契約を結びますか？"
       )
     ) {
       debtorLevel++;
