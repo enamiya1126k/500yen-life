@@ -513,6 +513,7 @@ function updateStats() {
   setText("rankTitle", getRankTitle());
   setText("playerExp", playerExp.toLocaleString());
   setText("debtorLevel", debtorLevel);
+  setText("debtTitle", getDebtTitle());
 
   localStorage.setItem("stats", JSON.stringify(stats));
 }
@@ -950,6 +951,33 @@ const rankTable = [
   { level: 950, title: "倹約終焉存在" },
   { level: 1000, title: "原初貨幣神" },
 ];
+
+const debtRankTable = [
+  { level: 0, title: "無借金の民" },
+  { level: 1, title: "生活保護候補生" },
+  { level: 2, title: "借金見習い" },
+  { level: 3, title: "債務者" },
+  { level: 5, title: "多重債務兵" },
+  { level: 10, title: "闇金の友" },
+  { level: 15, title: "奈落の借金王" },
+  { level: 20, title: "破産魔導士" },
+  { level: 25, title: "債務冥王" },
+  { level: 30, title: "漆黒の連帯保証人" },
+  { level: 40, title: "負債神" },
+  { level: 50, title: "☠️借金という概念☠️" },
+];
+
+function getDebtTitle() {
+  let title = "無借金の民";
+
+  debtRankTable.forEach(function(rank) {
+    if (debtorLevel >= rank.level) {
+      title = rank.title;
+    }
+  });
+
+  return title;
+}
 
 function addExp(amount) {
   playerExp += Math.floor(amount * getExpRate());
