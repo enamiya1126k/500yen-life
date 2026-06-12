@@ -1060,9 +1060,13 @@ skin3: {
               },
               };
               
-              function getItemPrice(item) {
-                return Math.floor(item.price * Math.pow(1.5, rebirthCount));
-              }
+function getItemPrice(item) {
+  return Math.floor(item.price * Math.pow(1.5, rebirthCount));
+}
+
+function getCompressCost(baseCost) {
+  return Math.floor(baseCost * Math.pow(1.5, rebirthCount));
+}
                 
                 let ownedItems = JSON.parse(localStorage.getItem("ownedItems")) || [];
                 
@@ -1429,9 +1433,11 @@ Object.keys(shopItems).forEach(function (id) {
               }, 2500);
             }
         
-        window.compressMoney = function(cost, exp){
-        
-          if(balance < cost){
+ window.compressMoney = function(baseCost, exp){
+
+  const cost = getCompressCost(baseCost);
+
+  if(balance < cost){
             showToast("残高が足りません");
             return;
           }
