@@ -18,16 +18,16 @@ let stats = JSON.parse(localStorage.getItem("stats")) || {
   totalReward: 0,
 };
 
-const symbols = ["🍄", "🌶️", "🐊", "🍒", "🎰", "💰", "☄️"];
+const symbols = ["🍄", "🌶️", "🦞", "🍒", "🎰", "🌊", "☄️"];
 
 const payout = {
   "🍒": 3,
   "🍄": 5,
-  "🐊": 8,
-  "🌶️": 12,
-  "💰": 20,
-  "☄️": 30,
-  "🎰": 50,
+  "🦞": 8,
+  "🌶️": 10,
+  "🌊": 15,
+  "☄️": 20,
+  "🎰": 25,
 };
 
 let spinning = false;
