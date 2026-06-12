@@ -815,6 +815,9 @@ function startTiming() {
     }
   }, 20);
 
+  document.getElementById("timingMessage").innerText = "STOPを押せ！";
+}
+
 function stopTiming() {
   if (!timingRunning) return;
 
