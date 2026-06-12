@@ -1239,6 +1239,7 @@ localStorage.removeItem("lastBet");
                   }
                 
                 const price = getItemPrice(item);
+                const beforeLimit = getDailySlotLimit();
                 
                   if (ownedItems.includes(id)) {
                     alert("これはもう購入済み！");
@@ -1261,9 +1262,17 @@ localStorage.removeItem("lastBet");
               balance -= price;
                   addExp(50);
                 
-                  ownedItems.push(id);
-                
-                  localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
+         ownedItems.push(id);
+
+localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
+
+const afterLimit = getDailySlotLimit();
+const gainedLimit = afterLimit - beforeLimit;
+
+if (gainedLimit > 0) {
+  todaySlotCount = Math.max(0, todaySlotCount - gainedLimit);
+  localStorage.setItem("todaySlotCount", todaySlotCount);
+}
                 
                   history.unshift(
                     `${getDateTime()} 🏪 ${item.name} 購入 -${price.toLocaleString()}円`,
