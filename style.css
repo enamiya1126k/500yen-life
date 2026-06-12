@@ -802,3 +802,34 @@ body.skin-dark .timing-card{
   opacity: 0.35;
   pointer-events: none;
 }
+
+.abyss-bad-effect {
+  animation: abyssBadFlash 0.8s linear;
+}
+
+@keyframes abyssBadFlash {
+  0% {
+    filter: none;
+    transform: translateX(0);
+  }
+  15% {
+    filter: brightness(2) contrast(2) hue-rotate(300deg);
+    transform: translateX(-6px);
+  }
+  30% {
+    filter: brightness(0.4) contrast(3) saturate(3);
+    transform: translateX(6px);
+  }
+  45% {
+    filter: brightness(2) contrast(2) hue-rotate(330deg);
+    transform: translateX(-4px);
+  }
+  65% {
+    filter: brightness(0.2) contrast(4);
+    transform: translateX(4px);
+  }
+  100% {
+    filter: none;
+    transform: translateX(0);
+  }
+}
