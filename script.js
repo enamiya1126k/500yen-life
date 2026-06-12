@@ -1204,42 +1204,111 @@ skin10: {
     continueBonus: 0.3,
   },
 
-  end1: {
-    name: "🏯500円王国建設",
-    price: 100000000000,
-    type: "end",
-    slotBonus: 100,
-  },
-  end2: {
-    name: "🌎500円文明創造",
-    price: 1000000000000,
-    type: "end",
-    premiumBonus: 0.02,
-  },
-  end3: {
-    name: "🚀500円銀河開拓",
-    price: 10000000000000,
-    type: "end",
-    continueBonus: 0.5,
-  },
-  end4: {
-    name: "⭐500円宇宙創造",
-    price: 1000000000000000,
-    type: "end",
-    doubleBuff: true,
-  },
-  end5: {
-    name: "♾️500円という概念",
-    price: 10000000000000000,
-    type: "end",
-    specialTitle: "♾️500円そのもの",
-  },
-  end6: {
-    name: "🕳️500円特異点",
-    price: 100000000000000000,
-    type: "end",
-    specialTitle: "🕳️節約の終焉",
-  },
+end1: {
+  name: "第一世界樹の根",
+  price: 1e16,
+  type: "end",
+  slotBonus: 1000,
+},
+
+end2: {
+  name: "黄金因果律",
+  price: 1e20,
+  type: "end",
+  premiumBonus: 0.20,
+},
+
+end3: {
+  name: "虚無観測機関",
+  price: 1e24,
+  type: "end",
+  continueBonus: 5.0,
+},
+
+end4: {
+  name: "原初貨幣神の玉座",
+  price: 1e28,
+  type: "end",
+  doubleBuff: true,
+},
+
+end5: {
+  name: "存在税徴収権",
+  price: 1e32,
+  type: "end",
+  specialTitle: "存在税執行官",
+},
+
+end6: {
+  name: "世界財政管理機構",
+  price: 1e36,
+  type: "end",
+  specialTitle: "世界予算編成者",
+},
+
+end7: {
+  name: "全宇宙歳入庁",
+  price: 1e40,
+  type: "end",
+  slotBonus: 5000,
+},
+
+end8: {
+  name: "時間軸徴税機関",
+  price: 1e44,
+  type: "end",
+  premiumBonus: 1.0,
+},
+
+end9: {
+  name: "無限残高炉",
+  price: 1e48,
+  type: "end",
+  continueBonus: 20,
+},
+
+end10: {
+  name: "貨幣律そのもの",
+  price: 1e52,
+  type: "end",
+  specialTitle: "貨幣律",
+},
+
+end11: {
+  name: "全次元予算会議",
+  price: 1e56,
+  type: "end",
+  specialTitle: "次元監査神",
+},
+
+end12: {
+  name: "支出という概念の抹消",
+  price: 1e60,
+  type: "end",
+  specialTitle: "無支出存在",
+},
+
+end13: {
+  name: "貨幣創世記",
+  price: 1e64,
+  type: "end",
+  specialTitle: "原初貨幣神",
+},
+
+end14: {
+  name: "宇宙会計監査院",
+  price: 1e68,
+  type: "end",
+  specialTitle: "全能監査者",
+},
+
+end15: {
+  name: "⛧概念外存在⛧",
+  price: 1e120,
+  type: "end",
+  specialTitle: "⛧概念外存在⛧",
+},
+
 };
 
 function getItemPrice(item) {
