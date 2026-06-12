@@ -1232,7 +1232,7 @@ function syncTimingBetToMax() {
   const timingBet = document.getElementById("timingBet");
 
   if (timingBet) {
-    timingBet.value = getTimingMaxBet();
+    timingBet.value = Math.max(5, Math.floor(balance * 0.5));
   }
 }
 
