@@ -823,7 +823,7 @@ function stopTiming() {
   const bet = Number(document.getElementById("timingBet").value);
   let message = "";
 
-  if (timingPosition >= 49.8 && timingPosition <= 50.2) {
+if (timingPosition >= 48.5 && timingPosition <= 51.5)
     const multiplier = getTimingMultiplier();
     const reward = bet * multiplier;
 
