@@ -1304,7 +1304,7 @@ end14: {
 
 end15: {
   name: "概念外存在",
-  price: 1e120,
+  price: 1e240,
   type: "end",
   specialTitle: "⛧概念外存在⛧",
 },
