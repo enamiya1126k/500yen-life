@@ -1211,7 +1211,15 @@ localStorage.setItem("playerExp", playerExp);
       
         save();
       
-        alert(`🌈転生完了！\n現在 ${rebirthCount}回転生`);
+        alert(
+`🌈転生完了！
+
+能力アイテムは失われた...
+
+しかし魂は強くなった
+
+現在 ${rebirthCount}回転生`
+);
       };
       
       window.buyShopItem = function (id) {
