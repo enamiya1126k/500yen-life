@@ -211,9 +211,9 @@ function playSlot() {
     cell.classList.remove("hit");
   }
 
-  document.getElementById("betDisplay").innerText = formatMoney(bet);
+document.getElementById("betDisplay").innerText = formatMoney(bet);
 
-  document.getElementById("payoutDisplay").innerText = formatMoney(totalReward);
+document.getElementById("payoutDisplay").innerText = formatMoney(0);
 
   document.getElementById("gogoLamp").classList.remove("on");
   document.getElementById("gogoLamp").classList.remove("premium");
@@ -358,10 +358,9 @@ function finishSlot(result, bet) {
   } else {
     balance -= bet;
 
-    document.getElementById("payoutDisplay").innerText =
-  formatMoney(0);
+document.getElementById("payoutDisplay").innerText = formatMoney(0);
 
-    message = `ハズレ… -${bet}円`;
+message = `ハズレ… -${formatMoney(bet)}`;
   }
 
   document.getElementById("slotMessage").innerText = message;
