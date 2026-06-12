@@ -2092,11 +2092,12 @@ function acceptDebt() {
 function rejectDebt() {
   document.getElementById("debtModal").style.display = "none";
 
+  localStorage.setItem("balance", balance);
+  update();
+
   alert(
 `☠️ GAME OVER ☠️
 
 世界は貴様を見捨てた。`
   );
-
-  save();
 }
