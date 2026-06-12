@@ -1774,8 +1774,8 @@ if (id === "end15") {
 btn.innerHTML = `
   ${item.name}<br>
   <small>
-    COST:${formatMoney(price)}
-    ｜ EFFECT:${effectText}
+    ${formatMoney(price)}
+    ｜ ${effectText}
   </small>
 `;
 
