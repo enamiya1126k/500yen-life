@@ -12,59 +12,43 @@
     
         <h1>500円LIFE</h1>
     
-        <div class="top-status">
-            <div class="balance-box">
-                <div class="balance-label">残高</div>
-                <div id="balance">0円</div>
-            </div>
-    
-<div class="mini-ranking">
+<div class="top-dashboard">
 
-  <div class="rank-full rank-title">━━ PLAYER ━━</div>
-
-  <div>Lv：<span id="playerLevel">1</span></div>
-<div>
-  転生：<span id="rebirthCount">0</span>回
-
-  <button
-    type="button"
-    id="rebirthBtn"
-    onclick="rebirth()"
-    class="rebirth-mini-btn"
-  >
-    🌈
-  </button>
-
-</div>
-
-  <div class="rank-full">
-    <span id="rankTitle">小銭に選ばれし者</span>
+  <div class="balance-wide">
+    <div class="balance-label">残<br>高</div>
+    <div class="balance-value" id="balance">0円</div>
   </div>
 
-  <div>EXP：<span id="playerExp">0</span></div>
-  <div>倍率：<span id="buffExpRate">1倍</span></div>
-<div>金運：<span id="wealthBonus">1倍</span></div>
+  <div class="status-row">
 
-  <div class="rank-full rank-title">━━ STATUS ━━</div>
+    <div class="mini-ranking compact-status">
+      <div class="rank-title">— PLAYER —</div>
 
-  <div>残り：<span id="slotLimit">50回</span></div>
-  <div>プレミア：<span id="buffPremiumRate">0.5%</span></div>
+      <div>
+        Lv：<span id="playerLevel">1</span>
+        転生：<span id="rebirthCount">0</span>回
+        <button type="button" id="rebirthBtn" onclick="rebirth()" class="rebirth-mini-btn">🌈</button>
+      </div>
 
-  <div>継続：<span id="buffContinueRate">0%</span></div>
-  <div>ゲリラ：<span id="buffGuerillaRate">3%</span></div>
-<div>債務Lv：<span id="debtorLevel">0</span></div>
+      <div>称号：<span id="rankTitle">小銭に選ばれし者</span></div>
+      <div>EXP：<span id="playerExp">0</span> 倍率：<span id="buffExpRate">1倍</span></div>
+      <div>金運：<span id="wealthBonus">1倍</span></div>
+    </div>
 
-<div class="rank-full">
-  債務称号：<span id="debtTitle">無借金の民</span>
+    <div class="mini-ranking compact-status">
+      <div class="rank-title">— STATUS —</div>
+
+      <div>残り：<span id="slotLimit">50回</span> プレミア：<span id="buffPremiumRate">0.5%</span></div>
+      <div>継続：<span id="buffContinueRate">0%</span> ゲリラ：<span id="buffGuerillaRate">3%</span></div>
+      <div>債務Lv：<span id="debtorLevel">0</span></div>
+      <div>債務称号：<span id="debtTitle">無借金の民</span></div>
+      <div>最高：<span id="bestBalance">0円</span></div>
+    </div>
+
+  </div>
+
 </div>
 
-<div class="rank-full">
-  最高：<span id="bestBalance">0円</span>
-</div>
-
-</div>
-        </div>
-    
         <div class="quick-bar">
             <input type="number" id="expense" placeholder="使った金額">
     
