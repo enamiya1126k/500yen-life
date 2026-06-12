@@ -1002,3 +1002,41 @@ body.skin-dark .timing-card{
   flex-direction:column;
   line-height:1;
 }
+
+.ending-modal {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #eee;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
+.ending-box {
+  width: 90%;
+  max-width: 560px;
+  height: 85vh;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #444;
+  padding: 24px;
+  box-shadow: 0 0 40px #222;
+}
+
+.ending-text {
+  white-space: pre-line;
+  line-height: 2;
+  font-family: serif;
+  font-size: 16px;
+  animation: endingScroll 80s linear forwards;
+}
+
+@keyframes endingScroll {
+  from {
+    transform: translateY(75vh);
+  }
+  to {
+    transform: translateY(-100%);
+ 
