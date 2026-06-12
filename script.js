@@ -1588,6 +1588,22 @@ window.buyShopItem = function (id) {
 
   ownedItems.push(id);
 
+if (id === "end15") {
+
+  alert(
+`⛧ 概念外存在覚醒 ⛧
+
+観測終了
+
+資産という概念は崩壊した
+
+おめでとう🎉
+
+500円LIFEを完全攻略しました`
+  );
+
+}
+
   localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
 
   const afterLimit = getDailySlotLimit();
