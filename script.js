@@ -3,6 +3,8 @@ let history = JSON.parse(localStorage.getItem("history")) || [];
 let slotHistory = JSON.parse(localStorage.getItem("slotHistory")) || [];
 let playerExp = Number(localStorage.getItem("playerExp")) || 0;
 let rebirthCount = Number(localStorage.getItem("rebirthCount")) || 0;
+let debtorLevel =
+  Number(localStorage.getItem("debtorLevel")) || 0;
 
 let todaySlotCount = Number(localStorage.getItem("todaySlotCount")) || 0;
 
@@ -389,6 +391,24 @@ message = `ハズレ… -${formatMoney(bet)}`;
 }
 
 function save() {
+  if (balance <= 0) {
+    balance = 0;
+
+    if (
+      confirm(
+        "⚠️債務者刻印 発動⚠️\n\n残高因果律が完全崩壊しました。\n\n救済契約を結びますか？"
+      )
+    ) {
+      debtorLevel++;
+
+      balance = 500;
+
+      alert(
+        "🪙創造主の慈悲🪙\n\n『500円を授ける。二度と欲望に呑まれるな。』\n\n残高が500円になりました。"
+      );
+    }
+  }
+
   if (balance > stats.bestBalance) {
     stats.bestBalance = balance;
   }
@@ -398,6 +418,7 @@ function save() {
   localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
   localStorage.setItem("stats", JSON.stringify(stats));
   localStorage.setItem("playerExp", playerExp);
+  localStorage.setItem("debtorLevel", debtorLevel);
 
   update();
 }
@@ -491,6 +512,7 @@ function updateStats() {
   setText("rebirthCount", rebirthCount);
   setText("rankTitle", getRankTitle());
   setText("playerExp", playerExp.toLocaleString());
+  setText("debtorLevel", debtorLevel);
 
   localStorage.setItem("stats", JSON.stringify(stats));
 }
