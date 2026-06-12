@@ -1348,6 +1348,17 @@ window.buyShopItem = function (id) {
   }
 
   const price = getItemPrice(item);
+  
+  if (
+  item.unlockRebirth &&
+  rebirthCount < item.unlockRebirth
+) {
+  alert(
+    `転生${item.unlockRebirth}回で解放されます`
+  );
+  return;
+}
+  
   const beforeLimit = getDailySlotLimit();
 
   if (ownedItems.includes(id)) {
@@ -1453,67 +1464,62 @@ function updateShopDisplay() {
     }
   }
 
-  Object.keys(shopItems).forEach(function (id) {
-    const btn = document.getElementById(`shop-${id}`);
+Object.keys(shopItems).forEach(function (id) {
+  const btn = document.getElementById(`shop-${id}`);
 
-    if (!btn) return;
+  if (!btn) return;
 
-    const item = shopItems[id];
-    const price = getItemPrice(item);
+  const item = shopItems[id];
+  const price = getItemPrice(item);
 
-    Object.keys(shopItems).forEach(function (id) {
-      const btn = document.getElementById(`shop-${id}`);
+  if (
+    item.unlockRebirth &&
+    rebirthCount < item.unlockRebirth
+  ) {
+    btn.innerHTML = `
+      🔒 ${item.name}<br>
+      転生${item.unlockRebirth}回で解放
+    `;
+    btn.disabled = true;
+    return;
+  }
 
-      if (!btn) return;
+  let effectText = "";
 
-      const item = shopItems[id];
-      const price = getItemPrice(item);
+  if (item.slotBonus) {
+    effectText = `+${item.slotBonus}回/日`;
+  }
 
-      let effectText = "";
+  if (item.premiumBonus) {
+    effectText = `確変率+${(item.premiumBonus * 100).toFixed(1)}%`;
+  }
 
-      if (item.slotBonus) {
-        effectText = `+${item.slotBonus}回/日`;
-      }
+  if (item.continueBonus) {
+    effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
+  }
 
-      if (item.premiumBonus) {
-        effectText = `確変率+${(item.premiumBonus * 100).toFixed(1)}%`;
-      }
+  if (item.doubleBuff) {
+    effectText = "全バフ2倍";
+  }
 
-      if (item.continueBonus) {
-        effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
-      }
+  if (item.specialTitle) {
+    effectText = "称号解放";
+  }
 
-      if (item.doubleBuff) {
-        effectText = "全バフ2倍";
-      }
+  btn.innerHTML = `
+    ${item.name}<br>
+    ${formatMoney(price)}<br>
+    <small>${effectText}</small>
+  `;
 
-      if (item.specialTitle) {
-        effectText = "称号解放";
-      }
-
-      btn.innerHTML = `
-                                                                                    ${item.name}<br>
-                                                                                    ${formatMoney(price)}<br>
-                                                                                    <small>${effectText}</small>
-                                                                                  `;
-
-      if (ownedItems.includes(id)) {
-        btn.classList.add("owned");
-        btn.disabled = true;
-      } else {
-        btn.classList.remove("owned");
-        btn.disabled = false;
-      }
-    });
-
-    if (ownedItems.includes(id)) {
-      btn.classList.add("owned");
-      btn.disabled = true;
-    } else {
-      btn.classList.remove("owned");
-      btn.disabled = false;
-    }
-  });
+  if (ownedItems.includes(id)) {
+    btn.classList.add("owned");
+    btn.disabled = true;
+  } else {
+    btn.classList.remove("owned");
+    btn.disabled = false;
+  }
+});
 }
 
 function showToast(text) {
