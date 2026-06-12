@@ -411,6 +411,46 @@ function triggerBalanceJackpot() {
   }, 3000);
 }
 
+function save() {
+  const beforeBalance = previousBalanceForJackpot;
+
+  if (balance <= 0) {
+    balance = 0;
+
+    localStorage.setItem("balance", balance);
+
+    update();
+
+    previousBalanceForJackpot = balance;
+
+    showDebtModal();
+
+    return;
+  }
+
+  if (balance > stats.bestBalance) {
+    stats.bestBalance = balance;
+  }
+
+  localStorage.setItem("balance", balance);
+  localStorage.setItem("history", JSON.stringify(history));
+  localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
+  localStorage.setItem("stats", JSON.stringify(stats));
+  localStorage.setItem("playerExp", playerExp);
+  localStorage.setItem("debtorLevel", debtorLevel);
+
+  update();
+
+  if (
+    beforeBalance > 0 &&
+    balance >= beforeBalance * 10
+  ) {
+    triggerBalanceJackpot();
+  }
+
+  previousBalanceForJackpot = balance;
+}
+
 function update() {
   resetSlotCountIfNeeded();
 
