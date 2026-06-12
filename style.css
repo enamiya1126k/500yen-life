@@ -657,3 +657,61 @@ body.skin-dark .timing-card{
 #toast.show{
     opacity:1;
 }
+
+.skin-god{
+  background:
+  radial-gradient(circle at top,#fff8b0,#d4af37,#3a2200);
+}
+
+.skin-observer{
+  background:
+  radial-gradient(circle at center,#ffe600,#ff6600,#1a0000);
+}
+
+.skin-void{
+  background:
+  radial-gradient(circle,#1e3cff,#120024,#000);
+}
+
+.skin-causality{
+  background:
+  radial-gradient(circle,#ff004c,#4400ff,#000);
+}
+
+.skin-transcend{
+  background:
+  radial-gradient(circle,#ffffff,#7df9ff,#001f3f);
+}
+
+.skin-multiverse{
+  background:
+  linear-gradient(
+    135deg,
+    #ff0000,
+    #ff9900,
+    #ffee00,
+    #00ff55,
+    #00ccff,
+    #6633ff,
+    #ff00cc
+  );
+}
+
+.skin-collapse{
+  background:
+  radial-gradient(circle,
+  #ffffff 0%,
+  #ff00ff 10%,
+  #00ffff 20%,
+  #000000 100%);
+  animation: collapse 5s linear infinite;
+}
+
+@keyframes collapse{
+  0%{
+    filter:hue-rotate(0deg);
+  }
+  100%{
+    filter:hue-rotate(360deg);
+  }
+}
