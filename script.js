@@ -1079,106 +1079,41 @@ function getLevelBuffs() {
 }
 
 const shopItems = {
+
   title1: {
-    name: "銭鬼",
-    price: 1000000,
+    name: "🩸契約の第一硬貨",
+    price: 10000,
     type: "title",
     slotBonus: 5,
   },
+
   title2: {
-    name: "金喰天狗",
-    price: 10000000,
+    name: "👁️金喰天狗の魔眼",
+    price: 1000000,
     type: "title",
     slotBonus: 10,
   },
+
   title3: {
-    name: "黄金龍王",
+    name: "🐉黄金龍王の逆鱗",
     price: 100000000,
-    type: "title",
-    slotBonus: 15,
-  },
-  title4: {
-    name: "財禍の鬼神",
-    price: 1000000000,
-    type: "title",
-    slotBonus: 20,
-  },
-  title5: {
-    name: "貨幣大明王",
-    price: 10000000000,
     type: "title",
     slotBonus: 50,
   },
-  
-  title6: {
-  name: "破産冥王",
-  price: 1e11,
-  type: "title",
-  slotBonus: 100,
-},
 
-title7: {
-  name: "煉獄財神",
-  price: 1e12,
-  type: "title",
-  slotBonus: 150,
-},
+  title4: {
+    name: "☠️財禍鬼神の心核",
+    price: 1000000000,
+    type: "title",
+    slotBonus: 100,
+  },
 
-title8: {
-  name: "雷神・銭天",
-  price: 1e13,
-  type: "title",
-  slotBonus: 200,
-},
-
-title9: {
-  name: "夜叉王",
-  price: 1e14,
-  type: "title",
-  slotBonus: 300,
-},
-
-title10: {
-  name: "金運覇王",
-  price: 1e15,
-  type: "title",
-  slotBonus: 500,
-},
-
-title11: {
-  name: "天地開闢龍神",
-  price: 1e16,
-  type: "title",
-  slotBonus: 750,
-},
-
-title12: {
-  name: "虚無財神",
-  price: 1e17,
-  type: "title",
-  slotBonus: 1000,
-},
-
-title13: {
-  name: "万象観測神",
-  price: 1e18,
-  type: "title",
-  slotBonus: 1500,
-},
-
-title14: {
-  name: "森羅万象の支配者",
-  price: 1e19,
-  type: "title",
-  slotBonus: 2500,
-},
-
-title15: {
-  name: "⛧原初神⛧",
-  price: 1e20,
-  type: "title",
-  slotBonus: 5000,
-},
+  title5: {
+    name: "📜貨幣大明王の禁書",
+    price: 10000000000,
+    type: "title",
+    slotBonus: 500,
+  },
 
 skin1: {
   name: "🎨黒金スキン",
