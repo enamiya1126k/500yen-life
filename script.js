@@ -815,48 +815,42 @@ function startTiming() {
     }
   }, 20);
 
-  document.getElementById("timingMessage").innerText = "STOPを押せ！";
-}
-
 function stopTiming() {
-  if (!timingRunning) {
-    return;
-  }
+  if (!timingRunning) return;
 
   timingRunning = false;
-
   clearInterval(timingInterval);
 
   const bet = Number(document.getElementById("timingBet").value);
-
   let message = "";
 
-  if (timingPosition >= 49 && timingPosition <= 51) {
-    let reward = bet * 999;
+  if (timingPosition >= 49.8 && timingPosition <= 50.2) {
+    const multiplier = getTimingMultiplier();
+    const reward = bet * multiplier;
 
-    if (Math.random() < 0.005) {
-      reward = bet * 9999;
-
-message = `🌈🌈🌈
+    if (multiplier >= 999) {
+      message = `🌈🌈🌈
 神降臨
-JACKPOT
+${multiplier}倍
 +${formatMoney(reward)}
 🌈🌈🌈`;
 
-      alert(
-        `🌈🌈🌈
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                神降臨
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                JACKPOT
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                🌈🌈🌈`,
-      );
-
+      alert(`🌈 ${multiplier}倍 JACKPOT！ 🌈`);
       document.body.classList.add("skin-rainbow");
 
       setTimeout(function () {
         document.body.classList.remove("skin-rainbow");
       }, 5000);
+    } else if (multiplier >= 99) {
+      message = `🔥🔥🔥
+激アツ
+${multiplier}倍
++${formatMoney(reward)}
+🔥🔥🔥`;
     } else {
-message = `🎯PERFECT！ +${formatMoney(reward)}`;
+      message = `🎯PERFECT！
+${multiplier}倍
++${formatMoney(reward)}`;
     }
 
     balance += reward;
@@ -869,31 +863,18 @@ message = `🎯PERFECT！ +${formatMoney(reward)}`;
     setTimeout(playWinSound, 450);
     setTimeout(playWinSound, 600);
     setTimeout(playWinSound, 750);
-  } else if (timingPosition >= 46 && timingPosition <= 54) {
-    const reward = bet * 2;
-
-    balance += reward;
-
-message = `✨GOOD！ +${formatMoney(reward)}`;
-
-    playWinSound();
-  } else if (timingPosition >= 25 && timingPosition <= 75) {
-    const reward = bet;
-
-    balance += reward;
-
+  } else if (timingPosition >= 49.2 && timingPosition <= 50.8) {
     message = `🛡️SAFE！ ±0円`;
   } else {
-    balance -= bet;
-
-message = `💥失敗！ -${formatMoney(bet)}`;
+    const penalty = bet * 10;
+    balance -= penalty;
+    message = `💥OUT！ -${formatMoney(penalty)}`;
   }
 
   document.getElementById("timingMessage").innerText = message;
 
   slotHistory.unshift(`${getDateTime()} 🎯 ${message}`);
 
-  /* ←追加 */
   const timingBet = document.getElementById("timingBet");
 
   if (timingBet) {
@@ -1200,6 +1181,43 @@ function getRebirthBuffs() {
     premiumBonus: rebirthCount * 0.002,
     continueBonus: rebirthCount * 0.1,
   };
+}
+
+function getTimingMultiplier() {
+  const level = getLevel();
+  const rebirth = rebirthCount;
+
+  const levelBonus =
+    Math.min(0.15, Math.floor(level / 100) * 0.015);
+
+  const rebirthBonus =
+    Math.min(0.25, rebirth * 0.03);
+
+  const bonus = levelBonus + rebirthBonus;
+
+  const roll = Math.random();
+
+  if (roll < 0.001 + bonus * 0.03) {
+    return 9999;
+  }
+
+  if (roll < 0.01 + bonus * 0.12) {
+    return 999;
+  }
+
+  if (roll < 0.05 + bonus * 0.35) {
+    return 99;
+  }
+
+  if (roll < 0.15 + bonus * 0.55) {
+    return 50;
+  }
+
+  if (roll < 0.35 + bonus * 0.75) {
+    return 20;
+  }
+
+  return Math.floor(Math.random() * 10) + 5;
 }
 
 function updateRebirthButton() {
