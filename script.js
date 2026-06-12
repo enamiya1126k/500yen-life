@@ -1692,7 +1692,11 @@ if (ownedItems.includes("skin10")) {
             return "";
           }
 
-          return `<div class="collection-item">${item.name}</div>`;
+          return `
+<div class="collection-item">
+【${item.name}】
+</div>
+`;
         })
         .join("");
     }
@@ -1700,6 +1704,8 @@ if (ownedItems.includes("skin10")) {
 
 Object.keys(shopItems).forEach(function (id) {
   const btn = document.getElementById(`shop-${id}`);
+
+console.log(id);
 
   if (!btn) return;
 
