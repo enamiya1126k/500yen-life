@@ -2118,3 +2118,176 @@ function rejectDebt() {
 世界は貴様を見捨てた。`
   );
 }
+
+function triggerEnding() {
+  const modal = document.getElementById("endingModal");
+  const text = document.getElementById("endingText");
+  const btn = document.getElementById("newGamePlusBtn");
+
+  if (!modal || !text || !btn) return;
+
+  btn.style.display = "none";
+  modal.style.display = "flex";
+
+  text.innerText = `
+貨幣は意味を失った。
+
+借金は意味を失った。
+
+資産は意味を失った。
+
+世界は意味を失った。
+
+
+
+最後に残ったのは
+
+観測者である貴様だけだった。
+
+
+
+誰も到達できなかった場所。
+
+誰も数え切れなかった数字。
+
+誰も理解できなかった領域。
+
+
+
+貴様は
+
+500円の果てを見た。
+
+
+
+そして今、
+
+500円という物語は終わる。
+
+
+
+――観測終了――
+
+
+
+
+
+
+
+【 STAFF ROLL 】
+
+企画
+えなみ
+
+システム設計
+えなみ
+
+ゲームバランス崩壊担当
+えなみ
+
+借金認定委員会
+えなみ
+
+奈落管理局
+えなみ
+
+世界政府 財務監視局
+えなみ
+
+最終観測者
+えなみ
+
+
+
+
+
+
+
+Special Thanks
+
+毎日500円を我慢した人
+
+コンビニで悩んだ人
+
+無駄遣いした人
+
+借金した人
+
+そして
+
+最後までプレイした貴様へ
+
+
+
+
+
+
+
+────────────────
+
+500円 LIFE
+
+COMPLETE
+
+達成率 100%
+
+観測率 100%
+
+借金率 不明
+
+生活維持率 不明
+
+世界存続率 0%
+
+────────────────
+
+
+
+
+
+
+
+・・・
+
+？？？
+
+【世界政府 財務監視局】
+
+お疲れ様でした。
+
+なお、
+
+現実世界の残高には
+
+一切影響ありません。
+
+ご利用ありがとうございました。
+
+・・・
+
+ところで
+
+明日の500円は？
+`;
+
+  setTimeout(function () {
+    btn.style.display = "block";
+  }, 80000);
+}
+
+function startNewGamePlus() {
+  balance = 500;
+  playerExp = 0;
+  todaySlotCount = 0;
+  slotHistory.unshift(`${getDateTime()} ▶ NEW GAME+ 初期残高500円`);
+
+  localStorage.setItem("balance", balance);
+  localStorage.setItem("playerExp", playerExp);
+  localStorage.setItem("todaySlotCount", todaySlotCount);
+
+  document.getElementById("endingModal").style.display = "none";
+
+  alert("初期残高\n\n500円\n\n500円 LIFE Ver.2\n\nようこそ。");
+
+  save();
+}
