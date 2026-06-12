@@ -860,7 +860,7 @@ ${multiplier}倍
 
   } else {
 
-const penalty = Math.min(balance, bet * 2);
+const penalty = Math.min(balance, bet);
 balance -= penalty;
 message = `💥OUT！ -${formatMoney(penalty)}`;
   }
