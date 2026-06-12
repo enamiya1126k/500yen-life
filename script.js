@@ -1763,9 +1763,13 @@ console.log(id);
     effectText = "全バフ2倍";
   }
 
-  if (item.specialTitle) {
-    effectText = "称号解放";
-  }
+if (item.specialTitle) {
+  effectText = "禁忌遺物";
+}
+
+if (id === "end15") {
+  effectText = "観測終了";
+}
 
   btn.innerHTML = `
     ${item.name}<br>
