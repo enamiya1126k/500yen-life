@@ -330,9 +330,9 @@ function finishSlot(result, bet) {
       });
     });
 
-    document.getElementById("gogoLamp").classList.add("on");
-    document.getElementById("payoutDisplay").innerText =
-  formatMoney(0);
+document.getElementById("gogoLamp").classList.add("on");
+document.getElementById("payoutDisplay").innerText =
+  formatMoney(totalReward);
 
     hitLines.forEach(function (hit) {
       if (hit.line.toString() === [0, 4, 8].toString()) {
