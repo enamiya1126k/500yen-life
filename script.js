@@ -139,47 +139,50 @@
       }
     }
     
-    function playSlot() {
-      if (spinning) return;
-    
-      resetSlotCountIfNeeded();
-    
-      if (todaySlotCount >= getDailySlotLimit()) {
-        alert(`今日は${getDailySlotLimit()}回まで！`);
-        return;
-      }
-    
-      if (balance <= 0) {
-        alert("残高がないのでスロットできません！");
-        return;
-      }
-    
-      let bet = Number(document.getElementById("betAmount").value);
+function playSlot() {
+  if (spinning) return;
 
-if (isMaxBetMode) {
-  bet = maxBet;
-  document.getElementById("betAmount").value = bet;
-  document.getElementById("betDisplay").innerText = bet;
-}
-    
-      localStorage.setItem("lastBet", bet);
-    
-      const maxBet = Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
-    
-      if (!bet || bet <= 0) {
-        alert("賭け金を入力してね！");
-        return;
-      }
-    
-      if (bet > maxBet) {
-        alert(`賭け金は残高の10%まで！最大${maxBet}円だよ`);
-        return;
-      }
-    
-      if (bet > balance) {
-        alert("残高が足りない！");
-        return;
-      }
+  resetSlotCountIfNeeded();
+
+  if (todaySlotCount >= getDailySlotLimit()) {
+    alert(`今日は${getDailySlotLimit()}回まで！`);
+    return;
+  }
+
+  if (balance <= 0) {
+    alert("残高がないのでスロットできません！");
+    return;
+  }
+
+  const maxBet = Math.min(
+    balance,
+    Math.max(5, Math.floor(balance * 0.1))
+  );
+
+  let bet = Number(document.getElementById("betAmount").value);
+
+  if (isMaxBetMode) {
+    bet = maxBet;
+    document.getElementById("betAmount").value = bet;
+    document.getElementById("betDisplay").innerText = bet;
+  }
+
+  localStorage.setItem("lastBet", bet);
+
+  if (!bet || bet <= 0) {
+    alert("賭け金を入力してね！");
+    return;
+  }
+
+  if (bet > maxBet) {
+    alert(`賭け金は残高の10%まで！最大${maxBet}円だよ`);
+    return;
+  }
+
+  if (bet > balance) {
+    alert("残高が足りない！");
+    return;
+  }
     
       playCoinSound();
       addExp(3);
