@@ -398,6 +398,29 @@ maybeTriggerAbyss();
   isPremium = false;
 }
 
+let lastBalanceForJackpot =
+  Number(localStorage.getItem("lastBalanceForJackpot")) || balance;
+
+function checkBalanceJackpot(beforeBalance, afterBalance) {
+  if (beforeBalance <= 0) return;
+
+  if (afterBalance >= beforeBalance * 10) {
+    const balanceBox = document.querySelector(".balance-wide");
+
+    if (!balanceBox) return;
+
+    balanceBox.classList.remove("balance-jackpot");
+
+    void balanceBox.offsetWidth;
+
+    balanceBox.classList.add("balance-jackpot");
+
+    setTimeout(function () {
+      balanceBox.classList.remove("balance-jackpot");
+    }, 3000);
+  }
+}
+
 function save() {
   if (balance <= 0) {
     balance = 0;
