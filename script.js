@@ -1583,6 +1583,23 @@ window.buyShopItem = function (id) {
     return;
   }
 
+if (id === "end15") {
+
+  if (
+    !confirm(
+`終焉に到達しますか？
+
+この選択を行うと
+500円LIFEは観測終了します。
+
+本当に進みますか？`
+    )
+  ) {
+    return;
+  }
+
+}
+
     balance -= price;
   addExp(50);
 
