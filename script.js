@@ -1840,7 +1840,7 @@ function updateCompressDisplay() {
 function maybeTriggerAbyss() {
   if (abyssActive) return;
 
-  if (Math.random() < 0.003) {
+  if (Math.random() < 1) {
     triggerAbyssChallenge();
   }
 }
