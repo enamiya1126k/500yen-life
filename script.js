@@ -482,13 +482,11 @@
                   localStorage.setItem("stats", JSON.stringify(stats));
                 }
                 
-                function setText(id, text) {
-                  const el = document.getElementById(id);
-                
-                  if (el) {
-                    el.innerText = text;
-                  }
-                }
+function setText(id, text) {
+  document.querySelectorAll(`#${id}`).forEach(function (el) {
+    el.innerText = text;
+  });
+}
                 
                 window.setBet = function (amount) {
                     isMaxBetMode = false;
@@ -986,24 +984,23 @@
                 slotBonus: 50,
               },
               
-              skin1: {
-                name: "🎨黒金スキン",
-                price: 5000000,
-                type: "skin",
-                premiumBonus: 0.002,
-              },
-              skin2: {
-                name: "🌈レインボー覚醒",
-                price: 50000000,
-                type: "skin",
-                premiumBonus: 0.005,
-              },
-              skin3: {
-                name: "☠️奈落モード",
-                price: 500000000,
-                type: "skin",
-                premiumBonus: 0.01,
-              },
+skin1: {
+  name: "🎨黒金スキン",
+  price: 5000000,
+  type: "skin",
+},
+
+skin2: {
+  name: "🌈レインボー覚醒",
+  price: 50000000,
+  type: "skin",
+},
+
+skin3: {
+  name: "☠️奈落モード",
+  price: 500000000,
+  type: "skin",
+},
               
               effect1: {
                 name: "✨GOGO覚醒",
@@ -1190,9 +1187,16 @@
                   return;
                 }
               
-        rebirthCount++;
-        
-        playerExp = 0;
+rebirthCount++;
+
+playerExp = 0;
+todaySlotCount = 0;
+
+isMaxBetMode = false;
+localStorage.setItem("isMaxBetMode", "false");
+localStorage.removeItem("lastBet");
+
+localStorage.setItem("todaySlotCount", todaySlotCount);
         
         /* スキンだけ残す */
         ownedItems = ownedItems.filter(
