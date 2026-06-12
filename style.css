@@ -985,3 +985,15 @@ body.skin-dark .timing-card{
     font-size:9.5px;
   }
 }
+
+.top-dashboard{
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+
+  background: #050000;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: 8px;
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.75);
+}
