@@ -1326,19 +1326,27 @@ localStorage.setItem("playerExp", playerExp);
             }
           }
         
-          Object.keys(shopItems).forEach(function (id) {
-            const btn = document.getElementById(`shop-${id}`);
-        
-            if (!btn) return;
-        
-            if (ownedItems.includes(id)) {
-              btn.classList.add("owned");
-              btn.disabled = true;
-            } else {
-              btn.classList.remove("owned");
-              btn.disabled = false;
-            }
-          });
+Object.keys(shopItems).forEach(function (id) {
+  const btn = document.getElementById(`shop-${id}`);
+
+  if (!btn) return;
+
+  const item = shopItems[id];
+  const price = getItemPrice(item);
+
+  btn.innerHTML = `
+    ${item.name}<br>
+    <small>${formatMoney(price)}</small>
+  `;
+
+  if (ownedItems.includes(id)) {
+    btn.classList.add("owned");
+    btn.disabled = true;
+  } else {
+    btn.classList.remove("owned");
+    btn.disabled = false;
+  }
+});
         }
         
         function showToast(text) {
