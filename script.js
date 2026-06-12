@@ -44,6 +44,11 @@ let timingDirection = 1;
 let timingRunning = false;
 let timingTimeout = null;
 let timingCountdown = null;
+let abyssCountdown = null;
+let abyssActive = false;
+let abyssResults = [];
+let nextSlotPremium = false;
+let premiumRush = false;
 
 window.onload = function () {
   const lastBet = localStorage.getItem("lastBet");
@@ -193,7 +198,8 @@ function playSlot() {
   spinning = true;
   stopFlags = [false, false, false];
   currentBet = bet;
-  isPremium = Math.random() < getPremiumRate();
+isPremium = premiumRush || nextSlotPremium || Math.random() < getPremiumRate();
+nextSlotPremium = false;
 
   currentResult = [];
 
@@ -386,6 +392,8 @@ message = `ハズレ… -${formatMoney(bet)}`;
       triggerTimingChallenge();
     }
   }
+
+maybeTriggerAbyss();
 
   isPremium = false;
 }
