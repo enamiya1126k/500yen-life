@@ -1771,11 +1771,13 @@ if (id === "end15") {
   effectText = "観測終了";
 }
 
-  btn.innerHTML = `
-    ${item.name}<br>
-    ${formatMoney(price)}<br>
-    <small>${effectText}</small>
-  `;
+btn.innerHTML = `
+  ${item.name}<br>
+  <small>
+    COST:${formatMoney(price)}
+    ｜ EFFECT:${effectText}
+  </small>
+`;
 
   if (ownedItems.includes(id)) {
     btn.classList.add("owned");
