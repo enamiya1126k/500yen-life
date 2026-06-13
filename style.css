@@ -1689,3 +1689,31 @@ body.skin-dark .timing-card{
   filter:grayscale(1) brightness(.45);
   box-shadow:none !important;
 }
+
+/* ===== 資産圧縮：買える/買えない表示 ===== */
+
+.compress-grid button.compress-can{
+  opacity:1;
+  filter:none;
+  border-color:#54ff65 !important;
+  box-shadow:
+    0 0 12px #54ff65,
+    0 0 24px rgba(84,255,101,.65),
+    inset 0 0 12px rgba(84,255,101,.25) !important;
+}
+
+.compress-grid button.compress-can::before{
+  content:"圧縮OK";
+  position:absolute;
+  top:4px;
+  right:6px;
+  font-size:9px;
+  color:#54ff65;
+  text-shadow:0 0 6px #54ff65;
+}
+
+.compress-grid button.compress-cant{
+  opacity:.35;
+  filter:grayscale(.7) brightness(.55);
+  box-shadow:none !important;
+}
