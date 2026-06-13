@@ -2127,8 +2127,8 @@ Object.keys(shopItems).forEach(function (id) {
   if (id === "end15") effectText = "観測終了";
 
 btn.innerHTML = `
-  ${item.name}<br>
-  <strong>${formatMoney(price)}</strong><br>
+  <span class="item-name">${item.name}</span>
+  <span class="item-price">${formatMoney(price)}</span>
   <small>${effectText}</small>
 `;
 
