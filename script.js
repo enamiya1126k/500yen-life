@@ -2126,10 +2126,11 @@ Object.keys(shopItems).forEach(function (id) {
   if (item.specialTitle) effectText = "禁忌遺物";
   if (id === "end15") effectText = "観測終了";
 
-  btn.innerHTML = `
-    ${item.name}<br>
-    <small>${formatMoney(price)} ｜ ${effectText}</small>
-  `;
+btn.innerHTML = `
+  ${item.name}<br>
+  <strong>${formatMoney(price)}</strong><br>
+  <small>${effectText}</small>
+`;
 
 if (ownedItems.includes(id)) {
 
