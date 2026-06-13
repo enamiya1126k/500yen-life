@@ -2011,3 +2011,171 @@ button[id^="shop-end"]{
 .shop-grid button.owned .item-price{
   color:#54ff65;
 }
+
+/* ===== SHOP状態表示・整理版 ===== */
+
+.shop-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.shop-grid button{
+  position:relative !important;
+
+  width:100% !important;
+  min-width:0 !important;
+  min-height:46px !important;
+
+  padding:5px 4px !important;
+  border-radius:8px !important;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  gap:2px;
+
+  font-size:11px !important;
+  line-height:1.15 !important;
+
+  white-space:normal !important;
+  writing-mode:horizontal-tb !important;
+  word-break:normal !important;
+  overflow-wrap:anywhere !important;
+
+  background:linear-gradient(145deg,#3a2600,#090909);
+  color:white;
+
+  border:1px solid gold;
+
+  box-shadow:
+    0 0 8px rgba(255,215,0,.45),
+    inset 0 0 12px rgba(255,215,0,.18);
+}
+
+.shop-grid button small{
+  display:block;
+  margin-top:3px;
+  font-size:8px !important;
+  line-height:1.15 !important;
+  opacity:.95;
+}
+
+.item-name,
+.item-price{
+  display:block;
+}
+
+.item-price{
+  font-size:13px;
+  font-weight:900;
+  color:#fff;
+  text-shadow:0 0 8px gold;
+  margin:2px 0;
+}
+
+/* 買える */
+.shop-grid button.can-buy{
+  opacity:1 !important;
+  filter:none !important;
+
+  background:linear-gradient(145deg,#064d1f,#050505) !important;
+  color:white !important;
+
+  border:2px solid #00ff88 !important;
+
+  box-shadow:
+    0 0 12px #00ff88,
+    0 0 24px rgba(0,255,136,.65),
+    inset 0 0 10px rgba(0,255,136,.25) !important;
+}
+
+/* 買えない */
+.shop-grid button.cant-buy{
+  opacity:.28 !important;
+  filter:grayscale(1) brightness(.5) !important;
+
+  background:linear-gradient(145deg,#222,#050505) !important;
+  color:white !important;
+
+  border:1px solid #555 !important;
+  box-shadow:none !important;
+}
+
+/* 購入済 */
+.shop-grid button.owned{
+  opacity:1 !important;
+  filter:none !important;
+
+  background:linear-gradient(145deg,#003b12,#050505) !important;
+  color:#54ff65 !important;
+
+  border:2px solid #54ff65 !important;
+
+  box-shadow:
+    0 0 10px #54ff65,
+    inset 0 0 8px rgba(84,255,101,.25) !important;
+}
+
+.shop-grid button.owned .item-price{
+  color:#54ff65;
+}
+
+/* 転生ロック */
+.shop-grid button.locked{
+  opacity:.25 !important;
+  filter:grayscale(1) brightness(.45) !important;
+
+  background:linear-gradient(145deg,#222,#050505) !important;
+  color:white !important;
+
+  border:1px solid #555 !important;
+  box-shadow:none !important;
+}
+
+/* CSS疑似表示を無効化 */
+.shop-grid button.can-buy::before,
+.shop-grid button.owned::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* 状態タグ */
+.buy-tag{
+  display:block !important;
+  margin-top:4px !important;
+
+  font-size:10px !important;
+  font-weight:bold !important;
+  line-height:1.1 !important;
+}
+
+.can-tag{
+  color:#00ff88 !important;
+  text-shadow:0 0 8px #00ff88 !important;
+}
+
+.cant-tag{
+  color:#ff7777 !important;
+  text-shadow:0 0 6px #ff3333 !important;
+}
+
+.owned-tag{
+  color:#66ccff !important;
+  text-shadow:0 0 8px #66ccff !important;
+}
+
+/* 観測不能領域 */
+button[id^="shop-end"]{
+  min-height:72px !important;
+  font-size:13px !important;
+  line-height:1.15 !important;
+  padding:8px 6px !important;
+}
+
+#shop-end15{
+  font-size:11px !important;
+  line-height:1.15 !important;
+}
