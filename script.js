@@ -1663,30 +1663,73 @@ function getDailySlotLimit() {
   const buffs = getShopBuffs();
   const levelBuffs = getLevelBuffs();
   const rebirth = getRebirthBuffs();
+  const demon = getDemonBuffs();
 
-  return 50 + buffs.slotBonus + levelBuffs.slotBonus + rebirth.slotBonus;
+  let total =
+    50 +
+    buffs.slotBonus +
+    levelBuffs.slotBonus +
+    rebirth.slotBonus +
+    demon.slotBonus;
+
+  if (demon.doubleBuff) {
+    total *= 2;
+  }
+
+  return total;
 }
 
 function getPremiumRate() {
   const buffs = getShopBuffs();
   const levelBuffs = getLevelBuffs();
   const rebirth = getRebirthBuffs();
+  const demon = getDemonBuffs();
 
-  return (
-    0.005 + buffs.premiumBonus + levelBuffs.premiumBonus + rebirth.premiumBonus
-  );
+  let total =
+    0.005 +
+    buffs.premiumBonus +
+    levelBuffs.premiumBonus +
+    rebirth.premiumBonus +
+    demon.premiumBonus;
+
+  if (demon.doubleBuff) {
+    total *= 2;
+  }
+
+  return total;
 }
 
 function getContinueRate() {
   const buffs = getShopBuffs();
   const levelBuffs = getLevelBuffs();
   const rebirth = getRebirthBuffs();
+  const demon = getDemonBuffs();
 
-  return buffs.continueBonus + levelBuffs.continueBonus + rebirth.continueBonus;
+  let total =
+    buffs.continueBonus +
+    levelBuffs.continueBonus +
+    rebirth.continueBonus +
+    demon.continueBonus;
+
+  if (demon.doubleBuff) {
+    total *= 2;
+  }
+
+  return total;
 }
 
 function getExpRate() {
-  return 1 + rebirthCount;
+  const demon = getDemonBuffs();
+
+  let total =
+    (1 + rebirthCount) *
+    (1 + demon.expBonus);
+
+  if (demon.doubleBuff) {
+    total *= 2;
+  }
+
+  return total;
 }
 
 function getWealthBonus() {
@@ -1726,6 +1769,27 @@ function getRebirthBuffs() {
     slotBonus: rebirthCount * 20,
     premiumBonus: rebirthCount * 0.002,
     continueBonus: rebirthCount * 0.1,
+  };
+}
+
+function getDemonBuffs() {
+  return {
+    slotBonus:
+      (demonContractCount >= 5 ? 10 : 0) +
+      (demonContractCount >= 50 ? 100 : 0),
+
+    premiumBonus:
+      (demonContractCount >= 3 ? 0.005 : 0) +
+      (demonContractCount >= 30 ? 0.03 : 0),
+
+    continueBonus:
+      (demonContractCount >= 10 ? 0.05 : 0),
+
+    expBonus:
+      (demonContractCount >= 20 ? 0.5 : 0),
+
+    doubleBuff:
+      demonContractCount >= 100
   };
 }
 
