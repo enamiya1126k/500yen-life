@@ -2055,13 +2055,18 @@ btn.innerHTML = `
   </small>
 `;
 
-  if (ownedItems.includes(id)) {
-    btn.classList.add("owned");
-    btn.disabled = true;
-  } else {
-    btn.classList.remove("owned");
-    btn.disabled = false;
-  }
+btn.classList.remove("owned", "can-buy", "cant-buy");
+
+if (ownedItems.includes(id)) {
+  btn.classList.add("owned");
+  btn.disabled = true;
+} else if (balance >= price) {
+  btn.classList.add("can-buy");
+  btn.disabled = false;
+} else {
+  btn.classList.add("cant-buy");
+  btn.disabled = false;
+}
 });
 }
 
