@@ -1619,3 +1619,41 @@ body.skin-dark .timing-card{
   font-size:9px;
   color:#54ff65;
 }
+
+/* ===== 悪魔登場演出 ===== */
+
+.demon-arrival::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at center,
+      rgba(120,0,0,.15),
+      rgba(0,0,0,.96) 70%
+    );
+  z-index:999999;
+  pointer-events:none;
+  animation:demonArrival .9s ease-in-out forwards;
+}
+
+@keyframes demonArrival{
+  0%{
+    opacity:0;
+    filter:brightness(1);
+  }
+
+  30%{
+    opacity:1;
+    filter:brightness(.25);
+  }
+
+  60%{
+    opacity:.75;
+    filter:brightness(.1);
+  }
+
+  100%{
+    opacity:0;
+    filter:brightness(1);
+  }
+}
