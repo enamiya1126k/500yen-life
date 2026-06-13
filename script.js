@@ -1430,19 +1430,19 @@ effect1: {
   name: "♻️継続の札",
   price: 10000000,
   type: "effect",
-  continueBonus: 0.1,
+  continueBonus: 0.05,
 },
 effect2: {
   name: "🔥不滅ボーナス",
-  price: 100000000,
+  price: 100000000000,
   type: "effect",
-  continueBonus: 0.2,
+  continueBonus: 0.1,
 },
 effect3: {
   name: "🌈輪廻ラッシュ",
-  price: 1000000000,
+  price: 10000000000000,
   type: "effect",
-  continueBonus: 0.3,
+  continueBonus: 0.2,
 },
 
 end1: {
