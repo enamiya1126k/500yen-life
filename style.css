@@ -12,7 +12,7 @@ body{
     margin:auto;
     box-sizing:border-box;
 
-    padding-top:260px;
+    padding-top:300px;
     padding-bottom:90px;
 }
 
@@ -1090,10 +1090,18 @@ body.skin-dark .timing-card{
 
   z-index:99999;
 
-  background:#050000;
+  background:
+    linear-gradient(
+      180deg,
+      #050000 0%,
+      #050000 85%,
+      rgba(5,0,0,0) 100%
+    );
 
   padding-top:env(safe-area-inset-top);
-  padding-bottom:8px;
+  padding-bottom:14px;
+
+  box-shadow:0 10px 18px rgba(0,0,0,.55);
 }
 
 .balance-label{
