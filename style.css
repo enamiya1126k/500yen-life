@@ -1411,7 +1411,7 @@ body.skin-dark .timing-card{
 .god-flash {
   position: fixed;
   inset: 0;
-	◦	  background: white;
+  background: white;
   z-index: 99999;
   pointer-events: none;
   animation: godFlash 1.5s ease-out forwards;
