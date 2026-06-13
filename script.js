@@ -773,6 +773,10 @@ function updateStats() {
 );
   setText("debtorLevel", debtorLevel);
   setText("debtTitle", getDebtTitle());
+  setText(
+  "demonContractDisplay",
+  `😈契約回数：${demonContractCount}回`
+);
 
   localStorage.setItem("stats", JSON.stringify(stats));
 }
