@@ -206,31 +206,88 @@ button{
 }
 
 .gogo-lamp{
-    width:150px;
-    height:42px;
-    margin:6px auto;
-    border-radius:999px;
-    background:#050505;
-    color:#222;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    font-weight:bold;
-    border:3px solid #444;
+  width:260px;
+  margin:0 auto 15px;
+
+  padding:12px;
+
+  border-radius:40px;
+
+  border:3px solid #1aff66;
+
+  background:
+    radial-gradient(
+      circle,
+      #0f0 0%,
+      #003300 70%
+    );
+
+  color:#aaffaa;
+
+  font-size:42px;
+  font-weight:900;
+
+  text-align:center;
+
+  text-shadow:
+    0 0 10px #0f0,
+    0 0 20px #0f0,
+    0 0 40px #0f0;
+
+  box-shadow:
+    0 0 20px #00ff66,
+    inset 0 0 20px #00ff66;
+
+  letter-spacing:2px;
 }
 
 .gogo-lamp.on{
-    background:radial-gradient(circle,#ffb8ff,#d436ff);
+
+    background:radial-gradient(
+      circle,
+      #ffb8ff,
+      #d436ff
+    );
+
     color:white;
-    box-shadow:0 0 30px #ff00ff,0 0 60px #ff00ff;
+
+    box-shadow:
+      0 0 30px #ff00ff,
+      0 0 60px #ff00ff,
+      0 0 120px #ff00ff;
+
+    animation:
+      gogoFlash 0.15s infinite alternate;
 }
 
 .gogo-lamp.premium{
-    background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+
+    background:
+      linear-gradient(
+        90deg,
+        red,
+        orange,
+        yellow,
+        green,
+        cyan,
+        blue,
+        violet
+      );
+
+    background-size:400% 400%;
+
     color:white;
-    box-shadow:0 0 30px red,0 0 50px cyan,0 0 80px violet;
+
+    animation:
+      rainbowMove 1s linear infinite;
+
+    box-shadow:
+      0 0 40px red,
+      0 0 80px cyan,
+      0 0 120px violet;
 }
+
+
 
 #maxBetText{
     font-size:12px;
@@ -254,16 +311,26 @@ button{
 }
 
 .slot-machine{
-    position:relative;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:5px;
-    background:linear-gradient(145deg,#8f0000,#220000);
-    border:4px solid gold;
-    border-radius:18px;
-    padding:10px;
-    margin-top:16px;
-    box-shadow:0 0 18px gold,inset 0 0 16px rgba(0,0,0,.7);
+  position:relative;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+
+  padding:14px;
+
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffd700,
+      #aa7700
+    );
+
+  box-shadow:
+    0 0 30px #ffcc00,
+    inset 0 0 20px rgba(255,255,255,0.5);
 }
 
 .slot-machine::before{
@@ -338,12 +405,45 @@ button{
 }
 
 .stop-buttons button{
-    flex:1;
-    height:42px;
-    color:white;
-    background:radial-gradient(circle,#ff7a7a,#8b0000);
-    border-radius:999px;
-    box-shadow:0 4px 0 #520000,0 0 12px red;
+
+  flex:1;
+
+  height:72px;
+
+  border:none;
+
+  border-radius:40px;
+
+  font-size:30px;
+
+  font-weight:bold;
+
+  color:white;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #ff5555,
+      #990000
+    );
+
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,0.4),
+    0 0 20px rgba(255,0,0,0.7);
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.8);
+
+  transition:0.15s;
+}
+
+.stop-buttons button:active{
+
+  transform:scale(0.92);
+
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.7);
+
 }
 
 .spin-button{
@@ -1424,4 +1524,33 @@ body.skin-dark .timing-card{
   60% { opacity: 0; }
   80% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+@keyframes rainbowMove{
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  100%{
+    background-position:100% 50%;
+  }
+
+}
+
+@keyframes gogoFlash{
+
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.06);
+
+    box-shadow:
+      0 0 40px #ff00ff,
+      0 0 80px #ff00ff,
+      0 0 160px #ff00ff;
+  }
+
 }
