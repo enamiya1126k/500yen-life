@@ -206,18 +206,18 @@ button{
 }
 
 .gogo-lamp{
-    width:150px;
-    height:42px;
-    margin:6px auto;
-    border-radius:999px;
-    background:#050505;
-    color:#222;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    font-weight:bold;
-    border:3px solid #444;
+
+  position:absolute;
+
+  top:-18px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:180px;
+  height:50px;
+
+  z-index:5;
 }
 
 .gogo-lamp.on{
@@ -980,18 +980,10 @@ body.skin-dark .timing-card{
 }
 
 .balance-wide{
-  width:100%;
-  min-height:95px;
-  background:#fff;
-  color:#000;
-  border:3px solid #111;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  box-shadow:
-    0 0 8px #54ff65,
-    inset 0 0 8px rgba(0,0,0,0.15);
-  overflow:hidden;
+
+  position:relative;
+
+  margin-top:20px;
 }
 
 .balance-label{
@@ -1068,19 +1060,17 @@ body.skin-dark .timing-card{
 }
 
 .top-dashboard{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
 
-  z-index: 99999;
+  z-index:99999;
 
-  background: #050000;
+  background:#050000;
 
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: 8px;
-
-  box-shadow: 0 8px 18px rgba(0,0,0,0.75);
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:8px;
 }
 
 .balance-label{
@@ -1425,3 +1415,4 @@ body.skin-dark .timing-card{
   80% { opacity: 1; }
   100% { opacity: 0; }
 }
+
