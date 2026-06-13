@@ -1794,3 +1794,32 @@ button[id^="shop-end"]{
   writing-mode:horizontal-tb !important;
   white-space:normal !important;
 }
+
+
+button.compress-can{
+  opacity:1 !important;
+  filter:none !important;
+  box-shadow:0 0 12px #00ff88,0 0 24px #00ff88 !important;
+}
+
+button.compress-cant{
+  opacity:.35 !important;
+  filter:grayscale(100%) brightness(.7) !important;
+}
+
+button.can-buy{
+  opacity:1 !important;
+  filter:none !important;
+  box-shadow:0 0 12px #00ff88,0 0 24px #00ff88 !important;
+}
+
+button.cant-buy,
+button.locked{
+  opacity:.35 !important;
+  filter:grayscale(100%) brightness(.7) !important;
+}
+
+button.owned{
+  opacity:.85 !important;
+  filter:none !important;
+}
