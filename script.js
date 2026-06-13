@@ -399,6 +399,10 @@ const strongestHit = hitLines.reduce(function (best, hit) {
 
 setGogoLampBySymbol(strongestHit.symbol);
 
+const canEnterRush =
+  strongestHit.symbol === "🎰" ||
+  strongestHit.symbol === "☄️";
+
 document.getElementById("payoutDisplay").innerText =
   formatMoney(totalReward);
 
@@ -424,33 +428,51 @@ if (isPremium) {
   message = `HIT +${formatMoney(totalReward)}`;
 }
 
-const continueResult = judgeContinue();
+if (!wasContinueFreeSpin) {
 
-if (continueResult === "continue") {
-  continueRushCount++;
-  localStorage.setItem("continueRushCount", continueRushCount);
+  if (canEnterRush && Math.random() < 0.20) {
+    continueRushCount = 1;
 
-  setContinueFreeSpin(true);
+    localStorage.setItem("continueRushCount", continueRushCount);
 
-  message += `\nST RUSH突入🔥🔥 ${continueRushCount}連`;
+    setContinueFreeSpin(true);
 
-} else if (continueResult === "audit") {
-  continueRushCount = 0;
-  localStorage.setItem("continueRushCount", continueRushCount);
+    message += `\n🔥ST RUSH突入🔥 ${continueRushCount}連`;
+  }
 
-  setContinueFreeSpin(false);
+} else {
 
-  triggerObservationCollapse();
+  const continueResult = judgeContinue();
 
-  message += `\n⚖️世界財務監査\n過剰な継続RUSHを検知。強制終了`;
+  if (continueResult === "continue") {
+    continueRushCount++;
 
-} else if (continueResult === "fail") {
-  continueRushCount = 0;
-  localStorage.setItem("continueRushCount", continueRushCount);
+    localStorage.setItem("continueRushCount", continueRushCount);
 
-  setContinueFreeSpin(false);
+    setContinueFreeSpin(true);
 
-  message += `\n継続失敗`;
+    message += `\nST継続🔥 ${continueRushCount}連`;
+
+  } else if (continueResult === "audit") {
+    continueRushCount = 0;
+
+    localStorage.setItem("continueRushCount", 0);
+
+    setContinueFreeSpin(false);
+
+    triggerObservationCollapse();
+
+    message += `\n⚖️世界財務監査\n過剰な継続RUSHを検知。強制終了`;
+
+  } else {
+    continueRushCount = 0;
+
+    localStorage.setItem("continueRushCount", 0);
+
+    setContinueFreeSpin(false);
+
+    message += `\nST RUSH終了。`;
+  }
 }
 
 } else {
