@@ -587,6 +587,37 @@ function triggerGodJackpot() {
   }, 1500);
 }
 
+function triggerObservationCollapse() {
+
+  alert(
+`⚠️観測異常⚠️
+
+継続率が100%を突破
+
+世界政府 財務監視局が介入します`
+  );
+
+  document.body.classList.add(
+    "observation-collapse"
+  );
+
+  setTimeout(function () {
+
+    alert(
+`観測終了
+
+世界の整合性を維持するため
+継続チェーンを強制停止します`
+    );
+
+    document.body.classList.remove(
+      "observation-collapse"
+    );
+
+  }, 3000);
+
+}
+
 function save() {
   const beforeBalance = previousBalanceForJackpot;
 
