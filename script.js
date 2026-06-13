@@ -1804,6 +1804,61 @@ function getDemonBuffText() {
   return `${demonContractCount}回 / ${buffs.join("・")}`;
 }
 
+function getDemonComment() {
+
+  if (demonContractCount >= 100) {
+    return `「……もう契約ではない。」
+
+「貴様は、こちら側だ。」
+
+「さあ、世界を喰らえ。」`;
+  }
+
+  if (demonContractCount >= 50) {
+    return `「がっはっはっは！！」
+
+「契約崩壊だ。」
+
+「もう戻れんぞ、人間。」`;
+  }
+
+  if (demonContractCount >= 30) {
+    return `「ふむ……」
+
+「貴様には祝福をくれてやろう。」
+
+「もっと回せ。もっと狂え。」`;
+  }
+
+  if (demonContractCount >= 20) {
+    return `「魂の担保は十分だ。」
+
+「経験も、欲望も、すべて膨れ上がる。」
+
+「よい契約者になったな。」`;
+  }
+
+  if (demonContractCount >= 10) {
+    return `「その眼……奈落を見たな。」
+
+「もう普通の回転では満足できまい。」`;
+  }
+
+  if (demonContractCount >= 5) {
+    return `「また来たかっ！」
+
+「契約依存症だな。」`;
+  }
+
+  if (demonContractCount >= 1) {
+    return `「がっはっはっ！」
+
+「スロットの欲には抗えまい。」`;
+  }
+
+  return `「ワシと契約するか？」`;
+}
+
 function getTimingMultiplier() {
   const level = getLevel();
   const rebirth = rebirthCount;
@@ -2566,13 +2621,7 @@ function offerDemonContract() {
 
   const yes = confirm(
 `？？？
-
-「がっはっはっ」
-
-「スロットの欲には抗えまい。」
-
-「ワシと契約するか？」
-
+${getDemonComment()}
 - - - - - - - - - - - - 
 手数料 ${formatMoney(fee)}
 残高 ${(taxRate * 100).toFixed(0)}%
