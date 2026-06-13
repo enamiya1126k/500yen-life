@@ -206,7 +206,6 @@ button{
 }
 
 .gogo-lamp{
-
   width:180px;
   height:50px;
 
@@ -215,6 +214,17 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
+
+  border-radius:999px;
+  border:3px solid #444;
+
+  background:#050505;
+  color:#222;
+
+  font-size:22px;
+  font-weight:bold;
+
+  box-shadow:0 0 8px rgba(255,255,255,.2);
 }
 
 .gogo-lamp.on{
@@ -977,10 +987,26 @@ body.skin-dark .timing-card{
 }
 
 .balance-wide{
+  width:100%;
+  min-height:95px;
 
   position:relative;
-
   margin-top:20px;
+
+  background:#fff;
+  color:#000;
+
+  border:3px solid #111;
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+
+  box-shadow:
+    0 0 8px #54ff65,
+    inset 0 0 8px rgba(0,0,0,0.15);
+
+  overflow:hidden;
 }
 
 .balance-label{
