@@ -2436,14 +2436,22 @@ function acceptDebt() {
 function showSlotLimitMessage() {
 
   alert(
-`今日は${getDailySlotLimit()}回まで！`
+`スロット回数がゼロになりました！`
   );
 
   setTimeout(function () {
 
-    offerDemonContract();
+    document.body.classList.add("demon-arrival");
 
-  }, 300);
+    setTimeout(function () {
+
+      document.body.classList.remove("demon-arrival");
+
+      offerDemonContract();
+
+    }, 900);
+
+  }, 1000);
 
 }
 
