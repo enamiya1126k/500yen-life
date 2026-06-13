@@ -1994,3 +1994,20 @@ button[id^="shop-end"]{
   opacity:.25 !important;
   filter:grayscale(1) brightness(.45) !important;
 }
+
+.item-name,
+.item-price{
+  display:block;
+}
+
+.item-price{
+  font-size:13px;
+  font-weight:900;
+  color:#fff;
+  text-shadow:0 0 8px gold;
+  margin:2px 0;
+}
+
+.shop-grid button.owned .item-price{
+  color:#54ff65;
+}
