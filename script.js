@@ -430,13 +430,18 @@ if (continueResult === "continue") {
   setContinueFreeSpin(true);
 
   message += `\n♻️継続成功！次回FREE ${continueRushCount}連`;
+
 } else if (continueResult === "audit") {
   continueRushCount = 0;
   localStorage.setItem("continueRushCount", continueRushCount);
 
   setContinueFreeSpin(false);
 
+  triggerObservationCollapse();
+
   message += `\n⚖️世界財務監査\n過剰な継続を検知。RUSH強制終了`;
+}
+
 } else if (continueResult === "fail") {
   continueRushCount = 0;
   localStorage.setItem("continueRushCount", continueRushCount);
@@ -1684,7 +1689,7 @@ function getWealthBonus() {
 }
 
 function getGuerillaRate() {
-  return 0.0001;
+  return 0.005;
 }
 
 /* ゲリラ賭け金上限（残高50%） */
