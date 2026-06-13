@@ -2573,12 +2573,13 @@ function offerDemonContract() {
 
 「ワシと契約するか？」
 
+- - - - - - - - - - - - 
 手数料 ${formatMoney(fee)}
 残高 ${(taxRate * 100).toFixed(0)}%
 
 支払えば
 スロット50回復旧
-
+- - - - - - - - - - - - 
 契約する？`
   );
 
