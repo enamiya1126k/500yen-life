@@ -2586,9 +2586,13 @@ function offerDemonContract() {
   if (!yes) {
 
     alert(
-`ふむ。
+`
+？？？
+「ふむ。」
 
-利口なヤツだったか。`
+「利口なヤツだったか。」
+
+？？？は去っていった…`
     );
 
     return;
@@ -2597,9 +2601,9 @@ function offerDemonContract() {
   if (balance < totalCost) {
 
     alert(
-`がっはっはっ
-
-金が足りんぞ。`
+`がっはっはっ‼︎
+おもしろい奴だ。
+金が足りんぞ？`
     );
 
     return;
@@ -2629,11 +2633,13 @@ function offerDemonContract() {
   );
 
   alert(
-`がっはっはっは！！
+`？？？
+「がっはっはっは！！」
 
-人間とは愚かなものだ。
+「人間とは愚かなものだ。」
 
-契約成立だ。`
+「契約成立だ。」
+？？？は去っていった…`
   );
 
   save();
