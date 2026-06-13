@@ -687,15 +687,7 @@ function update() {
     localStorage.setItem("playerExp", playerExp);
   }
 
-  document.getElementById("balance").innerText = formatMoney(balance);
-
-const historyList = document.getElementById("history");
-
-if (historyList) {
-  historyList.innerHTML = history
-    .map((x) => `<li>${x}</li>`)
-    .join("");
-}
+document.getElementById("balance").innerText = formatMoney(balance);
 
   const maxBetText = document.getElementById("maxBetText");
 
