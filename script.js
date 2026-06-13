@@ -168,29 +168,29 @@ function judgeContinue() {
 
   if (rate <= 0) return "fail";
 
-  // 継続率100%以上は、数字が高いほど監査率が下がる
-  // 3000%以上なら99%継続＝1%監査終了
-  if (rate >= 30) {
-    if (Math.random() < 0.01) return "audit";
-    return "continue";
-  }
+  // 最大継続率は90%
+  const continueRate = Math.min(rate, 0.9);
+
+  // 世界財閥の介入率
+  let auditRate = 0;
 
   if (rate >= 10) {
-    if (Math.random() < 0.02) return "audit";
-    return "continue";
+    auditRate = 0.85; // 1000%以上
+  } else if (rate >= 5) {
+    auditRate = 0.80; // 500%以上
+  } else if (rate >= 3) {
+    auditRate = 0.75; // 300%以上
+  } else if (rate >= 1) {
+    auditRate = 0.70; // 100%以上
+  } else if (rate >= 0.7) {
+    auditRate = 0.50; // 70%以上
   }
 
-  if (rate >= 5) {
-    if (Math.random() < 0.03) return "audit";
-    return "continue";
+  if (auditRate > 0 && Math.random() < auditRate) {
+    return "audit";
   }
 
-  if (rate >= 1) {
-    if (Math.random() < 0.05) return "audit";
-    return "continue";
-  }
-
-  if (Math.random() < rate) {
+  if (Math.random() < continueRate) {
     return "continue";
   }
 
