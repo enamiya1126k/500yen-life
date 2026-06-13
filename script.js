@@ -56,6 +56,9 @@ let isContinueFreeSpin =
 let continueRushCount =
   Number(localStorage.getItem("continueRushCount")) || 0;
 
+let demonContractCount =
+  Number(localStorage.getItem("demonContractCount")) || 0;
+
 let previousBalanceForJackpot = balance;
 
 window.onload = function () {
@@ -187,86 +190,6 @@ function updateContinueUI() {
     btn.innerText = `♻️継続FREE ${continueRushCount}連`;
   } else {
     btn.innerText = "スロットを回す";
-  }
-}
-
-function offerDemonContract() {
-
-  const ok = confirm(
-`？？？？
-
-「がっはっはっ」
-
-「スロットの欲には抗えまい。」
-
-「悪魔の契約をしよう」
-
-「手数料10万円に加えて、
-残高の7割を差し出せば、
-スロット回数を50回分戻してやろう。」
-
-契約するか？`
-  );
-
-  if (ok) {
-
-    const fee = 100000;
-    const tax = Math.floor(balance * 0.7);
-    const totalCost = fee + tax;
-
-    if (balance < totalCost) {
-
-      alert(
-`？？？？
-
-「がっはっはっ……」
-
-「金が足りん。」
-
-「出直してこい。」`
-      );
-
-      return;
-    }
-
-    balance -= totalCost;
-
-    todaySlotCount = Math.max(
-      0,
-      todaySlotCount - 50
-    );
-
-    localStorage.setItem(
-      "todaySlotCount",
-      todaySlotCount
-    );
-
-    history.unshift(
-      `${getDateTime()} 😈悪魔の契約 -${formatMoney(totalCost)}`
-    );
-
-    alert(
-`？？？？
-
-「がっはっはっは！」
-
-「契約成立だ。」
-
-「さあ、もっと回せ。」`
-    );
-
-    save();
-
-  } else {
-
-    alert(
-`？？？？
-
-「ふむ。」
-
-「利口なヤツだったか。」`
-    );
-
   }
 }
 
@@ -729,6 +652,10 @@ function save() {
   localStorage.setItem("stats", JSON.stringify(stats));
   localStorage.setItem("playerExp", playerExp);
   localStorage.setItem("debtorLevel", debtorLevel);
+localStorage.setItem(
+  "demonContractCount",
+  demonContractCount
+);
 
   update();
 
@@ -2502,6 +2429,92 @@ function acceptDebt() {
       `☠️ 債務ランクアップ ☠️\n\n新称号\n${afterDebtTitle}\n\n${debtRank.comment}`
     );
   }
+
+  save();
+}
+
+function offerDemonContract() {
+
+  const fee =
+    100000 * Math.pow(10, demonContractCount);
+
+  const taxRate =
+    Math.min(0.95, 0.70 + demonContractCount * 0.05);
+
+  const tax =
+    Math.floor(balance * taxRate);
+
+  const totalCost =
+    fee + tax;
+
+  const yes = confirm(
+`？？？
+
+「がっはっはっ」
+
+「スロットの欲には抗えまい。」
+
+「悪魔の契約をしよう。」
+
+手数料 ${formatMoney(fee)}
+残高 ${(taxRate * 100).toFixed(0)}%
+
+支払えば
+スロット50回復旧
+
+契約する？`
+  );
+
+  if (!yes) {
+
+    alert(
+`ふむ。
+
+利口なヤツだったか。`
+    );
+
+    return;
+  }
+
+  if (balance < totalCost) {
+
+    alert(
+`がっはっはっ
+
+金が足りんぞ。`
+    );
+
+    return;
+  }
+
+  balance -= totalCost;
+
+  todaySlotCount =
+    Math.max(0, todaySlotCount - 50);
+
+  localStorage.setItem(
+    "todaySlotCount",
+    todaySlotCount
+  );
+
+  demonContractCount++;
+
+  localStorage.setItem(
+    "demonContractCount",
+    demonContractCount
+  );
+
+  history.unshift(
+`${getDateTime()} 😈悪魔契約
+-${formatMoney(totalCost)}
+スロット+50回`
+  );
+
+  alert(
+`がっはっはっは！！
+
+契約成立だ。`
+  );
 
   save();
 }
