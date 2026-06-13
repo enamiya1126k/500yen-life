@@ -1836,13 +1836,29 @@ button.owned{
   line-height:1.15 !important;
 }
 
-/* SHOP状態表示 */
+/* ===== SHOP状態表示・復旧版 ===== */
 
 .shop-grid button{
-  position:relative;
-  width:100%;
-  white-space:normal !important;
+  position:relative !important;
+  width:100% !important;
+  min-height:46px !important;
+  padding:5px 4px !important;
+
+  font-size:11px !important;
+  line-height:1.15 !important;
+
   writing-mode:horizontal-tb !important;
+  white-space:normal !important;
+  word-break:normal !important;
+  overflow-wrap:anywhere !important;
+
+  transform:none !important;
+}
+
+/* CSS側の勝手な表示を止める */
+.shop-grid button.can-buy::before,
+.shop-grid button.owned::after{
+  content:none !important;
 }
 
 /* 買える */
@@ -1850,9 +1866,13 @@ button.owned{
   opacity:1 !important;
   filter:none !important;
   border-color:#00ff88 !important;
+
+  background:linear-gradient(145deg,#123b16,#050505) !important;
+  color:white !important;
+
   box-shadow:
     0 0 12px #00ff88,
-    0 0 24px #00ff88,
+    0 0 24px rgba(0,255,136,.65),
     inset 0 0 10px rgba(0,255,136,.25) !important;
 }
 
@@ -1860,6 +1880,10 @@ button.owned{
 .shop-grid button.cant-buy{
   opacity:.35 !important;
   filter:grayscale(100%) brightness(.65) !important;
+
+  background:linear-gradient(145deg,#3a2600,#090909) !important;
+  color:white !important;
+
   box-shadow:none !important;
 }
 
@@ -1867,45 +1891,59 @@ button.owned{
 .shop-grid button.owned{
   opacity:.9 !important;
   filter:none !important;
-  border-color:#54ff65 !important;
+
+  min-height:46px !important;
+  padding:5px 4px !important;
+  font-size:11px !important;
+
+  background:linear-gradient(145deg,#003b12,#050505) !important;
   color:#54ff65 !important;
-  box-shadow:0 0 12px #54ff65 !important;
+  border-color:#54ff65 !important;
+
+  box-shadow:
+    0 0 10px #54ff65,
+    inset 0 0 8px rgba(84,255,101,.25) !important;
 }
 
 /* 転生ロック */
 .shop-grid button.locked{
   opacity:.35 !important;
   filter:grayscale(100%) brightness(.65) !important;
+
+  background:linear-gradient(145deg,#222,#050505) !important;
+  color:white !important;
+
   box-shadow:none !important;
 }
 
 /* 状態タグ */
 .buy-tag{
-  margin-top:5px;
-  font-size:11px;
-  font-weight:bold;
-  line-height:1.2;
+  display:block !important;
+  margin-top:4px !important;
+  font-size:10px !important;
+  font-weight:bold !important;
+  line-height:1.1 !important;
 }
 
 .can-tag{
-  color:#00ff88;
-  text-shadow:0 0 8px #00ff88;
+  color:#00ff88 !important;
+  text-shadow:0 0 8px #00ff88 !important;
 }
 
 .cant-tag{
-  color:#ff7777;
+  color:#ff7777 !important;
+  text-shadow:0 0 6px #ff3333 !important;
 }
 
 .owned-tag{
-  color:#66ccff;
-  text-shadow:0 0 8px #66ccff;
+  color:#66ccff !important;
+  text-shadow:0 0 8px #66ccff !important;
 }
 
-/* 観測不能領域の横長崩れ防止 */
+/* 観測不能領域 */
 button[id^="shop-end"]{
-  writing-mode:horizontal-tb !important;
-  white-space:normal !important;
-  word-break:normal !important;
-  overflow-wrap:anywhere !important;
   min-height:72px !important;
+  font-size:13px !important;
+  line-height:1.15 !important;
+  padding:8px 6px !important;
 }
