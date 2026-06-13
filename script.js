@@ -689,17 +689,13 @@ function update() {
 
   document.getElementById("balance").innerText = formatMoney(balance);
 
-  document.getElementById("history").innerHTML = history
+const historyList = document.getElementById("history");
+
+if (historyList) {
+  historyList.innerHTML = history
     .map((x) => `<li>${x}</li>`)
     .join("");
-
-  const slotHistoryList = document.getElementById("slotHistory");
-
-  if (slotHistoryList) {
-    slotHistoryList.innerHTML = slotHistory
-      .map((x) => `<li>${x}</li>`)
-      .join("");
-  }
+}
 
   const maxBetText = document.getElementById("maxBetText");
 
