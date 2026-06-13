@@ -773,6 +773,7 @@ function updateStats() {
 );
   setText("debtorLevel", debtorLevel);
   setText("debtTitle", getDebtTitle());
+  setText("demonBuffDisplay", getDemonBuffText());
   setText(
   "demonContractDisplay",
   `😈契約回数：${demonContractCount}回`
@@ -1791,6 +1792,24 @@ function getDemonBuffs() {
     doubleBuff:
       demonContractCount >= 100
   };
+}
+
+function getDemonBuffText() {
+  const buffs = [];
+
+  if (demonContractCount >= 3) buffs.push("加護");
+  if (demonContractCount >= 5) buffs.push("+10回");
+  if (demonContractCount >= 10) buffs.push("継続+5%");
+  if (demonContractCount >= 20) buffs.push("EXP+50%");
+  if (demonContractCount >= 30) buffs.push("祝福");
+  if (demonContractCount >= 50) buffs.push("+100回");
+  if (demonContractCount >= 100) buffs.push("全2倍");
+
+  if (buffs.length === 0) {
+    return `${demonContractCount}回 / なし`;
+  }
+
+  return `${demonContractCount}回 / ${buffs.join("・")}`;
 }
 
 function getTimingMultiplier() {
