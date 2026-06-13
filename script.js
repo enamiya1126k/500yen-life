@@ -56,6 +56,9 @@ let isContinueFreeSpin =
 let continueRushCount =
   Number(localStorage.getItem("continueRushCount")) || 0;
 
+let stRushNoSlotCount =
+  Number(localStorage.getItem("stRushNoSlotCount")) || 0;
+
 let demonContractCount =
   Number(localStorage.getItem("demonContractCount")) || 0;
 
@@ -163,14 +166,27 @@ function setContinueFreeSpin(flag) {
 function judgeContinue() {
   const rate = getContinueRate();
 
-  if (rate <= 0) return "none";
+  if (rate <= 0) return "fail";
 
-  // 100%以上は基本継続。ただし5%で強制監査終了
+  // 継続率100%以上は、数字が高いほど監査率が下がる
+  // 3000%以上なら99%継続＝1%監査終了
+  if (rate >= 30) {
+    if (Math.random() < 0.01) return "audit";
+    return "continue";
+  }
+
+  if (rate >= 10) {
+    if (Math.random() < 0.02) return "audit";
+    return "continue";
+  }
+
+  if (rate >= 5) {
+    if (Math.random() < 0.03) return "audit";
+    return "continue";
+  }
+
   if (rate >= 1) {
-    if (Math.random() < 0.05) {
-      return "audit";
-    }
-
+    if (Math.random() < 0.05) return "audit";
     return "continue";
   }
 
@@ -204,10 +220,10 @@ function playSlot() {
 
   resetSlotCountIfNeeded();
 
-  if (todaySlotCount >= getDailySlotLimit()) {
-    showSlotLimitMessage();
-    return;
-  }
+if (!isContinueFreeSpin && todaySlotCount >= getDailySlotLimit()) {
+  showSlotLimitMessage();
+  return;
+}
 
   if (balance <= 0) {
     alert("残高がないのでスロットできません！");
@@ -257,6 +273,9 @@ if (isContinueFreeSpin) {
 isPremium = premiumRush || nextSlotPremium || Math.random() < getPremiumRate();
 nextSlotPremium = false;
 
+if (isContinueFreeSpin) {
+  currentResult = createRushHitResult();
+} else {
   currentResult = [];
 
   for (let i = 0; i < 9; i++) {
@@ -268,6 +287,7 @@ nextSlotPremium = false;
     currentResult[4] = "🎰";
     currentResult[5] = "🎰";
   }
+}
 
   for (let i = 0; i < 9; i++) {
     const cell = document.getElementById(`cell${i}`);
@@ -284,7 +304,10 @@ document.getElementById("payoutDisplay").innerText = formatMoney(0);
   document.querySelector(".diagonal-left").classList.remove("show");
   document.querySelector(".diagonal-right").classList.remove("show");
 
-  if (isPremium) {
+  if (isContinueFreeSpin) {
+    document.getElementById("slotMessage").innerText =
+      `🔥ST RUSH中🔥\n当たり確定！ 残り猶予 ${10 - stRushNoSlotCount}`;
+  } else if (isPremium) {
     document.getElementById("gogoLamp").classList.add("hit-rainbow");
     document.getElementById("slotMessage").innerText = "🌈プレミア気配…！";
 
@@ -305,6 +328,34 @@ document.getElementById("payoutDisplay").innerText = formatMoney(0);
       }
     }
   }, 70);
+}
+
+function createRushHitResult() {
+  const rushLines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [6, 4, 2],
+  ];
+
+  const result = [];
+
+  for (let i = 0; i < 9; i++) {
+    result.push(symbols[Math.floor(Math.random() * symbols.length)]);
+  }
+
+  const line = rushLines[Math.floor(Math.random() * rushLines.length)];
+  const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+
+  line.forEach(function (index) {
+    result[index] = symbol;
+  });
+
+  return result;
 }
 
 window.stopReel = function (col) {
@@ -371,21 +422,27 @@ function finishSlot(result, bet) {
   stats.totalPlays += 1;
   stats.totalBet += bet;
 
-const wasContinueFreeSpin = isContinueFreeSpin;
+  const wasContinueFreeSpin = isContinueFreeSpin;
 
-setContinueFreeSpin(false);
+  setContinueFreeSpin(false);
 
-if (!wasContinueFreeSpin) {
-  todaySlotCount++;
-  localStorage.setItem("todaySlotCount", todaySlotCount);
-}
+  if (!wasContinueFreeSpin) {
+    todaySlotCount++;
+    localStorage.setItem("todaySlotCount", todaySlotCount);
+  }
 
   let message = "";
 
-if (hitLines.length > 0) {
-  addExp(10);
+  if (hitLines.length > 0) {
+    addExp(10);
 
-balance += totalReward;
+    balance += totalReward;
+
+stats.totalReward += totalReward;
+
+if (totalReward > stats.bestWin) {
+  stats.bestWin = totalReward;
+}
 
     hitLines.forEach(function (hit) {
       hit.line.forEach(function (index) {
@@ -393,18 +450,18 @@ balance += totalReward;
       });
     });
 
-const strongestHit = hitLines.reduce(function (best, hit) {
-  return hit.rate > best.rate ? hit : best;
-}, hitLines[0]);
+    const strongestHit = hitLines.reduce(function (best, hit) {
+      return hit.rate > best.rate ? hit : best;
+    }, hitLines[0]);
 
-setGogoLampBySymbol(strongestHit.symbol);
+    setGogoLampBySymbol(strongestHit.symbol);
 
-const canEnterRush =
-  strongestHit.symbol === "🎰" ||
-  strongestHit.symbol === "☄️";
+    const canEnterRush =
+      strongestHit.symbol === "🎰" ||
+      strongestHit.symbol === "☄️";
 
-document.getElementById("payoutDisplay").innerText =
-  formatMoney(totalReward);
+    document.getElementById("payoutDisplay").innerText =
+      formatMoney(totalReward);
 
     hitLines.forEach(function (hit) {
       if (hit.line.toString() === [0, 4, 8].toString()) {
@@ -418,76 +475,90 @@ document.getElementById("payoutDisplay").innerText =
 
     playWinSound();
 
-if (isPremium) {
-  message = `🌈レインボーGOGO！ +${formatMoney(totalReward)}`;
-} else if (hitLines.length >= 3) {
-  message = `💥BIG BONUS💥 +${formatMoney(totalReward)}`;
-} else if (hitLines.length >= 2) {
-  message = `🔥SUPER HIT🔥 +${formatMoney(totalReward)}`;
-} else {
-  message = `HIT +${formatMoney(totalReward)}`;
-}
+    if (isPremium) {
+      message = `🌈レインボーGOGO！ +${formatMoney(totalReward)}`;
+    } else if (hitLines.length >= 3) {
+      message = `💥BIG BONUS💥 +${formatMoney(totalReward)}`;
+    } else if (hitLines.length >= 2) {
+      message = `🔥SUPER HIT🔥 +${formatMoney(totalReward)}`;
+    } else {
+      message = `HIT +${formatMoney(totalReward)}`;
+    }
 
-if (!wasContinueFreeSpin) {
+    if (!wasContinueFreeSpin) {
+      if (canEnterRush && Math.random() < 0.20) {
+        continueRushCount = 1;
+        stRushNoSlotCount = 0;
 
-  if (canEnterRush && Math.random() < 0.35) {
-    continueRushCount = 1;
+        localStorage.setItem("continueRushCount", continueRushCount);
+        localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
 
-    localStorage.setItem("continueRushCount", continueRushCount);
+        setContinueFreeSpin(true);
 
-    setContinueFreeSpin(true);
+        message += `\n🔥ST RUSH突入🔥 ${continueRushCount}連`;
+      }
+    } else {
+      if (strongestHit.symbol === "🎰") {
+        stRushNoSlotCount = 0;
+        message += `\n🎰カウントリセット！残り10`;
+      } else {
+        stRushNoSlotCount++;
+        message += `\n⏳STカウント ${stRushNoSlotCount}/10`;
+      }
 
-    message += `\n🔥ST RUSH突入🔥 ${continueRushCount}連`;
-  }
+      if (stRushNoSlotCount >= 10) {
+        continueRushCount = 0;
+        stRushNoSlotCount = 0;
 
-} else {
+        localStorage.setItem("continueRushCount", continueRushCount);
+        localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
 
-  const continueResult = judgeContinue();
+        setContinueFreeSpin(false);
 
-  if (continueResult === "continue") {
-    continueRushCount++;
+        message += `\n💀10カウント以内に🎰なし\nST RUSH強制終了`;
+      } else {
+        const continueResult = judgeContinue();
 
-    localStorage.setItem("continueRushCount", continueRushCount);
+        if (continueResult === "continue") {
+          continueRushCount++;
 
-    setContinueFreeSpin(true);
+          localStorage.setItem("continueRushCount", continueRushCount);
+          localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
 
-    message += `\nST継続🔥 ${continueRushCount}連`;
+          setContinueFreeSpin(true);
 
-  } else if (continueResult === "audit") {
-    continueRushCount = 0;
+          message += `\n🔥ST継続 ${continueRushCount}連`;
+        } else if (continueResult === "audit") {
+          continueRushCount = 0;
+          stRushNoSlotCount = 0;
 
-    localStorage.setItem("continueRushCount", 0);
+          localStorage.setItem("continueRushCount", continueRushCount);
+          localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
 
-    setContinueFreeSpin(false);
+          setContinueFreeSpin(false);
 
-    triggerObservationCollapse();
+          triggerObservationCollapse();
 
-    message += `\n⚖️世界財務監査\n過剰な継続RUSHを検知。強制終了`;
+          message += `\n⚖️世界財務監査\n過剰な継続RUSHを検知。強制終了`;
+        } else {
+          continueRushCount = 0;
+          stRushNoSlotCount = 0;
 
+          localStorage.setItem("continueRushCount", continueRushCount);
+          localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
+
+          setContinueFreeSpin(false);
+
+          message += `\nST RUSH終了…`;
+        }
+      }
+    }
   } else {
-    continueRushCount = 0;
+    document.getElementById("payoutDisplay").innerText = formatMoney(0);
 
-    localStorage.setItem("continueRushCount", 0);
-
-    setContinueFreeSpin(false);
-
-    message += `\nST RUSH終了。`;
-  }
-}
-
-} else {
-  document.getElementById("payoutDisplay").innerText = formatMoney(0);
-
-  if (wasContinueFreeSpin) {
-    message = `FREE RUSH終了…`;
-
-    continueRushCount = 0;
-    localStorage.setItem("continueRushCount", continueRushCount);
-  } else {
     balance -= bet;
     message = `ハズレ… -${formatMoney(bet)}`;
   }
-}
 
   document.getElementById("slotMessage").innerText = message;
 
@@ -499,19 +570,19 @@ if (!wasContinueFreeSpin) {
     if (
       confirm(
         `⚡⚡⚡
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ゲリラチャレンジ発生！
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        成功で最大9999倍
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        挑戦しますか？
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ⚡⚡⚡`,
+ゲリラチャレンジ発生！
+
+成功で最大9999倍
+
+挑戦しますか？
+⚡⚡⚡`
       )
     ) {
       triggerTimingChallenge();
     }
   }
 
-maybeTriggerAbyss();
+  maybeTriggerAbyss();
 
   isPremium = false;
 }
