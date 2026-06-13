@@ -1657,3 +1657,35 @@ body.skin-dark .timing-card{
     filter:brightness(1);
   }
 }
+
+.shop-grid button.cant-buy{
+  opacity:.35;
+  filter:grayscale(.7) brightness(.55);
+  box-shadow:none !important;
+}
+
+.shop-grid button.can-buy{
+  opacity:1;
+  filter:none;
+  border-color:#54ff65 !important;
+  box-shadow:
+    0 0 12px #54ff65,
+    0 0 24px rgba(84,255,101,.65),
+    inset 0 0 12px rgba(84,255,101,.25) !important;
+}
+
+.shop-grid button.can-buy::before{
+  content:"買える";
+  position:absolute;
+  top:4px;
+  right:6px;
+  font-size:9px;
+  color:#54ff65;
+  text-shadow:0 0 6px #54ff65;
+}
+
+.shop-grid button.locked{
+  opacity:.28;
+  filter:grayscale(1) brightness(.45);
+  box-shadow:none !important;
+}
