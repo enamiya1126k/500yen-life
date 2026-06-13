@@ -2476,7 +2476,7 @@ function offerDemonContract() {
 
 「スロットの欲には抗えまい。」
 
-「悪魔の契約をしよう。」
+「ワシと契約するか？」
 
 手数料 ${formatMoney(fee)}
 残高 ${(taxRate * 100).toFixed(0)}%
@@ -2534,6 +2534,8 @@ function offerDemonContract() {
 
   alert(
 `がっはっはっは！！
+
+人間とは愚かなものだ。
 
 契約成立だ。`
   );
