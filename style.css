@@ -1524,3 +1524,53 @@ body.skin-dark .timing-card{
     gogoBurst .06s infinite alternate,
     gogoAura .45s infinite linear;
 }
+
+.gogo-lamp.hit-green{
+  background:radial-gradient(circle,#ffffff,#54ff65,#003b12) !important;
+  color:white !important;
+  box-shadow:0 0 25px #54ff65,0 0 70px #54ff65,inset 0 0 25px white !important;
+}
+
+.gogo-lamp.hit-blue{
+  background:radial-gradient(circle,#ffffff,#00ccff,#001a66) !important;
+  color:white !important;
+  box-shadow:0 0 25px #00ccff,0 0 70px #0077ff,inset 0 0 25px white !important;
+}
+
+.gogo-lamp.hit-red{
+  background:radial-gradient(circle,#ffffff,#ff3333,#4a0000) !important;
+  color:white !important;
+  box-shadow:0 0 25px #ff3333,0 0 80px red,inset 0 0 25px white !important;
+}
+
+.gogo-lamp.hit-rainbow{
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet,red) !important;
+  background-size:400% 400%;
+  color:white !important;
+  box-shadow:0 0 30px white,0 0 80px cyan,0 0 130px violet !important;
+  animation:rainbowMove .35s linear infinite, gogoPulse .18s infinite alternate;
+}
+
+.gogo-lamp.hit-hot{
+  background:radial-gradient(circle,#fff,#fff700,#ff6600,#b00000) !important;
+  color:white !important;
+  box-shadow:0 0 35px white,0 0 90px orange,0 0 150px red !important;
+  animation:gogoPulse .08s infinite alternate;
+}
+
+.gogo-lamp.hit-god{
+  background:white !important;
+  color:#111 !important;
+  box-shadow:0 0 40px white,0 0 120px gold,0 0 220px white !important;
+  animation:gogoPulse .04s infinite alternate;
+}
+
+@keyframes rainbowMove{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+@keyframes gogoPulse{
+  from{transform:scale(1);}
+  to{transform:scale(1.08);}
+}
