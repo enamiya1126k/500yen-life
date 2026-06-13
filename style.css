@@ -362,11 +362,32 @@ button{
     box-shadow:inset 0 0 10px rgba(0,0,0,.3),0 2px 0 #000;
     position:relative;
     z-index:2;
+    overflow:hidden;
+}
+
+.slot-cell::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+  right:0;
+  height:40%;
+
+  background:
+    linear-gradient(
+      rgba(255,255,255,.85),
+      rgba(255,255,255,0)
+    );
+
+  pointer-events:none;
 }
 
 .slot-cell.hit{
     background:linear-gradient(#fff799,#ffe100,#fff799);
     box-shadow:0 0 20px gold,0 0 35px orange;
+  animation:hitCell .12s infinite alternate;
 }
 
 .diagonal-left,
@@ -447,10 +468,44 @@ button{
 }
 
 .spin-button{
-    background:linear-gradient(#8aff60,#169000);
-    color:white;
-    padding:10px;
-    margin-bottom:6px;
+  margin:12px 0 8px;
+  padding:16px;
+
+  border-radius:999px;
+
+  color:#071800;
+
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:2px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #eaff7a,
+      #5cff00 45%,
+      #119000
+    );
+
+  border:3px solid #dfff7a;
+
+  box-shadow:
+    0 6px 0 #064d00,
+    0 0 20px #54ff65,
+    0 0 45px rgba(84,255,101,.75),
+    inset 0 0 18px rgba(255,255,255,.75);
+
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.7);
+}
+
+.spin-button:active{
+  transform:translateY(5px);
+  box-shadow:
+    0 1px 0 #064d00,
+    0 0 25px #54ff65,
+    inset 0 0 25px rgba(0,0,0,.35);
+}
 }
 
 #slotMessage{
@@ -1551,6 +1606,18 @@ body.skin-dark .timing-card{
       0 0 40px #ff00ff,
       0 0 80px #ff00ff,
       0 0 160px #ff00ff;
+  }
+
+}
+
+@keyframes hitCell{
+
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.08);
   }
 
 }
