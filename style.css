@@ -207,17 +207,14 @@ button{
 
 .gogo-lamp{
 
-  position:absolute;
-
-  top:-18px;
-  left:50%;
-
-  transform:translateX(-50%);
-
   width:180px;
   height:50px;
 
-  z-index:5;
+  margin:0 auto 8px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .gogo-lamp.on{
@@ -1443,15 +1440,15 @@ body.skin-dark .timing-card{
 }
 
 @keyframes gogoBurst{
+
   from{
-    transform:translateX(-50%) scale(1) rotate(-1deg);
-    filter:brightness(1.2) saturate(1.4);
+    transform:scale(1);
   }
 
   to{
-    transform:translateX(-50%) scale(1.12) rotate(1deg);
-    filter:brightness(3.2) saturate(2.2);
+    transform:scale(1.08);
   }
+
 }
 
 @keyframes gogoAura{
