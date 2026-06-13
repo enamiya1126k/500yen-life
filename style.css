@@ -1726,3 +1726,20 @@ body.skin-dark .timing-card{
 .status-row .mini-ranking{
   flex:1;
 }
+
+.compress-can{
+  box-shadow:0 0 12px #00ff88, 0 0 24px #00ff88 !important;
+}
+
+.compress-cant{
+  opacity:.35;
+  filter:grayscale(100%) brightness(.7);
+}
+
+.buy-tag{
+  color:#00ff88;
+  font-size:11px;
+  font-weight:bold;
+  margin-top:4px;
+  text-shadow:0 0 8px #00ff88;
+}
