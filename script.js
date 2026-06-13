@@ -204,10 +204,10 @@ function playSlot() {
 
   resetSlotCountIfNeeded();
 
-if (todaySlotCount >= getDailySlotLimit()) {
-  offerDemonContract();
-  return;
-}
+  if (todaySlotCount >= getDailySlotLimit()) {
+    showSlotLimitMessage();
+    return;
+  }
 
   if (balance <= 0) {
     alert("残高がないのでスロットできません！");
@@ -2431,6 +2431,20 @@ function acceptDebt() {
   }
 
   save();
+}
+
+function showSlotLimitMessage() {
+
+  alert(
+`今日は${getDailySlotLimit()}回まで！`
+  );
+
+  setTimeout(function () {
+
+    offerDemonContract();
+
+  }, 300);
+
 }
 
 function offerDemonContract() {
