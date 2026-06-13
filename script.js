@@ -2105,11 +2105,31 @@ window.compressMoney = function (baseCost, exp) {
 };
 
 function updateCompressDisplay() {
-  setText("compressCost1", `${formatMoney(getCompressCost(10000000))}消費`);
-  setText("compressCost2", `${formatMoney(getCompressCost(100000000))}消費`);
-  setText("compressCost3", `${formatMoney(getCompressCost(1000000000))}消費`);
-  setText("compressCost4", `${formatMoney(getCompressCost(1000000000000))}消費`);
-  setText("compressCost5", `${formatMoney(getCompressCost(100000000000000))}消費`);
+  const compressItems = [
+    { id: "compressCost1", cost: getCompressCost(10000000) },
+    { id: "compressCost2", cost: getCompressCost(100000000) },
+    { id: "compressCost3", cost: getCompressCost(1000000000) },
+    { id: "compressCost4", cost: getCompressCost(1000000000000) },
+    { id: "compressCost5", cost: getCompressCost(100000000000000) },
+  ];
+
+  compressItems.forEach(function (item) {
+    setText(item.id, `${formatMoney(item.cost)}消費`);
+
+    const costText = document.getElementById(item.id);
+    if (!costText) return;
+
+    const btn = costText.closest("button");
+    if (!btn) return;
+
+    btn.classList.remove("compress-can", "compress-cant");
+
+    if (balance >= item.cost) {
+      btn.classList.add("compress-can");
+    } else {
+      btn.classList.add("compress-cant");
+    }
+  });
 }
 
 function maybeTriggerAbyss() {
