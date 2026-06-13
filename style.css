@@ -1947,3 +1947,50 @@ button[id^="shop-end"]{
   line-height:1.15 !important;
   padding:8px 6px !important;
 }
+
+/* ===== 強制SHOP状態リセット ===== */
+
+.shop-grid button.can-buy::before,
+.shop-grid button.owned::after{
+  display:none !important;
+  content:"" !important;
+}
+
+.shop-grid button.can-buy .can-tag{
+  display:block !important;
+}
+
+.shop-grid button.cant-buy .cant-tag{
+  display:block !important;
+}
+
+.shop-grid button.owned .owned-tag{
+  display:block !important;
+}
+
+.shop-grid button.can-buy{
+  opacity:1 !important;
+  filter:none !important;
+  background:linear-gradient(145deg,#064d1f,#050505) !important;
+  border:2px solid #00ff88 !important;
+}
+
+.shop-grid button.cant-buy{
+  opacity:.28 !important;
+  filter:grayscale(1) brightness(.5) !important;
+  background:linear-gradient(145deg,#222,#050505) !important;
+  border:1px solid #555 !important;
+}
+
+.shop-grid button.owned{
+  opacity:1 !important;
+  filter:none !important;
+  background:linear-gradient(145deg,#003b12,#050505) !important;
+  border:2px solid #54ff65 !important;
+  color:#54ff65 !important;
+}
+
+.shop-grid button.locked{
+  opacity:.25 !important;
+  filter:grayscale(1) brightness(.45) !important;
+}
