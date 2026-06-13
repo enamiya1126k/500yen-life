@@ -25,9 +25,9 @@ const payout = {
   "🍄": 5,
   "🦞": 8,
   "🌶️": 10,
-  "🌊": 15,
-  "☄️": 20,
-  "🎰": 25,
+  "🌊": 20,
+  "☄️": 30,
+  "🎰": 50,
 };
 
 let spinning = false;
@@ -225,14 +225,13 @@ document.getElementById("betDisplay").innerText = formatMoney(bet);
 
 document.getElementById("payoutDisplay").innerText = formatMoney(0);
 
-  document.getElementById("gogoLamp").classList.remove("on");
-  document.getElementById("gogoLamp").classList.remove("premium");
+  clearGogoLamp();
 
   document.querySelector(".diagonal-left").classList.remove("show");
   document.querySelector(".diagonal-right").classList.remove("show");
 
   if (isPremium) {
-    document.getElementById("gogoLamp").classList.add("premium");
+    document.getElementById("gogoLamp").classList.add("hit-rainbow");
     document.getElementById("slotMessage").innerText = "🌈プレミア気配…！";
 
     playPremiumSound();
@@ -335,7 +334,12 @@ balance += totalReward;
       });
     });
 
-document.getElementById("gogoLamp").classList.add("on");
+const strongestHit = hitLines.reduce(function (best, hit) {
+  return hit.rate > best.rate ? hit : best;
+}, hitLines[0]);
+
+setGogoLampBySymbol(strongestHit.symbol);
+
 document.getElementById("payoutDisplay").innerText =
   formatMoney(totalReward);
 
@@ -395,10 +399,49 @@ maybeTriggerAbyss();
   isPremium = false;
 }
 
+function clearGogoLamp() {
+  const lamp = document.getElementById("gogoLamp");
+  if (!lamp) return;
+
+  lamp.classList.remove(
+    "on",
+    "premium",
+    "hit-green",
+    "hit-blue",
+    "hit-red",
+    "hit-rainbow",
+    "hit-hot",
+    "hit-god"
+  );
+}
+
+function setGogoLampBySymbol(symbol) {
+  const lamp = document.getElementById("gogoLamp");
+  if (!lamp) return;
+
+  clearGogoLamp();
+
+  if (symbol === "🍒" || symbol === "🍄") {
+    lamp.classList.add("hit-green");
+  } else if (symbol === "🦞" || symbol === "🌶️") {
+    lamp.classList.add("hit-blue");
+  } else if (symbol === "🌊" || symbol === "☄️") {
+    lamp.classList.add("hit-red");
+  } else if (symbol === "🎰") {
+    lamp.classList.add("hit-rainbow");
+  }
+}
+
 function triggerBalanceJackpot() {
   const balanceBox = document.querySelector(".balance-wide");
 
   if (!balanceBox) return;
+
+  const lamp = document.getElementById("gogoLamp");
+  if (lamp) {
+    clearGogoLamp();
+    lamp.classList.add("hit-hot");
+  }
 
   balanceBox.classList.remove("balance-jackpot");
 
@@ -418,6 +461,12 @@ function triggerBalanceJackpot() {
 }
 
 function triggerGodJackpot() {
+
+  const lamp = document.getElementById("gogoLamp");
+  if (lamp) {
+    clearGogoLamp();
+    lamp.classList.add("hit-god");
+  }
 
   document.body.classList.add("god-jackpot");
 
