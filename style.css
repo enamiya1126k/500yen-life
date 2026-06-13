@@ -1598,3 +1598,24 @@ body.skin-dark .timing-card{
   }
 
 }
+
+.shop-grid button.can-buy{
+  border-color:#54ff65 !important;
+  box-shadow:
+    0 0 12px #54ff65,
+    inset 0 0 10px rgba(84,255,101,.35) !important;
+}
+
+.shop-grid button.cant-buy{
+  opacity:.45;
+  filter:grayscale(.8);
+}
+
+.shop-grid button.can-buy::before{
+  content:"購入可";
+  position:absolute;
+  top:4px;
+  right:6px;
+  font-size:9px;
+  color:#54ff65;
+}
