@@ -1321,40 +1321,40 @@ function getLevelBuffs() {
 
 const shopItems = {
 
-  title1: {
-    name: "🩸契約の第一硬貨",
-    price: 10000,
-    type: "title",
-    slotBonus: 5,
-  },
+title1: {
+  name: "🩸契約の第一硬貨",
+  price: 10000, // 1万円
+  type: "title",
+  slotBonus: 10,
+},
 
-  title2: {
-    name: "👁️金喰天狗の魔眼",
-    price: 1000000,
-    type: "title",
-    slotBonus: 10,
-  },
+title2: {
+  name: "👁️金喰天狗の魔眼",
+  price: 10000000, // 1000万円
+  type: "title",
+  slotBonus: 20,
+},
 
-  title3: {
-    name: "🐉黄金龍王の逆鱗",
-    price: 100000000,
-    type: "title",
-    slotBonus: 50,
-  },
+title3: {
+  name: "🐉黄金龍王の逆鱗",
+  price: 10000000000, // 100億円
+  type: "title",
+  slotBonus: 30,
+},
 
-  title4: {
-    name: "☠️財禍鬼神の心核",
-    price: 1000000000,
-    type: "title",
-    slotBonus: 100,
-  },
+title4: {
+  name: "☠️財禍鬼神の心核",
+  price: 1000000000000000, // 1000兆円
+  type: "title",
+  slotBonus: 60,
+},
 
-  title5: {
-    name: "📜貨幣大明王の禁書",
-    price: 10000000000,
-    type: "title",
-    slotBonus: 500,
-  },
+title5: {
+  name: "📜貨幣大明王の禁書",
+  price: 100000000000000000000, // 100垓円
+  type: "title",
+  slotBonus: 2000,
+},
 
 skin1: {
   name: "🎨黒金スキン",
