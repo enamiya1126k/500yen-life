@@ -2009,71 +2009,51 @@ if (ownedItems.includes("skin10")) {
 Object.keys(shopItems).forEach(function (id) {
   const btn = document.getElementById(`shop-${id}`);
 
-console.log(id);
-
   if (!btn) return;
 
   const item = shopItems[id];
   const price = getItemPrice(item);
 
-  if (
-    item.unlockRebirth &&
-    rebirthCount < item.unlockRebirth
-  ) {
+  btn.classList.remove("owned", "can-buy", "cant-buy", "locked");
+
+  if (item.unlockRebirth && rebirthCount < item.unlockRebirth) {
     btn.innerHTML = `
       🔒 ${item.name}<br>
       転生${item.unlockRebirth}回で解放
     `;
+
+    btn.classList.add("locked");
     btn.disabled = true;
     return;
   }
 
   let effectText = "";
 
-  if (item.slotBonus) {
-    effectText = `+${item.slotBonus}回/日`;
+  if (item.slotBonus) effectText = `+${item.slotBonus}回/日`;
+  if (item.premiumBonus) effectText = `確変率+${(item.premiumBonus * 100).toFixed(1)}%`;
+  if (item.continueBonus) effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
+  if (item.doubleBuff) effectText = "全バフ2倍";
+  if (item.specialTitle) effectText = "禁忌遺物";
+  if (id === "end15") effectText = "観測終了";
+
+  btn.innerHTML = `
+    ${item.name}<br>
+    <small>
+      ${formatMoney(price)}
+      ｜ ${effectText}
+    </small>
+  `;
+
+  if (ownedItems.includes(id)) {
+    btn.classList.add("owned");
+    btn.disabled = true;
+  } else if (balance >= price) {
+    btn.classList.add("can-buy");
+    btn.disabled = false;
+  } else {
+    btn.classList.add("cant-buy");
+    btn.disabled = false;
   }
-
-  if (item.premiumBonus) {
-    effectText = `確変率+${(item.premiumBonus * 100).toFixed(1)}%`;
-  }
-
-  if (item.continueBonus) {
-    effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
-  }
-
-  if (item.doubleBuff) {
-    effectText = "全バフ2倍";
-  }
-
-if (item.specialTitle) {
-  effectText = "禁忌遺物";
-}
-
-if (id === "end15") {
-  effectText = "観測終了";
-}
-
-btn.innerHTML = `
-  ${item.name}<br>
-  <small>
-    ${formatMoney(price)}
-    ｜ ${effectText}
-  </small>
-`;
-
-btn.classList.remove("owned", "can-buy", "cant-buy");
-
-if (ownedItems.includes(id)) {
-  btn.classList.add("owned");
-  btn.disabled = true;
-} else if (balance >= price) {
-  btn.classList.add("can-buy");
-  btn.disabled = false;
-} else {
-  btn.classList.add("cant-buy");
-  btn.disabled = false;
-}
 });
 }
 
