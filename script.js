@@ -1441,8 +1441,12 @@ function getLevelBuffs() {
 
   return {
     slotBonus: Math.floor(level / 10) * 5,
-    premiumBonus: Math.floor(level / 20) * 0.001,
+
+    // Lv1000でも +5%
+    premiumBonus: Math.floor(level / 100) * 0.005,
+
     guerillaBonus: Math.floor(level / 50),
+
     continueBonus: Math.floor(level / 200) * 0.1,
   };
 }
@@ -1584,7 +1588,7 @@ end2: {
   name: "黄金因果律",
   price: 1e20,
   type: "end",
-  premiumBonus: 0.20,
+  premiumBonus: 0.03,
 },
 
 end3: {
@@ -1626,7 +1630,7 @@ end8: {
   name: "時間軸徴税機関",
   price: 1e44,
   type: "end",
-  premiumBonus: 1.0,
+  premiumBonus: 0.08,
 },
 
 end9: {
@@ -1849,7 +1853,10 @@ function syncTimingBetToMax() {
 function getRebirthBuffs() {
   return {
     slotBonus: rebirthCount * 20,
-    premiumBonus: rebirthCount * 0.002,
+
+    // 転生1回につき +0.1%
+    premiumBonus: rebirthCount * 0.001,
+
     continueBonus: rebirthCount * 0.1,
   };
 }
