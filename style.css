@@ -1416,3 +1416,80 @@ body.skin-dark .timing-card{
   100% { opacity: 0; }
 }
 
+/* ===== GOGO限界突破ペカ ===== */
+
+.gogo-lamp.on{
+  background:
+    radial-gradient(circle, #fff 0%, #fff700 18%, #ff00ff 48%, #4b004b 100%) !important;
+
+  color:white !important;
+
+  text-shadow:
+    0 0 8px #fff,
+    0 0 18px #fff700,
+    0 0 35px #ff00ff,
+    0 0 70px #ff00ff;
+
+  box-shadow:
+    0 0 18px #fff,
+    0 0 45px #fff700,
+    0 0 85px #ff00ff,
+    0 0 140px #ff00ff,
+    inset 0 0 30px #fff !important;
+
+  animation:
+    gogoBurst .08s infinite alternate,
+    gogoAura .8s infinite linear;
+}
+
+@keyframes gogoBurst{
+  from{
+    transform:translateX(-50%) scale(1) rotate(-1deg);
+    filter:brightness(1.2) saturate(1.4);
+  }
+
+  to{
+    transform:translateX(-50%) scale(1.12) rotate(1deg);
+    filter:brightness(3.2) saturate(2.2);
+  }
+}
+
+@keyframes gogoAura{
+  0%{
+    outline:0 solid rgba(255,255,255,.9);
+  }
+
+  50%{
+    outline:12px solid rgba(255,0,255,.18);
+  }
+
+  100%{
+    outline:0 solid rgba(255,255,255,0);
+  }
+}
+
+.gogo-lamp.premium{
+  background:
+    linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet, red) !important;
+
+  background-size:500% 500%;
+
+  color:white !important;
+
+  text-shadow:
+    0 0 8px white,
+    0 0 25px cyan,
+    0 0 60px violet;
+
+  box-shadow:
+    0 0 25px white,
+    0 0 60px cyan,
+    0 0 120px violet,
+    0 0 180px red,
+    inset 0 0 35px white !important;
+
+  animation:
+    rainbowMove .35s linear infinite,
+    gogoBurst .06s infinite alternate,
+    gogoAura .45s infinite linear;
+}
