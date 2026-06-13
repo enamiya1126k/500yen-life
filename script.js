@@ -440,7 +440,6 @@ if (continueResult === "continue") {
   triggerObservationCollapse();
 
   message += `\n⚖️世界財務監査\n過剰な継続を検知。RUSH強制終了`;
-}
 
 } else if (continueResult === "fail") {
   continueRushCount = 0;
