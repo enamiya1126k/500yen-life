@@ -1337,24 +1337,24 @@ skin10: {
   unlockRebirth: 100,
 },
 
-  effect1: {
-    name: "✨GOGO覚醒",
-    price: 10000000,
-    type: "effect",
-    continueBonus: 0.1,
-  },
-  effect2: {
-    name: "🔥BIG BONUS極",
-    price: 100000000,
-    type: "effect",
-    continueBonus: 0.2,
-  },
-  effect3: {
-    name: "🌈プレミアサウンドパック",
-    price: 1000000000,
-    type: "effect",
-    continueBonus: 0.3,
-  },
+effect1: {
+  name: "♻️継続の札",
+  price: 10000000,
+  type: "effect",
+  continueBonus: 0.1,
+},
+effect2: {
+  name: "🔥不滅ボーナス",
+  price: 100000000,
+  type: "effect",
+  continueBonus: 0.2,
+},
+effect3: {
+  name: "🌈輪廻ラッシュ",
+  price: 1000000000,
+  type: "effect",
+  continueBonus: 0.3,
+},
 
 end1: {
   name: "第一世界樹の根",
