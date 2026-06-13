@@ -50,6 +50,12 @@ let abyssResults = [];
 let nextSlotPremium = false;
 let premiumRush = false;
 
+let isContinueFreeSpin =
+  localStorage.getItem("isContinueFreeSpin") === "true";
+
+let continueRushCount =
+  Number(localStorage.getItem("continueRushCount")) || 0;
+
 let previousBalanceForJackpot = balance;
 
 window.onload = function () {
@@ -146,6 +152,44 @@ function resetSlotCountIfNeeded() {
   }
 }
 
+function setContinueFreeSpin(flag) {
+  isContinueFreeSpin = flag;
+  localStorage.setItem("isContinueFreeSpin", flag ? "true" : "false");
+}
+
+function judgeContinue() {
+  const rate = getContinueRate();
+
+  if (rate <= 0) return "none";
+
+  // 100%以上は基本継続。ただし10%で強制監査終了
+  if (rate >= 1) {
+    if (Math.random() < 0.10) {
+      return "audit";
+    }
+
+    return "continue";
+  }
+
+  if (Math.random() < rate) {
+    return "continue";
+  }
+
+  return "fail";
+}
+
+function updateContinueUI() {
+  const btn = document.querySelector(".spin-button");
+
+  if (!btn) return;
+
+  if (isContinueFreeSpin) {
+    btn.innerText = `♻️継続FREE ${continueRushCount}連`;
+  } else {
+    btn.innerText = "スロットを回す";
+  }
+}
+
 function playSlot() {
   if (spinning && !spinTimer) {
     spinning = false;
@@ -167,10 +211,16 @@ function playSlot() {
     return;
   }
 
-  const maxBet = Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
+const maxBet = Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
 
-  let bet = Number(document.getElementById("betAmount").value);
+let bet = Number(document.getElementById("betAmount").value);
 
+if (isContinueFreeSpin) {
+  bet = Number(localStorage.getItem("lastBet")) || bet || 5;
+
+  document.getElementById("betAmount").value = bet;
+  document.getElementById("betDisplay").innerText = formatMoney(bet);
+} else {
   if (isMaxBetMode) {
     bet = maxBet;
     document.getElementById("betAmount").value = bet;
@@ -193,6 +243,7 @@ function playSlot() {
     alert("残高が足りない！");
     return;
   }
+}
 
   playCoinSound();
   addExp(3);
@@ -317,9 +368,14 @@ function finishSlot(result, bet) {
   stats.totalPlays += 1;
   stats.totalBet += bet;
 
-  todaySlotCount++;
+const wasContinueFreeSpin = isContinueFreeSpin;
 
+setContinueFreeSpin(false);
+
+if (!wasContinueFreeSpin) {
+  todaySlotCount++;
   localStorage.setItem("todaySlotCount", todaySlotCount);
+}
 
   let message = "";
 
@@ -364,13 +420,45 @@ if (isPremium) {
 } else {
   message = `HIT +${formatMoney(totalReward)}`;
 }
+
+const continueResult = judgeContinue();
+
+if (continueResult === "continue") {
+  continueRushCount++;
+  localStorage.setItem("continueRushCount", continueRushCount);
+
+  setContinueFreeSpin(true);
+
+  message += `\n♻️継続成功！次回FREE ${continueRushCount}連`;
+} else if (continueResult === "audit") {
+  continueRushCount = 0;
+  localStorage.setItem("continueRushCount", continueRushCount);
+
+  setContinueFreeSpin(false);
+
+  message += `\n⚖️世界財務監査\n過剰な継続を検知。RUSH強制終了`;
+} else if (continueResult === "fail") {
+  continueRushCount = 0;
+  localStorage.setItem("continueRushCount", continueRushCount);
+
+  setContinueFreeSpin(false);
+
+  message += `\n♻️継続失敗`;
+}
+
+} else {
+  document.getElementById("payoutDisplay").innerText = formatMoney(0);
+
+  if (wasContinueFreeSpin) {
+    message = `♻️継続終了… BET消費なし`;
+
+    continueRushCount = 0;
+    localStorage.setItem("continueRushCount", continueRushCount);
   } else {
     balance -= bet;
-
-document.getElementById("payoutDisplay").innerText = formatMoney(0);
-
-message = `ハズレ… -${formatMoney(bet)}`;
+    message = `ハズレ… -${formatMoney(bet)}`;
   }
+}
 
   document.getElementById("slotMessage").innerText = message;
 
@@ -609,6 +697,7 @@ function update() {
   updateShopDisplay();
   updateRebirthButton();
   updateCompressDisplay();
+  updateContinueUI();
 
   const timingBet = document.getElementById("timingBet");
   const timingCard = document.getElementById("timingCard");
