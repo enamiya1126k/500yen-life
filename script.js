@@ -165,9 +165,9 @@ function judgeContinue() {
 
   if (rate <= 0) return "none";
 
-  // 100%以上は基本継続。ただし10%で強制監査終了
+  // 100%以上は基本継続。ただし5%で強制監査終了
   if (rate >= 1) {
-    if (Math.random() < 0.10) {
+    if (Math.random() < 0.05) {
       return "audit";
     }
 
@@ -187,7 +187,7 @@ function updateContinueUI() {
   if (!btn) return;
 
   if (isContinueFreeSpin) {
-    btn.innerText = `♻️継続FREE ${continueRushCount}連`;
+    btn.innerText = `ST RUSH🔥 ${continueRushCount}連`;
   } else {
     btn.innerText = "スロットを回す";
   }
@@ -432,7 +432,7 @@ if (continueResult === "continue") {
 
   setContinueFreeSpin(true);
 
-  message += `\n♻️継続成功！次回FREE ${continueRushCount}連`;
+  message += `\nST RUSH突入🔥🔥 ${continueRushCount}連`;
 
 } else if (continueResult === "audit") {
   continueRushCount = 0;
@@ -442,7 +442,7 @@ if (continueResult === "continue") {
 
   triggerObservationCollapse();
 
-  message += `\n⚖️世界財務監査\n過剰な継続を検知。RUSH強制終了`;
+  message += `\n⚖️世界財務監査\n過剰な継続RUSHを検知。強制終了`;
 
 } else if (continueResult === "fail") {
   continueRushCount = 0;
@@ -450,14 +450,14 @@ if (continueResult === "continue") {
 
   setContinueFreeSpin(false);
 
-  message += `\n♻️継続失敗`;
+  message += `\n継続失敗`;
 }
 
 } else {
   document.getElementById("payoutDisplay").innerText = formatMoney(0);
 
   if (wasContinueFreeSpin) {
-    message = `♻️継続終了… BET消費なし`;
+    message = `FREE RUSH終了…`;
 
     continueRushCount = 0;
     localStorage.setItem("continueRushCount", continueRushCount);
