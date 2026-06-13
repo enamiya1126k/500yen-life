@@ -1805,6 +1805,10 @@ function getDemonBuffText() {
   if (demonContractCount >= 50) buffs.push("+100回");
   if (demonContractCount >= 100) buffs.push("全2倍");
 
+  if (demonContractCount <= 0) {
+    return "未契約";
+  }
+
   if (buffs.length === 0) {
     return `${demonContractCount}回 / なし`;
   }
