@@ -1743,3 +1743,54 @@ body.skin-dark .timing-card{
   margin-top:4px;
   text-shadow:0 0 8px #00ff88;
 }
+
+.shop-grid button{
+  min-width:0 !important;
+  width:100% !important;
+  white-space:normal !important;
+  writing-mode:horizontal-tb !important;
+}
+
+.shop-grid button.locked,
+.shop-grid button.cant-buy{
+  opacity:.35 !important;
+  filter:grayscale(100%) brightness(.65) !important;
+  box-shadow:none !important;
+}
+
+.shop-grid button.can-buy{
+  opacity:1 !important;
+  filter:none !important;
+  box-shadow:
+    0 0 12px #00ff88,
+    0 0 24px #00ff88,
+    inset 0 0 10px rgba(0,255,136,.25) !important;
+}
+
+.shop-grid button.owned{
+  opacity:.85 !important;
+  filter:none !important;
+  background:linear-gradient(145deg,#003b12,#050505) !important;
+  color:#54ff65 !important;
+  border-color:#54ff65 !important;
+  box-shadow:0 0 10px #54ff65 !important;
+}
+
+.buy-tag{
+  color:#00ff88;
+  font-size:11px;
+  font-weight:bold;
+  margin-top:4px;
+  text-shadow:0 0 8px #00ff88;
+}
+
+/* 観測不能領域のサイズ崩れ強制修正 */
+button[id^="shop-end"]{
+  min-height:72px !important;
+  width:100% !important;
+  font-size:13px !important;
+  line-height:1.2 !important;
+  padding:8px 6px !important;
+  writing-mode:horizontal-tb !important;
+  white-space:normal !important;
+}
