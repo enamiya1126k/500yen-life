@@ -430,7 +430,7 @@ if (isPremium) {
 
 if (!wasContinueFreeSpin) {
 
-  if (canEnterRush && Math.random() < 0.20) {
+  if (canEnterRush && Math.random() < 0.35) {
     continueRushCount = 1;
 
     localStorage.setItem("continueRushCount", continueRushCount);
