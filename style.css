@@ -1823,3 +1823,15 @@ button.owned{
   opacity:.85 !important;
   filter:none !important;
 }
+
+.shop-grid button{
+  position:relative;
+  overflow-wrap:anywhere !important;
+  word-break:normal !important;
+  white-space:normal !important;
+}
+
+#shop-end15{
+  font-size:11px !important;
+  line-height:1.15 !important;
+}
