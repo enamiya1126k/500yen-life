@@ -1717,3 +1717,12 @@ body.skin-dark .timing-card{
   filter:grayscale(.7) brightness(.55);
   box-shadow:none !important;
 }
+
+.status-row{
+  display:flex;
+  gap:8px;
+}
+
+.status-row .mini-ranking{
+  flex:1;
+}
