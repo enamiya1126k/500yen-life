@@ -1835,3 +1835,77 @@ button.owned{
   font-size:11px !important;
   line-height:1.15 !important;
 }
+
+/* SHOP状態表示 */
+
+.shop-grid button{
+  position:relative;
+  width:100%;
+  white-space:normal !important;
+  writing-mode:horizontal-tb !important;
+}
+
+/* 買える */
+.shop-grid button.can-buy{
+  opacity:1 !important;
+  filter:none !important;
+  border-color:#00ff88 !important;
+  box-shadow:
+    0 0 12px #00ff88,
+    0 0 24px #00ff88,
+    inset 0 0 10px rgba(0,255,136,.25) !important;
+}
+
+/* 買えない */
+.shop-grid button.cant-buy{
+  opacity:.35 !important;
+  filter:grayscale(100%) brightness(.65) !important;
+  box-shadow:none !important;
+}
+
+/* 購入済 */
+.shop-grid button.owned{
+  opacity:.9 !important;
+  filter:none !important;
+  border-color:#54ff65 !important;
+  color:#54ff65 !important;
+  box-shadow:0 0 12px #54ff65 !important;
+}
+
+/* 転生ロック */
+.shop-grid button.locked{
+  opacity:.35 !important;
+  filter:grayscale(100%) brightness(.65) !important;
+  box-shadow:none !important;
+}
+
+/* 状態タグ */
+.buy-tag{
+  margin-top:5px;
+  font-size:11px;
+  font-weight:bold;
+  line-height:1.2;
+}
+
+.can-tag{
+  color:#00ff88;
+  text-shadow:0 0 8px #00ff88;
+}
+
+.cant-tag{
+  color:#ff7777;
+}
+
+.owned-tag{
+  color:#66ccff;
+  text-shadow:0 0 8px #66ccff;
+}
+
+/* 観測不能領域の横長崩れ防止 */
+button[id^="shop-end"]{
+  writing-mode:horizontal-tb !important;
+  white-space:normal !important;
+  word-break:normal !important;
+  overflow-wrap:anywhere !important;
+  min-height:72px !important;
+}
