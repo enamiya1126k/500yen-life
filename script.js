@@ -2131,15 +2131,35 @@ Object.keys(shopItems).forEach(function (id) {
     <small>${formatMoney(price)} ｜ ${effectText}</small>
   `;
 
-  if (ownedItems.includes(id)) {
-    btn.classList.add("owned");
-    btn.disabled = true;
-  } else if (balance >= price) {
-    btn.classList.add("can-buy");
-    btn.insertAdjacentHTML("beforeend", `<div class="buy-tag">💸買える！</div>`);
-  } else {
-    btn.classList.add("cant-buy");
-  }
+if (ownedItems.includes(id)) {
+
+  btn.classList.add("owned");
+  btn.disabled = true;
+
+  btn.insertAdjacentHTML(
+    "beforeend",
+    `<div class="buy-tag owned-tag">✅購入済</div>`
+  );
+
+} else if (balance >= price) {
+
+  btn.classList.add("can-buy");
+
+  btn.insertAdjacentHTML(
+    "beforeend",
+    `<div class="buy-tag can-tag">💸買える！</div>`
+  );
+
+} else {
+
+  btn.classList.add("cant-buy");
+
+  btn.insertAdjacentHTML(
+    "beforeend",
+    `<div class="buy-tag cant-tag">❌不足</div>`
+  );
+
+}
 });
 }
 
