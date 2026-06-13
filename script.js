@@ -168,22 +168,27 @@ function judgeContinue() {
 
   if (rate <= 0) return "fail";
 
-  // 最大継続率は90%
+  // 実際の継続率は最大90%
   const continueRate = Math.min(rate, 0.9);
 
-  // 世界財閥の介入率
+  // 3連までは世界財閥こない
+  if (continueRushCount < 4) {
+    if (Math.random() < continueRate) return "continue";
+    return "fail";
+  }
+
   let auditRate = 0;
 
   if (rate >= 10) {
-    auditRate = 0.85; // 1000%以上
+    auditRate = 0.10; // 1000%以上
   } else if (rate >= 5) {
-    auditRate = 0.80; // 500%以上
+    auditRate = 0.15;
   } else if (rate >= 3) {
-    auditRate = 0.75; // 300%以上
+    auditRate = 0.20;
   } else if (rate >= 1) {
-    auditRate = 0.70; // 100%以上
+    auditRate = 0.25; // 100%以上
   } else if (rate >= 0.7) {
-    auditRate = 0.50; // 70%以上
+    auditRate = 0.30; // 70%以上
   }
 
   if (auditRate > 0 && Math.random() < auditRate) {
