@@ -190,6 +190,86 @@ function updateContinueUI() {
   }
 }
 
+function offerDemonContract() {
+
+  const ok = confirm(
+`？？？？
+
+「がっはっはっ」
+
+「スロットの欲には抗えまい。」
+
+「悪魔の契約をしよう」
+
+「手数料10万円に加えて、
+残高の7割を差し出せば、
+スロット回数を50回分戻してやろう。」
+
+契約するか？`
+  );
+
+  if (ok) {
+
+    const fee = 100000;
+    const tax = Math.floor(balance * 0.7);
+    const totalCost = fee + tax;
+
+    if (balance < totalCost) {
+
+      alert(
+`？？？？
+
+「がっはっはっ……」
+
+「金が足りん。」
+
+「出直してこい。」`
+      );
+
+      return;
+    }
+
+    balance -= totalCost;
+
+    todaySlotCount = Math.max(
+      0,
+      todaySlotCount - 50
+    );
+
+    localStorage.setItem(
+      "todaySlotCount",
+      todaySlotCount
+    );
+
+    history.unshift(
+      `${getDateTime()} 😈悪魔の契約 -${formatMoney(totalCost)}`
+    );
+
+    alert(
+`？？？？
+
+「がっはっはっは！」
+
+「契約成立だ。」
+
+「さあ、もっと回せ。」`
+    );
+
+    save();
+
+  } else {
+
+    alert(
+`？？？？
+
+「ふむ。」
+
+「利口なヤツだったか。」`
+    );
+
+  }
+}
+
 function playSlot() {
   if (spinning && !spinTimer) {
     spinning = false;
@@ -201,10 +281,10 @@ function playSlot() {
 
   resetSlotCountIfNeeded();
 
-  if (todaySlotCount >= getDailySlotLimit()) {
-    alert(`今日は${getDailySlotLimit()}回まで！`);
-    return;
-  }
+if (todaySlotCount >= getDailySlotLimit()) {
+  offerDemonContract();
+  return;
+}
 
   if (balance <= 0) {
     alert("残高がないのでスロットできません！");
