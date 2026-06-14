@@ -1787,7 +1787,7 @@ end6: {
   name: "時空の亀裂",
   price: 1e46,
   type: "end",
-  abyssBonus: 0.02,
+  abyssBonus: 0.005,
 },
 
 end7: {
@@ -1815,7 +1815,7 @@ end10: {
   name: "亜空間",
   price: 1e70,
   type: "end",
-  abyssBonus: 0.03,
+  abyssBonus: 0.01,
 },
 
 end11: {
