@@ -445,7 +445,23 @@ if (hitLines.length > 0) {
   addExp(10);
 
   const taxRate = getGovernmentTaxRate();
-  const tax = Math.floor(totalReward * taxRate);
+  
+  
+const demon = getDemonBuffs();
+
+if (
+  demon.taxBlockRate > 0 &&
+  Math.random() < demon.taxBlockRate
+) {
+
+  showToast(
+    "😈税金は肩代わりしておくぞ！！"
+  );
+
+  return;
+}
+
+const tax = Math.floor(balance * rate);
   const afterTaxReward = totalReward - tax;
 
   balance += afterTaxReward;
@@ -881,6 +897,12 @@ setText(
   "governmentThreat",
   getGovernmentThreatLevel()
 );
+
+setText(
+  "governmentMessage",
+  getGovernmentMessage()
+);
+
   setText(
   "demonContractDisplay",
   `😈契約回数：${demonContractCount}回`
@@ -1455,6 +1477,33 @@ function getGovernmentThreatLevel() {
   return "レベル1(正常)";
 }
 
+function getGovernmentMessage() {
+
+  const threat = getGovernmentThreatLevel();
+
+  if (threat.includes("レベル7")) {
+    return "対象個体は世界法則を逸脱。排除準備中。";
+  }
+
+  if (threat.includes("レベル6")) {
+    return "奈落存在との接触を確認。";
+  }
+
+  if (threat.includes("レベル5")) {
+    return "異常な資産増加を検知。";
+  }
+
+  if (threat.includes("レベル4")) {
+    return "監視対象として記録。";
+  }
+
+  if (threat.includes("レベル3")) {
+    return "軽度の異常を観測。";
+  }
+
+  return "正常な市民です。";
+}
+
 function getGovernmentTaxRate() {
   const threat = getGovernmentThreatLevel();
 
@@ -1952,98 +2001,99 @@ function getRebirthBuffs() {
 }
 
 function getDemonBuffs() {
+
+  const extraContracts =
+    Math.max(0, demonContractCount - 5);
+
   return {
-    slotBonus:
-      (demonContractCount >= 5 ? 10 : 0) +
-      (demonContractCount >= 50 ? 100 : 0),
 
+    slotBonus: 0,
+
+    // 2回目 +0.2%
+    // 6回目以降 +0.1%
     premiumBonus:
-      (demonContractCount >= 3 ? 0.005 : 0) +
-      (demonContractCount >= 30 ? 0.03 : 0),
+      (demonContractCount >= 2 ? 0.002 : 0) +
+      (extraContracts * 0.001),
 
+    // 3回目 +3%
+    // 6回目以降 +1%
     continueBonus:
-      (demonContractCount >= 10 ? 0.05 : 0),
+      (demonContractCount >= 3 ? 0.03 : 0) +
+      (extraContracts * 0.01),
 
+    // 5回目 +50%
     expBonus:
-      (demonContractCount >= 20 ? 0.5 : 0),
+      (demonContractCount >= 5 ? 0.5 : 0),
 
-    doubleBuff:
-      demonContractCount >= 100
+    // 4回目 税金阻止90%
+    taxBlockRate:
+      (demonContractCount >= 4 ? 0.9 : 0),
+
+    doubleBuff: false
   };
 }
 
 function getDemonBuffText() {
-  const buffs = [];
-
-  if (demonContractCount >= 3) buffs.push("加護");
-  if (demonContractCount >= 5) buffs.push("+10回");
-  if (demonContractCount >= 10) buffs.push("継続+5%");
-  if (demonContractCount >= 20) buffs.push("EXP+50%");
-  if (demonContractCount >= 30) buffs.push("祝福");
-  if (demonContractCount >= 50) buffs.push("+100回");
-  if (demonContractCount >= 100) buffs.push("全2倍");
 
   if (demonContractCount <= 0) {
     return "未契約";
   }
 
-  if (buffs.length === 0) {
-    return `${demonContractCount}回 / なし`;
+  if (demonContractCount >= 6) {
+    return `${demonContractCount}回 / 深化Lv${demonContractCount - 5}`;
   }
 
-  return `${demonContractCount}回 / ${buffs.join("・")}`;
+  if (demonContractCount === 5) {
+    return "5回 / EXP+50%";
+  }
+
+  if (demonContractCount === 4) {
+    return "4回 / 税阻止90%";
+  }
+
+  if (demonContractCount === 3) {
+    return "3回 / 継続+3%";
+  }
+
+  if (demonContractCount === 2) {
+    return "2回 / プレ+0.2%";
+  }
+
+  return "1回 / 契約成立";
 }
 
 function getDemonComment() {
 
-  if (demonContractCount >= 100) {
-    return `「……もう契約ではない。」
-
-「貴様は、こちら側だ。」
-
-「さあ、世界を喰らえ。」`;
+  if (demonContractCount >= 15) {
+    return `「……思い出したか？」\n\n「ワシは最初から貴様を救ってなどいない。」\n\n「封印は、もう解ける。」`;
   }
 
-  if (demonContractCount >= 50) {
-    return `「がっはっはっは！！」
-
-「契約崩壊だ。」
-
-「もう戻れんぞ、人間。」`;
+  if (demonContractCount >= 7) {
+    return `「世界政府が焦っておる。」\n\n「もう後戻りはできんぞ。」`;
   }
 
-  if (demonContractCount >= 30) {
-    return `「ふむ……」
-
-「貴様には祝福をくれてやろう。」
-
-「もっと回せ。もっと狂え。」`;
-  }
-
-  if (demonContractCount >= 20) {
-    return `「魂の担保は十分だ。」
-
-「経験も、欲望も、すべて膨れ上がる。」
-
-「よい契約者になったな。」`;
-  }
-
-  if (demonContractCount >= 10) {
-    return `「その眼……奈落を見たな。」
-
-「もう普通の回転では満足できまい。」`;
+  if (demonContractCount >= 6) {
+    return `「ワシを信用するな。」\n\n「ワシは金が好きなだけだ。」`;
   }
 
   if (demonContractCount >= 5) {
-    return `「また来たかっ！」
+    return `「昔な……」\n\n「世界政府と少し揉めてな。」`;
+  }
 
-「契約依存症だな。」`;
+  if (demonContractCount >= 4) {
+    return `「あやつらはワシを封印した。」\n\n「危険存在扱いだ。」`;
+  }
+
+  if (demonContractCount >= 3) {
+    return `「世界政府の目が増えてきた。」\n\n「気を付けろ。」`;
+  }
+
+  if (demonContractCount >= 2) {
+    return `「ほう。」\n\n「なかなか筋が良い契約者だ。」`;
   }
 
   if (demonContractCount >= 1) {
-    return `「がっはっはっ！」
-
-「スロットの欲には抗えまい。」`;
+    return `「がっはっはっ！」\n\n「また来たか！」`;
   }
 
   return `「ワシと契約するか？」`;
@@ -2882,6 +2932,15 @@ ${getDemonComment()}
 
   demonContractCount++;
   localStorage.setItem("demonContractCount", demonContractCount);
+
+if (demonContractCount >= 6) {
+
+  playerExp += 1000000;
+
+  showToast(
+    "😈悪魔の祝福\nEXP+1,000,000"
+  );
+}
 
   // 悪魔契約後のバフ込み上限を計算
   const limitAfterContract = getDailySlotLimit();
