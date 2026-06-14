@@ -2912,15 +2912,6 @@ if (result === "unknownError") {
   }
 }
 
- {
-    playerExp += 100000;
-
-    message =
-      `👑深淵の加護👑\n` +
-      `EXP+100,000`;
-
-    slotHistory.unshift(`${getDateTime()} 🕳️深淵の加護 EXP+100,000`);
-  }
 message +=
 `
 
