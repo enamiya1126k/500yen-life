@@ -123,7 +123,7 @@ document.getElementById("salaryBtn").onclick = function () {
   balance += 15000;
   addExp(30);
 
-  history.unshift(`${getDateTime()} +150000000円 給料`);
+  history.unshift(`${getDateTime()} +15000円 給料`);
 
   localStorage.setItem("salaryMonth", monthKey);
 
@@ -1024,18 +1024,6 @@ function playPremiumSound() {
   setTimeout(function () {
     playTone(1040, 180, "triangle", 0.05);
   }, 240);
-}
-
-function playJackpotSound() {
-  playTone(1200, 100, "triangle", 0.08);
-
-  setTimeout(() => {
-    playTone(1600, 150, "triangle", 0.08);
-  }, 100);
-
-  setTimeout(() => {
-    playTone(2200, 250, "triangle", 0.08);
-  }, 250);
 }
 
 function updateTimers() {
@@ -2308,6 +2296,7 @@ if (item.slotBonus) effectText = `+${item.slotBonus}回/日`;
 if (item.premiumBonus) effectText = `プレミア+${(item.premiumBonus * 100).toFixed(1)}%`;
 if (item.continueBonus) effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
 if (item.expBonus) effectText = `EXP倍率+${item.expBonus}倍`;
+if (item.instantExp) effectText = `EXP+${item.instantExp.toLocaleString()}`;
 if (item.abyssBonus) effectText = `奈落+${(item.abyssBonus * 100).toFixed(1)}%`;
 if (item.guerillaBonus) effectText = `ゲリラ+${(item.guerillaBonus * 100).toFixed(1)}%`;
 if (item.buffMultiplier) effectText = `全バフ${item.buffMultiplier}倍`;
