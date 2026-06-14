@@ -1601,7 +1601,7 @@ end4: {
   name: "原初貨幣神の玉座",
   price: 1e34,
   type: "end",
-  expBonus: 1.0,
+  instantExp: 10000000,
 },
 
 end5: {
@@ -2149,6 +2149,10 @@ if (id === "end15") {
   addExp(50);
 
   ownedItems.push(id);
+
+if (item.instantExp) {
+  playerExp += item.instantExp;
+}
 
   if (id === "end15") {
     triggerEnding();
