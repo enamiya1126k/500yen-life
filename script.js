@@ -1784,7 +1784,7 @@ end5: {
 },
 
 end6: {
-  name: "世界財政管理機構",
+  name: "時空の亀裂",
   price: 1e46,
   type: "end",
   abyssBonus: 0.02,
@@ -1812,7 +1812,7 @@ end9: {
 },
 
 end10: {
-  name: "貨幣律そのもの",
+  name: "亜空間",
   price: 1e70,
   type: "end",
   abyssBonus: 0.03,
