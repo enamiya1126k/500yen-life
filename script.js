@@ -703,34 +703,15 @@ function triggerGodJackpot() {
 }
 
 function triggerObservationCollapse() {
+  document.body.classList.add("observation-collapse");
 
-  alert(
-`⚠️観測異常⚠️
-
-継続率が100%を突破
-
-世界政府 財務監視局が介入します`
-  );
-
-  document.body.classList.add(
-    "observation-collapse"
+  showToast(
+    "⚖️世界財務監査🚨\n世界の整合性を維持するため\n継続RUSHを強制停止します。"
   );
 
   setTimeout(function () {
-
-    alert(
-`観測終了
-
-世界の整合性を維持するため
-継続チェーンを強制停止します`
-    );
-
-    document.body.classList.remove(
-      "observation-collapse"
-    );
-
-  }, 3000);
-
+    document.body.classList.remove("observation-collapse");
+  }, 2200);
 }
 
 function save() {
