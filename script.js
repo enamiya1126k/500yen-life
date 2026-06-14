@@ -445,24 +445,21 @@ if (hitLines.length > 0) {
   addExp(10);
 
   const taxRate = getGovernmentTaxRate();
-  
-  
-const demon = getDemonBuffs();
+  let tax = Math.floor(totalReward * taxRate);
 
-if (
-  demon.taxBlockRate > 0 &&
-  Math.random() < demon.taxBlockRate
-) {
+  const demon = getDemonBuffs();
 
-  showToast(
-    "😈税金は肩代わりしておくぞ！！"
-  );
+  if (
+    tax > 0 &&
+    demon.taxBlockRate > 0 &&
+    Math.random() < demon.taxBlockRate
+  ) {
+    showToast("😈税金は肩代わりしておくぞ！！");
+    slotHistory.unshift(`${getDateTime()} 😈所得税阻止`);
+    tax = 0;
+  }
 
-  return;
-}
-
-const tax = Math.floor(balance * rate);
-  const afterTaxReward = totalReward - tax;
+  const afterTaxReward = Math.max(0, totalReward - tax);
 
   balance += afterTaxReward;
 
@@ -629,9 +626,13 @@ if (!wasContinueFreeSpin) {
     }
   }
 
-  maybeTriggerAbyss();
+maybeTriggerAbyss();
 
-  isPremium = false;
+if (Math.random() < 0.03) {
+  triggerGovernmentTax();
+}
+
+isPremium = false;
 }
 
 function clearGogoLamp() {
@@ -1475,6 +1476,42 @@ function getGovernmentThreatLevel() {
   if (threatScore >= 100) return "レベル2(注意)";
 
   return "レベル1(正常)";
+}
+
+function triggerGovernmentTax() {
+  const threat = getGovernmentThreatLevel();
+
+  let taxRate = 0;
+
+  if (threat.includes("レベル3")) taxRate = 0.01;
+  if (threat.includes("レベル4")) taxRate = 0.03;
+  if (threat.includes("レベル5")) taxRate = 0.05;
+  if (threat.includes("レベル6")) taxRate = 0.08;
+  if (threat.includes("レベル7")) taxRate = 0.15;
+
+  if (taxRate <= 0) return;
+
+  if (demonContractCount >= 4 && Math.random() < 0.90) {
+    showToast("😈悪魔が徴税官を追い返した");
+
+    slotHistory.unshift(`${getDateTime()} 😈税金阻止`);
+    save();
+
+    return;
+  }
+
+  const tax = Math.floor(balance * taxRate);
+  if (tax <= 0) return;
+
+  balance -= tax;
+
+  slotHistory.unshift(
+    `${getDateTime()} 🏛️資産保有税 -${formatMoney(tax)}`
+  );
+
+  showToast(`🏛️資産保有税\n-${formatMoney(tax)}`);
+
+  save();
 }
 
 function getGovernmentMessage() {
