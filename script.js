@@ -2663,7 +2663,7 @@ ABYSS CODE : NULL
 20秒以内に決断せよ。`
 );
   
-  let seconds = 20;
+  let seconds = 15;
   setText("abyssTimer", `残り${seconds}秒`);
 
   abyssCard.scrollIntoView({
@@ -2722,7 +2722,7 @@ abyssResults = [
   "rebirthError",
   "artifactError",
   "premiumError",
-  "expError",
+  "slotError",
   "unknownError",
 ].sort(() => Math.random() - 0.5);
 
@@ -2756,22 +2756,25 @@ abyssCorruption++;
 localStorage.setItem("abyssCorruption", abyssCorruption);
 
 if (result === "wealthCrash") {
-
-  const loss = Math.floor(balance * 0.5);
+  const lossRate = 0.5 + Math.random() * 4.5;
+  const loss = Math.floor(balance * lossRate);
 
   balance -= loss;
+  if (balance < 0) balance = 0;
 
   message =
 `☠️ABYSS ERROR☠️
 
 資産構造破損
 
+残高${Math.round(lossRate * 100)}%消失
+
 -${formatMoney(loss)}`;
 }
 
 if (result === "wealthBoost") {
-
-  const reward = balance * 99;
+  const multiplier = Math.floor(Math.random() * 51) + 50;
+  const reward = balance * (multiplier - 1);
 
   balance += reward;
 
@@ -2780,30 +2783,39 @@ if (result === "wealthBoost") {
 
 貨幣法則崩壊
 
-残高100倍
+残高${multiplier}倍
 
 +${formatMoney(reward)}`;
 }
 
 if (result === "governmentError") {
+  const tax = balance;
+  balance = 0;
 
   message =
 `🚨ABYSS ERROR🚨
 
-監視記録消失
+脱税記録発覚
 
 世界政府
-「……？」`;
+「脱税は犯罪です。」
+
+全資産差押執行
+
+-${formatMoney(tax)}
+
+納税ありがとうございました。`;
 }
 
 if (result === "demonError") {
-
-  demonContractCount++;
+  demonContractCount += 3;
 
   message =
 `😈ABYSS ERROR😈
 
 契約記録改竄
+
+悪魔契約 +3
 
 悪魔
 「待て」
@@ -2812,38 +2824,33 @@ if (result === "demonError") {
 }
 
 if (result === "rebirthError") {
-
-  rebirthCount++;
+  rebirthCount += 5;
 
   message =
 `🌈ABYSS ERROR🌈
 
 転生履歴破損
 
-転生回数+1`;
+転生回数 +5
+
+※レベルは据え置き`;
 }
 
 if (result === "artifactError") {
-
   const candidates =
     Object.keys(shopItems)
-      .filter(id => !ownedItems.includes(id));
+      .filter(id =>
+        !ownedItems.includes(id) &&
+        id !== "end15"
+      );
 
   if (candidates.length > 0) {
-
     const randomItem =
       candidates[
-        Math.floor(
-          Math.random() * candidates.length
-        )
+        Math.floor(Math.random() * candidates.length)
       ];
 
     ownedItems.push(randomItem);
-
-    localStorage.setItem(
-      "ownedItems",
-      JSON.stringify(ownedItems)
-    );
 
     message =
 `📦ABYSS ERROR📦
@@ -2852,65 +2859,73 @@ if (result === "artifactError") {
 
 ${shopItems[randomItem].name}
 獲得`;
+  } else {
+    message =
+`📦ABYSS ERROR📦
+
+獲得可能な遺物なし`;
   }
 }
 
 if (result === "premiumError") {
-
   premiumRush = true;
 
   setTimeout(function () {
     premiumRush = false;
-  }, 300000);
+  }, 60000);
 
   message =
 `🌈ABYSS ERROR🌈
 
-5分間
+60秒間
 
 プレミア率100%`;
 }
 
-if (result === "expError") {
+if (result === "slotError") {
+  todaySlotCount = getDailySlotLimit();
 
-  playerExp *= 10;
+  localStorage.setItem("todaySlotCount", todaySlotCount);
 
   message =
-`📚ABYSS ERROR📚
+`🎰ABYSS ERROR🎰
 
-EXP ×10`;
+回転権限剥奪
+
+本日のスロット残回数
+
+強制ゼロ`;
 }
 
 if (result === "unknownError") {
-
   const roll = Math.random();
 
   if (roll < 0.33) {
-
-    balance *= 1000;
+    const reward = balance * 999;
+    balance += reward;
 
     message =
 `⚠️UNKNOWN ERROR⚠️
 
-残高1000倍`;
+残高1000倍
+
++${formatMoney(reward)}`;
 
   } else if (roll < 0.66) {
-
-    rebirthCount++;
+    rebirthCount += 5;
 
     message =
 `⚠️UNKNOWN ERROR⚠️
 
-転生+1`;
+転生回数 +5`;
 
   } else {
-
-    demonContractCount++;
+    demonContractCount += 5;
 
     message =
 `⚠️UNKNOWN ERROR⚠️
 
-悪魔契約+1`;
+悪魔契約 +5`;
   }
 }
 
@@ -2946,6 +2961,10 @@ slotHistory.unshift(
 );
 
 save();
+
+closeAbyssChallenge(
+  "奈落は閉じた。\n世界法則の破損だけが残った。"
+);
 }
 
 function closeAbyssChallenge(message) {
