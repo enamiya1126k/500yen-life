@@ -168,7 +168,7 @@ function judgeContinue() {
 
   if (rate <= 0) return "fail";
 
-  const continueRate = Math.min(rate, 0.9);
+  const continueRate = Math.min(rate, 1.0);
 
   // 10連までは世界財閥なし＆必ず継続
   if (continueRushCount < 11) {
@@ -628,7 +628,7 @@ if (!wasContinueFreeSpin) {
 
 maybeTriggerAbyss();
 
-if (Math.random() < 0.03) {
+if (Math.random() < getGovernmentTaxEventRate()) {
   triggerGovernmentTax();
 }
 
@@ -1549,6 +1549,19 @@ function getGovernmentTaxRate() {
   if (threat.includes("レベル5")) return 0.15;
   if (threat.includes("レベル4")) return 0.10;
   if (threat.includes("レベル3")) return 0.02;
+  if (threat.includes("レベル2")) return 0.01;
+
+  return 0;
+}
+
+function getGovernmentTaxEventRate() {
+  const threat = getGovernmentThreatLevel();
+
+  if (threat.includes("レベル7")) return 0.20;
+  if (threat.includes("レベル6")) return 0.12;
+  if (threat.includes("レベル5")) return 0.08;
+  if (threat.includes("レベル4")) return 0.05;
+  if (threat.includes("レベル3")) return 0.03;
   if (threat.includes("レベル2")) return 0.01;
 
   return 0;
