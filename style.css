@@ -1389,23 +1389,30 @@ body.skin-dark .timing-card{
     collapseFlash 0.2s infinite;
 }
 
-@keyframes collapseFlash{
+.observation-collapse{
+  animation: observationEnd 2.2s ease-out forwards;
+}
 
+@keyframes observationEnd{
   0%{
-    filter:hue-rotate(0deg);
-    transform:scale(1);
+    filter: grayscale(0) brightness(1);
+    transform: scale(1);
   }
 
-  50%{
-    filter:hue-rotate(180deg);
-    transform:scale(1.02);
+  25%{
+    filter: grayscale(1) brightness(.55);
+    transform: scale(.985);
+  }
+
+  55%{
+    filter: grayscale(1) brightness(.28);
+    transform: scale(.97);
   }
 
   100%{
-    filter:hue-rotate(360deg);
-    transform:scale(1);
+    filter: grayscale(1) brightness(.08);
+    transform: scale(.96);
   }
-
 }
 
 /* ===== 悪魔登場演出 ===== */
