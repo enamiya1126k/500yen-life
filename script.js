@@ -173,7 +173,7 @@ function judgeContinue() {
 
   const continueRate = Math.min(rate, 1.0);
 
-  // 10連までは世界財閥なし＆必ず継続
+// 10連までは世界政府監査なし＆必ず継続
   if (continueRushCount < 11) {
     return "continue";
   }
@@ -192,7 +192,7 @@ function judgeContinue() {
     auditRate = 0.30;
   }
 
-  // end13「貨幣創世記」で世界財閥介入半減
+// end13「貨幣創世記」で世界政府監査を半減
   if (ownedItems.includes("end13")) {
     auditRate *= 0.5;
   }
@@ -1784,7 +1784,7 @@ end5: {
 },
 
 end6: {
-  name: "滅",
+  name: "奈落接続片",
   price: 1e46,
   type: "end",
   abyssBonus: 0.01,
@@ -1812,7 +1812,7 @@ end9: {
 },
 
 end10: {
-  name: "領域",
+  name: "奈落観測領域",
   price: 1e70,
   type: "end",
   abyssBonus: 0.015,
@@ -2091,13 +2091,17 @@ function getDemonBuffs() {
       (demonContractCount >= 3 ? 0.03 : 0) +
       (extraContracts * 0.01),
 
-    // 5回目 +50%
+    // 6回目 +50%
     expBonus:
-      (demonContractCount >= 5 ? 0.5 : 0),
+      (demonContractCount >= 6 ? 0.5 : 0),
 
-    // 4回目 税金阻止90%
-    taxBlockRate:
-      (demonContractCount >= 4 ? 0.9 : 0),
+taxBlockRate:
+  (demonContractCount >= 4
+    ? Math.min(
+        0.95,
+        (demonContractCount - 3) * 0.05
+      )
+    : 0),
 
     doubleBuff: false
   };
@@ -2109,25 +2113,28 @@ function getDemonBuffText() {
     return "未契約";
   }
 
-  if (demonContractCount >= 6) {
-    return `${demonContractCount}回 / 深化Lv${demonContractCount - 5}`;
-  }
+if (demonContractCount >= 6) {
+  return `${demonContractCount}回 / 税阻止${Math.min(
+    95,
+    (demonContractCount - 3) * 5
+  )}%`;
+}
 
-  if (demonContractCount === 5) {
-    return "5回 / EXP+50%";
-  }
+if (demonContractCount === 5) {
+  return "5回 / 税阻止10%";
+}
 
-  if (demonContractCount === 4) {
-    return "4回 / 税阻止90%";
-  }
+if (demonContractCount === 4) {
+  return "4回 / 税阻止5%";
+}
 
-  if (demonContractCount === 3) {
-    return "3回 / 継続+3%";
-  }
+if (demonContractCount === 3) {
+  return "3回 / 継続+3%";
+}
 
-  if (demonContractCount === 2) {
-    return "2回 / プレ+0.2%";
-  }
+if (demonContractCount === 2) {
+  return "2回 / プレミア+0.2%";
+}
 
   return "1回 / 契約成立";
 }
@@ -2501,7 +2508,7 @@ if (item.instantExp) effectText = `EXP+${item.instantExp.toLocaleString()}`;
 if (item.abyssBonus) effectText = `奈落+${(item.abyssBonus * 100).toFixed(1)}%`;
 if (item.guerillaBonus) effectText = `ゲリラ+${(item.guerillaBonus * 100).toFixed(1)}%`;
 if (item.buffMultiplier) effectText = `全バフ${item.buffMultiplier}倍`;
-if (item.auditReduction) effectText = `世界財閥介入半減`;
+if (item.auditReduction) effectText = `世界政府監査半減`;
 if (item.ending) effectText = "観測終了";
 
 btn.innerHTML = `
@@ -2660,7 +2667,7 @@ ABYSS CODE : NULL
 
 「それはワシの領域ではない」
 
-20秒以内に決断せよ。`
+15秒以内に決断せよ。`
 );
   
   let seconds = 15;
@@ -2689,6 +2696,11 @@ ABYSS CODE : NULL
 }
 
 function startAbyssGame() {
+  if (abyssCountdown) {
+  clearInterval(abyssCountdown);
+  abyssCountdown = null;
+}
+
   const abyssGrid = document.getElementById("abyssGrid");
   const abyssActions = document.getElementById("abyssActions");
 
@@ -2813,14 +2825,14 @@ if (result === "demonError") {
   message =
 `😈ABYSS ERROR😈
 
-契約記録改竄
+契約記録が強制改竄された
 
 悪魔契約 +3
 
 悪魔
 「待て」
 
-「ワシは契約しておらんぞ」`;
+「その契約印はワシのものではない」`;
 }
 
 if (result === "rebirthError") {
