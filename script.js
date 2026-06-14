@@ -1453,7 +1453,8 @@ function getLevelBuffs() {
   const level = getLevel();
 
   return {
-    slotBonus: Math.floor(level / 10) * 5,
+    // Lv1000でも +50回
+    slotBonus: Math.floor(level / 20),
 
     // Lv1000でも +5%
     premiumBonus: Math.floor(level / 100) * 0.005,
@@ -1594,7 +1595,7 @@ end1: {
   name: "第一世界樹の根",
   price: 1e16,
   type: "end",
-  slotBonus: 1000,
+  slotBonus: 50,
 },
 
 end2: {
@@ -1636,7 +1637,7 @@ end7: {
   name: "全宇宙歳入庁",
   price: 1e40,
   type: "end",
-  slotBonus: 5000,
+  slotBonus: 50,
 },
 
 end8: {
@@ -1865,7 +1866,7 @@ function syncTimingBetToMax() {
 
 function getRebirthBuffs() {
   return {
-    slotBonus: rebirthCount * 20,
+    slotBonus: rebirthCount * 3,
 
     // 転生1回につき +0.1%
     premiumBonus: rebirthCount * 0.001,
