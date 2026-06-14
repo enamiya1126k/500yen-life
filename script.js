@@ -1784,10 +1784,10 @@ end5: {
 },
 
 end6: {
-  name: "時空の亀裂",
+  name: "簡易領域",
   price: 1e46,
   type: "end",
-  abyssBonus: 0.01,
+  abyssBonus: 0.015,
 },
 
 end7: {
@@ -1812,10 +1812,10 @@ end9: {
 },
 
 end10: {
-  name: "亜空間",
+  name: "領域展開",
   price: 1e70,
   type: "end",
-  abyssBonus: 0.01,
+  abyssBonus: 0.015,
 },
 
 end11: {
