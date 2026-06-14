@@ -2737,7 +2737,7 @@ function offerDemonContract() {
 ${getDemonComment()}
 - - - - - - - - - - - - 
 手数料 ${formatMoney(fee)}
-残高 ${(taxRate * 100).toFixed(0)}%
+搾取予定 ${formatMoney(tax)}
 
 支払えば
 スロット50回復旧
