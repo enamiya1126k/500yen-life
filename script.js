@@ -62,6 +62,9 @@ let stRushNoSlotCount =
 let demonContractCount =
   Number(localStorage.getItem("demonContractCount")) || 0;
 
+let abyssCorruption =
+  Number(localStorage.getItem("abyssCorruption")) || 0;
+
 let previousBalanceForJackpot = balance;
 
 window.onload = function () {
@@ -904,6 +907,8 @@ setText(
   getGovernmentMessage()
 );
 
+setText("abyssCorruption", abyssCorruption);
+
   setText(
   "demonContractDisplay",
   `😈契約回数：${demonContractCount}回`
@@ -1466,7 +1471,8 @@ function getGovernmentThreatLevel() {
     wealth * 2.5 +
     multiplier * 25 +
     rebirthCount * 1.5 +
-    demonContractCount * 1.0;
+demonContractCount * 1.0 +
+abyssCorruption * 12;
 
   if (threatScore >= 2000) return "レベル7(世界崩壊級)🚨";
   if (threatScore >= 1200) return "レベル6(排除対象)🚨";
@@ -2638,7 +2644,22 @@ function triggerAbyssChallenge() {
   abyssGrid.innerHTML = "";
   abyssActions.style.display = "flex";
 
-  setText("abyssMessage", "⚠️異常な資産変動を検知。\n深淵の裂け目が出現した。\n\n20秒以内に決断せよ。");
+  setText(
+  "abyssMessage",
+`⚠️世界法則エラー
+
+ABYSS CODE : NULL
+
+世界政府
+「記録に存在しない異常領域を確認」
+
+悪魔
+「……閉じろ」
+
+「それはワシの領域ではない」
+
+20秒以内に決断せよ。`
+);
   
   let seconds = 20;
   setText("abyssTimer", `残り${seconds}秒`);
@@ -2674,19 +2695,34 @@ function startAbyssGame() {
   abyssActions.style.display = "none";
   abyssGrid.innerHTML = "";
 
-  setText("abyssMessage", "9つの奈落。\n3つは本物。\n選べ。");
+setText(
+  "abyssMessage",
+`⚠️世界法則エラー
 
-  abyssResults = [
-    "bad",
-    "bad",
-    "bad",
-    "money",
-    "exp",
-    "slot",
-    "premium",
-    "rush",
-    "blessing",
-  ].sort(() => Math.random() - 0.5);
+ABYSS CODE : NULL
+
+世界政府
+「介入不能」
+
+悪魔
+「覗くな」
+
+9つの異常が発生
+
+何が起きるか誰も知らない`
+);
+
+abyssResults = [
+  "wealthCrash",
+  "wealthBoost",
+  "governmentError",
+  "demonError",
+  "rebirthError",
+  "artifactError",
+  "premiumError",
+  "expError",
+  "unknownError",
+].sort(() => Math.random() - 0.5);
 
   abyssResults.forEach(function (_, index) {
     const btn = document.createElement("button");
@@ -2714,111 +2750,169 @@ function chooseAbyss(index) {
   const result = abyssResults[index];
   let message = "";
 
-  if (result === "bad") {
-    const base = Math.floor(balance * 0.1);
-    const multiplier = Math.floor(Math.random() * 999) + 1;
-    const penalty = Math.min(balance, base * multiplier);
+abyssCorruption++;
+localStorage.setItem("abyssCorruption", abyssCorruption);
 
-    balance -= penalty;
+if (result === "wealthCrash") {
 
-playAbyssBadEffect();
+  const loss = Math.floor(balance * 0.5);
 
-    message =
-      `☠️本物の奈落☠️\n` +
-      `残高10% × ${multiplier}倍\n` +
-      `-${formatMoney(penalty)}`;
+  balance -= loss;
 
-    slotHistory.unshift(`${getDateTime()} 🕳️奈落OUT -${formatMoney(penalty)}`);
-  }
+  message =
+`☠️ABYSS ERROR☠️
 
-if (result === "money") {
-  let multiplier;
+資産構造破損
 
-  const roll = Math.random();
-
-if (roll < 0.50) {
-
-  multiplier = Math.floor(Math.random() * 9) + 2;
-  // 2～10倍
-
-} else if (roll < 0.85) {
-
-  multiplier = Math.floor(Math.random() * 40) + 10;
-  // 10～49倍
-
-} else if (roll < 0.97) {
-
-  multiplier = Math.floor(Math.random() * 450) + 50;
-  // 50～499倍
-
-} else {
-
-  multiplier = Math.floor(Math.random() * 500) + 500;
-  // 500～999倍
+-${formatMoney(loss)}`;
 }
 
-  const reward = balance * (multiplier - 1);
+if (result === "wealthBoost") {
+
+  const reward = balance * 99;
 
   balance += reward;
 
   message =
-    `💰黄金奈落💰\n` +
-    `残高${multiplier}倍\n` +
-    `+${formatMoney(reward)}`;
+`💰ABYSS ERROR💰
 
-  slotHistory.unshift(
-    `${getDateTime()} 🕳️黄金奈落 ${multiplier}倍 +${formatMoney(reward)}`
-  );
+貨幣法則崩壊
+
+残高100倍
+
++${formatMoney(reward)}`;
 }
 
-  if (result === "exp") {
-    playerExp = Math.max(1, playerExp * 1000);
+if (result === "governmentError") {
+
+  message =
+`🚨ABYSS ERROR🚨
+
+監視記録消失
+
+世界政府
+「……？」`;
+}
+
+if (result === "demonError") {
+
+  demonContractCount++;
+
+  message =
+`😈ABYSS ERROR😈
+
+契約記録改竄
+
+悪魔
+「待て」
+
+「ワシは契約しておらんぞ」`;
+}
+
+if (result === "rebirthError") {
+
+  rebirthCount++;
+
+  message =
+`🌈ABYSS ERROR🌈
+
+転生履歴破損
+
+転生回数+1`;
+}
+
+if (result === "artifactError") {
+
+  const candidates =
+    Object.keys(shopItems)
+      .filter(id => !ownedItems.includes(id));
+
+  if (candidates.length > 0) {
+
+    const randomItem =
+      candidates[
+        Math.floor(
+          Math.random() * candidates.length
+        )
+      ];
+
+    ownedItems.push(randomItem);
+
+    localStorage.setItem(
+      "ownedItems",
+      JSON.stringify(ownedItems)
+    );
 
     message =
-      `🌌叡智奈落🌌\n` +
-      `EXPが1000倍になった`;
+`📦ABYSS ERROR📦
 
-    slotHistory.unshift(`${getDateTime()} 🕳️叡智奈落 EXP1000倍`);
+存在しない購入履歴を検知
+
+${shopItems[randomItem].name}
+獲得`;
   }
+}
 
-  if (result === "slot") {
-    const remain = Math.max(1, getDailySlotLimit() - todaySlotCount);
-    todaySlotCount = Math.max(0, todaySlotCount - remain * 99);
+if (result === "premiumError") {
 
-    localStorage.setItem("todaySlotCount", todaySlotCount);
+  premiumRush = true;
+
+  setTimeout(function () {
+    premiumRush = false;
+  }, 300000);
+
+  message =
+`🌈ABYSS ERROR🌈
+
+5分間
+
+プレミア率100%`;
+}
+
+if (result === "expError") {
+
+  playerExp *= 10;
+
+  message =
+`📚ABYSS ERROR📚
+
+EXP ×10`;
+}
+
+if (result === "unknownError") {
+
+  const roll = Math.random();
+
+  if (roll < 0.33) {
+
+    balance *= 1000;
 
     message =
-      `🎰回転奈落🎰\n` +
-      `スロット残回数が100倍になった`;
+`⚠️UNKNOWN ERROR⚠️
 
-    slotHistory.unshift(`${getDateTime()} 🕳️回転奈落 残回数100倍`);
-  }
+残高1000倍`;
 
-  if (result === "premium") {
-    nextSlotPremium = true;
+  } else if (roll < 0.66) {
 
-    message =
-      `🌈祝福奈落🌈\n` +
-      `次回スロット、プレミア確定`;
-
-    slotHistory.unshift(`${getDateTime()} 🕳️祝福奈落 次回プレミア確定`);
-  }
-
-  if (result === "rush") {
-    premiumRush = true;
-
-    setTimeout(function () {
-      premiumRush = false;
-    }, 60000);
+    rebirthCount++;
 
     message =
-      `⚡暴走奈落⚡\n` +
-      `60秒間、プレミア率100%`;
+`⚠️UNKNOWN ERROR⚠️
 
-    slotHistory.unshift(`${getDateTime()} 🕳️暴走奈落 プレミア率100%`);
+転生+1`;
+
+  } else {
+
+    demonContractCount++;
+
+    message =
+`⚠️UNKNOWN ERROR⚠️
+
+悪魔契約+1`;
   }
+}
 
-  if (result === "blessing") {
+ {
     playerExp += 100000;
 
     message =
@@ -2827,6 +2921,18 @@ if (roll < 0.50) {
 
     slotHistory.unshift(`${getDateTime()} 🕳️深淵の加護 EXP+100,000`);
   }
+message +=
+`
+
+────────────────
+
+世界政府
+「観測不能。介入を中止します」
+
+悪魔
+「がっはっは……」
+
+「今のは、笑えんぞ」`;
 
 setText("abyssMessage", message);
 
@@ -2836,6 +2942,15 @@ if (buttons[index]) {
   buttons[index].innerText = "済";
   buttons[index].classList.add("used");
 }
+
+localStorage.setItem("rebirthCount", rebirthCount);
+localStorage.setItem("demonContractCount", demonContractCount);
+localStorage.setItem("playerExp", playerExp);
+localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
+
+slotHistory.unshift(
+  `${getDateTime()} 🕳️ABYSS RESULT ${message.replace(/\n/g, " ")}`
+);
 
 save();
 }
