@@ -3098,6 +3098,8 @@ ${getDemonComment()}
 
   demonContractCount++;
   localStorage.setItem("demonContractCount", demonContractCount);
+  
+  localStorage.setItem("abyssCorruption", abyssCorruption);
 
 if (demonContractCount >= 6) {
 
