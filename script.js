@@ -490,10 +490,18 @@ if (totalReward > stats.bestWin) {
       message = `HIT +${formatMoney(totalReward)}`;
     }
 
-    if (!wasContinueFreeSpin) {
-      if (canEnterRush && Math.random() < 0.20) {
-        continueRushCount = 1;
-        stRushNoSlotCount = 0;
+if (!wasContinueFreeSpin) {
+  let rushEntryRate = 0;
+
+  if (strongestHit.symbol === "🎰") {
+    rushEntryRate = isPremium ? 0.90 : 0.60;
+  } else if (strongestHit.symbol === "☄️") {
+    rushEntryRate = 0.45;
+  }
+
+  if (canEnterRush && Math.random() < rushEntryRate) {
+    continueRushCount = 1;
+    stRushNoSlotCount = 0;
 
         localStorage.setItem("continueRushCount", continueRushCount);
         localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
