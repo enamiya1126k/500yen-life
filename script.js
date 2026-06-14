@@ -1784,10 +1784,10 @@ end5: {
 },
 
 end6: {
-  name: "簡易領域",
+  name: "滅",
   price: 1e46,
   type: "end",
-  abyssBonus: 0.015,
+  abyssBonus: 0.01,
 },
 
 end7: {
@@ -1801,7 +1801,7 @@ end8: {
   name: "時間軸徴税機関",
   price: 1e58,
   type: "end",
-  premiumBonus: 0.005,
+  premiumBonus: 0.01,
 },
 
 end9: {
@@ -1812,7 +1812,7 @@ end9: {
 },
 
 end10: {
-  name: "領域展開",
+  name: "領域",
   price: 1e70,
   type: "end",
   abyssBonus: 0.015,
@@ -1826,10 +1826,10 @@ end11: {
 },
 
 end12: {
-  name: "支出という概念の抹消",
+  name: "時空",
   price: 1e82,
   type: "end",
-  buffMultiplier: 2,
+  buffMultiplier: 1.5,
 },
 
 end13: {
@@ -1840,10 +1840,10 @@ end13: {
 },
 
 end14: {
-  name: "宇宙会計監査院",
+  name: "虚構",
   price: 1e100,
   type: "end",
-  buffMultiplier: 4,
+  buffMultiplier: 1.5,
 },
 
 end15: {
