@@ -441,16 +441,26 @@ function finishSlot(result, bet) {
 
   let message = "";
 
-  if (hitLines.length > 0) {
-    addExp(10);
+if (hitLines.length > 0) {
+  addExp(10);
 
-    balance += totalReward;
+  const taxRate = getGovernmentTaxRate();
+  const tax = Math.floor(totalReward * taxRate);
+  const afterTaxReward = totalReward - tax;
 
-stats.totalReward += totalReward;
+  balance += afterTaxReward;
 
-if (totalReward > stats.bestWin) {
-  stats.bestWin = totalReward;
-}
+  stats.totalReward += afterTaxReward;
+
+  if (tax > 0) {
+    slotHistory.unshift(
+      `${getDateTime()} 🏛️世界政府徴税 -${formatMoney(tax)}`
+    );
+  }
+
+  if (afterTaxReward > stats.bestWin) {
+    stats.bestWin = afterTaxReward;
+  }
 
     hitLines.forEach(function (hit) {
       hit.line.forEach(function (index) {
@@ -468,8 +478,8 @@ if (totalReward > stats.bestWin) {
       strongestHit.symbol === "🎰" ||
       strongestHit.symbol === "☄️";
 
-    document.getElementById("payoutDisplay").innerText =
-      formatMoney(totalReward);
+document.getElementById("payoutDisplay").innerText =
+  formatMoney(afterTaxReward);
 
     hitLines.forEach(function (hit) {
       if (hit.line.toString() === [0, 4, 8].toString()) {
@@ -483,15 +493,19 @@ if (totalReward > stats.bestWin) {
 
     playWinSound();
 
-    if (isPremium) {
-      message = `🌈レインボーGOGO！ +${formatMoney(totalReward)}`;
-    } else if (hitLines.length >= 3) {
-      message = `💥BIG BONUS💥 +${formatMoney(totalReward)}`;
-    } else if (hitLines.length >= 2) {
-      message = `🔥SUPER HIT🔥 +${formatMoney(totalReward)}`;
-    } else {
-      message = `HIT +${formatMoney(totalReward)}`;
-    }
+if (isPremium) {
+  message = `🌈レインボーGOGO！ +${formatMoney(afterTaxReward)}`;
+} else if (hitLines.length >= 3) {
+  message = `💥BIG BONUS💥 +${formatMoney(afterTaxReward)}`;
+} else if (hitLines.length >= 2) {
+  message = `🔥SUPER HIT🔥 +${formatMoney(afterTaxReward)}`;
+} else {
+  message = `HIT +${formatMoney(afterTaxReward)}`;
+}
+
+if (tax > 0) {
+  message += `\n🏛️所得税 -${formatMoney(tax)}`;
+}
 
 if (!wasContinueFreeSpin) {
   let rushEntryRate = 0;
@@ -1439,6 +1453,19 @@ function getGovernmentThreatLevel() {
   if (threatScore >= 100) return "レベル2(注意)";
 
   return "レベル1(正常)";
+}
+
+function getGovernmentTaxRate() {
+  const threat = getGovernmentThreatLevel();
+
+  if (threat.includes("レベル7")) return 0.35;
+  if (threat.includes("レベル6")) return 0.25;
+  if (threat.includes("レベル5")) return 0.15;
+  if (threat.includes("レベル4")) return 0.10;
+  if (threat.includes("レベル3")) return 0.02;
+  if (threat.includes("レベル2")) return 0.01;
+
+  return 0;
 }
 
 function addExp(amount) {
