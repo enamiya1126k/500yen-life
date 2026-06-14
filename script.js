@@ -2720,7 +2720,6 @@ function showSlotLimitMessage() {
 }
 
 function offerDemonContract() {
-
   const fee =
     100000 * Math.pow(10, demonContractCount);
 
@@ -2747,47 +2746,41 @@ ${getDemonComment()}
   );
 
   if (!yes) {
-
     alert(
-`
-？？？
+`？？？
 「ふむ。」
 
 「利口なヤツだったか。」
 
 ？？？は去っていった…`
     );
-
     return;
   }
 
   if (balance < totalCost) {
-
     alert(
 `がっはっはっ‼︎
 おもしろい奴だ。
 金が足りんぞ？`
     );
-
     return;
   }
 
   balance -= totalCost;
 
-  todaySlotCount =
-    Math.max(0, todaySlotCount - 50);
-
-  localStorage.setItem(
-    "todaySlotCount",
-    todaySlotCount
-  );
-
   demonContractCount++;
+  localStorage.setItem("demonContractCount", demonContractCount);
 
-  localStorage.setItem(
-    "demonContractCount",
-    demonContractCount
-  );
+  // 悪魔契約後のバフ込み上限を計算
+  const limitAfterContract = getDailySlotLimit();
+
+  // 残り50回になるように、使用済み回数を調整
+  todaySlotCount = Math.max(0, limitAfterContract - 50);
+
+  lastSlotDate = new Date().toDateString();
+
+  localStorage.setItem("todaySlotCount", todaySlotCount);
+  localStorage.setItem("lastSlotDate", lastSlotDate);
 
   history.unshift(
 `${getDateTime()} 😈悪魔契約
@@ -2806,6 +2799,8 @@ ${getDemonComment()}
   );
 
   save();
+  updateShopDisplay();
+  update();
 }
 
 function rejectDebt() {
