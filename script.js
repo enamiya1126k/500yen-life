@@ -1685,7 +1685,18 @@ end15: {
 };
 
 function getItemPrice(item) {
-  return Math.floor(item.price * Math.pow(1.5, rebirthCount));
+
+  // スキンと観測不能領域は固定価格
+  if (
+    item.type === "skin" ||
+    item.type === "end"
+  ) {
+    return item.price;
+  }
+
+  return Math.floor(
+    item.price * Math.pow(1.5, rebirthCount)
+  );
 }
 
 function getCompressCost(baseCost) {
@@ -2039,7 +2050,12 @@ window.rebirth = function () {
   localStorage.removeItem("lastBet");
 
   /* スキンだけ残す */
-  ownedItems = ownedItems.filter((id) => shopItems[id]?.type === "skin");
+  ownedItems = ownedItems.filter(function (id) {
+  return (
+    shopItems[id]?.type === "skin" ||
+    shopItems[id]?.type === "end"
+  );
+});
 
   localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
 
