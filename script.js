@@ -170,7 +170,7 @@ function judgeContinue() {
 
   const continueRate = Math.min(rate, 0.9);
 
-  // 10連までは世界財閥なし
+  // 10連までは世界財閥なし＆必ず継続
   if (continueRushCount < 11) {
     return "continue";
   }
@@ -189,11 +189,12 @@ function judgeContinue() {
     auditRate = 0.30;
   }
 
-  if (auditRate > 0 && Math.random() < auditRate) {
-    return "audit";
+  // end13「貨幣創世記」で世界財閥介入半減
+  if (ownedItems.includes("end13")) {
+    auditRate *= 0.5;
   }
 
-  if (rate >= 1) {
+  if (auditRate > 0 && Math.random() < auditRate) {
     return "audit";
   }
 
@@ -495,9 +496,6 @@ if (totalReward > stats.bestWin) {
 if (!wasContinueFreeSpin) {
   let rushEntryRate = 0;
 
-if (!wasContinueFreeSpin) {
-  let rushEntryRate = 0;
-
   if (strongestHit.symbol === "🎰") {
     rushEntryRate = isPremium ? 0.35 : 0.20;
   } else if (strongestHit.symbol === "☄️") {
@@ -508,14 +506,15 @@ if (!wasContinueFreeSpin) {
     continueRushCount = 1;
     stRushNoSlotCount = 0;
 
-        localStorage.setItem("continueRushCount", continueRushCount);
-        localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
+    localStorage.setItem("continueRushCount", continueRushCount);
+    localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
 
-        setContinueFreeSpin(true);
+    setContinueFreeSpin(true);
 
-        message += `\n🔥ST RUSH突入🔥 ${continueRushCount}連`;
-      }
-    } else {
+    message += `\n🔥ST RUSH突入🔥 ${continueRushCount}連`;
+  }
+} else {
+
       if (strongestHit.symbol === "🎰") {
         stRushNoSlotCount = 0;
         message += `\n🎰カウントリセット！残り10`;
@@ -1581,105 +1580,105 @@ end1: {
   name: "第一世界樹の根",
   price: 1e16,
   type: "end",
-  slotBonus: 50,
+  slotBonus: 5,
 },
 
 end2: {
   name: "黄金因果律",
-  price: 1e20,
+  price: 1e22,
   type: "end",
-  premiumBonus: 0.03,
+  premiumBonus: 0.005,
 },
 
 end3: {
   name: "虚無観測機関",
-  price: 1e24,
+  price: 1e28,
   type: "end",
-  continueBonus: 5.0,
+  continueBonus: 0.05,
 },
 
 end4: {
   name: "原初貨幣神の玉座",
-  price: 1e28,
+  price: 1e34,
   type: "end",
-  doubleBuff: true,
+  expBonus: 1.0,
 },
 
 end5: {
   name: "存在税徴収権",
-  price: 1e32,
+  price: 1e40,
   type: "end",
-  specialTitle: "存在税執行官",
+  slotBonus: 5,
 },
 
 end6: {
   name: "世界財政管理機構",
-  price: 1e36,
+  price: 1e46,
   type: "end",
-  specialTitle: "世界予算編成者",
+  abyssBonus: 0.02,
 },
 
 end7: {
   name: "全宇宙歳入庁",
-  price: 1e40,
+  price: 1e52,
   type: "end",
-  slotBonus: 50,
+  slotBonus: 10,
 },
 
 end8: {
   name: "時間軸徴税機関",
-  price: 1e44,
+  price: 1e58,
   type: "end",
-  premiumBonus: 0.08,
+  premiumBonus: 0.005,
 },
 
 end9: {
   name: "無限残高炉",
-  price: 1e48,
+  price: 1e64,
   type: "end",
-  continueBonus: 20,
+  guerillaBonus: 0.03,
 },
 
 end10: {
   name: "貨幣律そのもの",
-  price: 1e52,
+  price: 1e70,
   type: "end",
-  specialTitle: "貨幣律",
+  abyssBonus: 0.03,
 },
 
 end11: {
   name: "全次元予算会議",
-  price: 1e56,
+  price: 1e76,
   type: "end",
-  specialTitle: "次元監査神",
+  premiumBonus: 0.015,
 },
 
 end12: {
   name: "支出という概念の抹消",
-  price: 1e60,
+  price: 1e82,
   type: "end",
-  specialTitle: "無支出存在",
+  buffMultiplier: 2,
 },
 
 end13: {
   name: "貨幣創世記",
-  price: 1e64,
+  price: 1e88,
   type: "end",
-  specialTitle: "原初貨幣神",
+  auditReduction: 0.5,
 },
 
 end14: {
   name: "宇宙会計監査院",
-  price: 1e68,
+  price: 1e100,
   type: "end",
-  specialTitle: "全能監査者",
+  buffMultiplier: 4,
 },
 
 end15: {
   name: "概念外存在",
-  price: 1e240,
+  price: 1e200,
   type: "end",
-  specialTitle: "⛧概念外存在⛧",
+  ending: true,
 },
 
 };
@@ -1709,28 +1708,23 @@ function getShopBuffs() {
   let slotBonus = 0;
   let premiumBonus = 0;
   let continueBonus = 0;
-  let doubleBuff = false;
+  let buffMultiplier = 1;
   let currentTitle = "なし";
 
   ownedItems.forEach(function (id) {
     const item = shopItems[id];
-
     if (!item) return;
 
-    if (item.slotBonus) {
-      slotBonus += item.slotBonus;
-    }
+    if (item.slotBonus) slotBonus += item.slotBonus;
+    if (item.premiumBonus) premiumBonus += item.premiumBonus;
+    if (item.continueBonus) continueBonus += item.continueBonus;
 
-    if (item.premiumBonus) {
-      premiumBonus += item.premiumBonus;
-    }
-
-    if (item.continueBonus) {
-      continueBonus += item.continueBonus;
+    if (item.buffMultiplier) {
+      buffMultiplier *= item.buffMultiplier;
     }
 
     if (item.doubleBuff) {
-      doubleBuff = true;
+      buffMultiplier *= 2;
     }
 
     if (item.type === "title") {
@@ -1740,19 +1734,22 @@ function getShopBuffs() {
     if (item.specialTitle) {
       currentTitle = item.specialTitle;
     }
+
+    if (item.ending) {
+      currentTitle = item.name;
+    }
   });
 
-  if (doubleBuff) {
-    slotBonus *= 2;
-    premiumBonus *= 2;
-    continueBonus *= 2;
-  }
+  slotBonus *= buffMultiplier;
+  premiumBonus *= buffMultiplier;
+  continueBonus *= buffMultiplier;
 
   return {
     slotBonus: slotBonus,
     premiumBonus: premiumBonus,
     continueBonus: continueBonus,
     currentTitle: currentTitle,
+    buffMultiplier: buffMultiplier,
   };
 }
 
@@ -1839,7 +1836,14 @@ function getWealthBonus() {
 }
 
 function getGuerillaRate() {
-  return 0.005;
+
+  let rate = 0.005;
+
+  if (ownedItems.includes("end9")) {
+    rate += 0.03;
+  }
+
+  return rate;
 }
 
 /* ゲリラ賭け金上限（残高50%） */
@@ -2050,10 +2054,12 @@ window.rebirth = function () {
   localStorage.removeItem("lastBet");
 
   /* スキンだけ残す */
-  ownedItems = ownedItems.filter(function (id) {
-  return (
-    shopItems[id]?.type === "skin" ||
-    shopItems[id]?.type === "end"
+ownedItems = ownedItems.filter(function (id) {
+  const item = shopItems[id];
+
+  return item && (
+    item.type === "skin" ||
+    item.type === "end"
   );
 });
 
@@ -2187,6 +2193,16 @@ function updateShopDisplay() {
   setAllText("buffGuerillaRate", `${Math.round(getGuerillaRate() * 100)}%`);
 
   setAllText("currentTitle", buffs.currentTitle);
+
+setAllText(
+  "buffAbyssRate",
+  `${(getAbyssRate()*100).toFixed(1)}%`
+);
+
+setAllText(
+  "buffGuerillaRate",
+  `${(getGuerillaRate()*100).toFixed(1)}%`
+);
 
 document.body.classList.remove(
   "skin-black-gold",
@@ -2398,10 +2414,20 @@ function updateCompressDisplay() {
   });
 }
 
+function getAbyssRate() {
+
+  let rate = 0.001;
+
+  if (ownedItems.includes("end6")) rate += 0.02;
+  if (ownedItems.includes("end10")) rate += 0.03;
+
+  return rate;
+}
+
 function maybeTriggerAbyss() {
   if (abyssActive) return;
 
-  if (Math.random() < 0.001) {
+  if (Math.random() < getAbyssRate()) {
     triggerAbyssChallenge();
   }
 }
