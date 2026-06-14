@@ -1708,6 +1708,7 @@ function getShopBuffs() {
   let slotBonus = 0;
   let premiumBonus = 0;
   let continueBonus = 0;
+  let expBonus = 0;
   let buffMultiplier = 1;
   let currentTitle = "なし";
 
@@ -1718,6 +1719,7 @@ function getShopBuffs() {
     if (item.slotBonus) slotBonus += item.slotBonus;
     if (item.premiumBonus) premiumBonus += item.premiumBonus;
     if (item.continueBonus) continueBonus += item.continueBonus;
+    if (item.expBonus) expBonus += item.expBonus;
 
     if (item.buffMultiplier) {
       buffMultiplier *= item.buffMultiplier;
@@ -1743,13 +1745,15 @@ function getShopBuffs() {
   slotBonus *= buffMultiplier;
   premiumBonus *= buffMultiplier;
   continueBonus *= buffMultiplier;
+  expBonus *= buffMultiplier;
 
   return {
-    slotBonus: slotBonus,
-    premiumBonus: premiumBonus,
-    continueBonus: continueBonus,
-    currentTitle: currentTitle,
-    buffMultiplier: buffMultiplier,
+    slotBonus,
+    premiumBonus,
+    continueBonus,
+    expBonus,
+    currentTitle,
+    buffMultiplier,
   };
 }
 
@@ -1813,11 +1817,12 @@ function getContinueRate() {
 }
 
 function getExpRate() {
+  const buffs = getShopBuffs();
   const demon = getDemonBuffs();
 
   let total =
     (1 + rebirthCount) *
-    (1 + demon.expBonus);
+    (1 + demon.expBonus + (buffs.expBonus || 0));
 
   if (demon.doubleBuff) {
     total *= 2;
@@ -1836,6 +1841,7 @@ function getWealthBonus() {
 }
 
 function getGuerillaRate() {
+  const buffs = getShopBuffs();
 
   let rate = 0.005;
 
@@ -1843,7 +1849,7 @@ function getGuerillaRate() {
     rate += 0.03;
   }
 
-  return rate;
+  return rate * buffs.buffMultiplier;
 }
 
 /* ゲリラ賭け金上限（残高50%） */
@@ -2415,13 +2421,14 @@ function updateCompressDisplay() {
 }
 
 function getAbyssRate() {
+  const buffs = getShopBuffs();
 
   let rate = 0.001;
 
   if (ownedItems.includes("end6")) rate += 0.02;
   if (ownedItems.includes("end10")) rate += 0.03;
 
-  return rate;
+  return rate * buffs.buffMultiplier;
 }
 
 function maybeTriggerAbyss() {
