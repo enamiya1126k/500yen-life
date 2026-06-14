@@ -854,6 +854,20 @@ function updateStats() {
   setText("debtTitle", getDebtTitle());
   setText("demonBuffDisplay", getDemonBuffText());
   setText(
+  "abyssRate",
+  `${(getAbyssRate() * 100).toFixed(1)}%`
+);
+
+setText(
+  "buffMultiplier",
+  `${getShopBuffs().buffMultiplier}倍`
+);
+
+setText(
+  "governmentThreat",
+  getGovernmentThreatLevel()
+);
+  setText(
   "demonContractDisplay",
   `😈契約回数：${demonContractCount}回`
 );
@@ -1389,6 +1403,32 @@ function getDebtRank() {
   });
 
   return currentRank;
+}
+
+function getGovernmentThreatLevel() {
+  const premium = getPremiumRate() * 100;
+  const continueRate = getContinueRate() * 100;
+  const abyss = getAbyssRate() * 100;
+  const wealth = Math.log10(Math.max(balance, 1));
+  const multiplier = getShopBuffs().buffMultiplier || 1;
+
+  const threatScore =
+    premium * 8 +
+    continueRate * 1.5 +
+    abyss * 20 +
+    wealth * 4 +
+    multiplier * 15 +
+    rebirthCount * 2 +
+    demonContractCount * 1.5;
+
+  if (threatScore >= 800) return "☠️世界崩壊級";
+  if (threatScore >= 500) return "🚨排除対象";
+  if (threatScore >= 300) return "⚠️危険";
+  if (threatScore >= 180) return "🔴要監視";
+  if (threatScore >= 90) return "🟠観察対象";
+  if (threatScore >= 40) return "🟡注意";
+
+  return "🟢正常";
 }
 
 function addExp(amount) {
