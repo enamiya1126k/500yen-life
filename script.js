@@ -1413,22 +1413,22 @@ function getGovernmentThreatLevel() {
   const multiplier = getShopBuffs().buffMultiplier || 1;
 
   const threatScore =
-    premium * 8 +
-    continueRate * 1.5 +
-    abyss * 20 +
-    wealth * 4 +
-    multiplier * 15 +
-    rebirthCount * 2 +
-    demonContractCount * 1.5;
+    premium * 5 +
+    continueRate * 0.7 +
+    abyss * 12 +
+    wealth * 2.5 +
+    multiplier * 25 +
+    rebirthCount * 1.5 +
+    demonContractCount * 1.0;
 
-  if (threatScore >= 800) return "☠️世界崩壊級";
-  if (threatScore >= 500) return "🚨排除対象";
-  if (threatScore >= 300) return "⚠️危険";
-  if (threatScore >= 180) return "🔴要監視";
-  if (threatScore >= 90) return "🟠観察対象";
-  if (threatScore >= 40) return "🟡注意";
+  if (threatScore >= 2000) return "レベル7(世界崩壊級)🚨";
+  if (threatScore >= 1200) return "レベル6(排除対象)🚨";
+  if (threatScore >= 750) return "レベル5(危険)⚠️";
+  if (threatScore >= 450) return "レベル4(要監視)⚠️";
+  if (threatScore >= 250) return "レベル3(観察対象)";
+  if (threatScore >= 100) return "レベル2(注意)";
 
-  return "🟢正常";
+  return "レベル1(正常)";
 }
 
 function addExp(amount) {
