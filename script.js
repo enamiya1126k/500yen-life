@@ -3186,6 +3186,11 @@ function triggerEnding() {
 
   btn.style.display = "none";
   modal.style.display = "flex";
+window.scrollTo({
+  top: 0,
+  behavior: "smooth"
+});
+
 
 const finalLevel = getLevel();
 const finalRank = getRankTitle();
@@ -3370,6 +3375,18 @@ COMPLETE
 
 残高：500円
 
+
+
+
+
+SYSTEM
+
+新規観測を開始しますか？
+
+▶ YES
+  NO
+
+
 `;
 
   setTimeout(function () {
@@ -3388,7 +3405,7 @@ function startNewGamePlus() {
   abyssCorruption = 0;
   ownedItems = [];
 
-  slotHistory.unshift(`${getDateTime()} ▶ NEW GAME+ 初期残高500円`);
+  slotHistory.unshift(`${getDateTime()} ▶ YES`);
 
   localStorage.setItem("balance", balance);
   localStorage.setItem("playerExp", playerExp);
