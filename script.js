@@ -2237,7 +2237,7 @@ function updateShopDisplay() {
   setAllText("currentTitle", buffs.currentTitle);
 
 setAllText(
-  "buffAbyssRate",
+  "abyssRate",
   `${(getAbyssRate()*100).toFixed(1)}%`
 );
 
