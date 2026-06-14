@@ -2300,12 +2300,15 @@ Object.keys(shopItems).forEach(function (id) {
 
   let effectText = "";
 
-  if (item.slotBonus) effectText = `+${item.slotBonus}回/日`;
-  if (item.premiumBonus) effectText = `確率+${(item.premiumBonus * 100).toFixed(1)}%`;
-  if (item.continueBonus) effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
-  if (item.doubleBuff) effectText = "全バフ2倍";
-  if (item.specialTitle) effectText = "禁忌遺物";
-  if (id === "end15") effectText = "観測終了";
+if (item.slotBonus) effectText = `+${item.slotBonus}回/日`;
+if (item.premiumBonus) effectText = `プレミア+${(item.premiumBonus * 100).toFixed(1)}%`;
+if (item.continueBonus) effectText = `継続率+${Math.round(item.continueBonus * 100)}%`;
+if (item.expBonus) effectText = `EXP倍率+${item.expBonus}倍`;
+if (item.abyssBonus) effectText = `奈落+${(item.abyssBonus * 100).toFixed(1)}%`;
+if (item.guerillaBonus) effectText = `ゲリラ+${(item.guerillaBonus * 100).toFixed(1)}%`;
+if (item.buffMultiplier) effectText = `全バフ${item.buffMultiplier}倍`;
+if (item.auditReduction) effectText = `世界財閥介入半減`;
+if (item.ending) effectText = "観測終了";
 
 btn.innerHTML = `
   <span class="item-name">${item.name}</span>
