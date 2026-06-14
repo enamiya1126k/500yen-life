@@ -782,6 +782,8 @@ localStorage.setItem(
   demonContractCount
 );
 
+localStorage.setItem("abyssCorruption", abyssCorruption);
+
   update();
 
   if (
@@ -3097,9 +3099,8 @@ ${getDemonComment()}
   balance -= totalCost;
 
   demonContractCount++;
-  localStorage.setItem("demonContractCount", demonContractCount);
-  
-  localStorage.setItem("abyssCorruption", abyssCorruption);
+
+localStorage.setItem("demonContractCount", demonContractCount);
 
 if (demonContractCount >= 6) {
 
