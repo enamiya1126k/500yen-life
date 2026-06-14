@@ -2620,8 +2620,8 @@ function updateCompressDisplay() {
 function getAbyssRate() {
   let rate = 0.001;
 
-  if (ownedItems.includes("end6")) rate += 0.02;
-  if (ownedItems.includes("end10")) rate += 0.03;
+  if (ownedItems.includes("end6")) rate += 0.015;
+  if (ownedItems.includes("end10")) rate += 0.015;
 
   return rate * getBuffScale();
 }
@@ -2960,6 +2960,8 @@ slotHistory.unshift(
   `${getDateTime()} 🕳️ABYSS RESULT ${message.replace(/\n/g, " ")}`
 );
 
+localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
+
 save();
 
 closeAbyssChallenge(
@@ -3191,151 +3193,149 @@ const finalDebtTitle = getDebtTitle();
 const finalEvaluation = getFinalEvaluation();
 const finalArtifact = getShopBuffs().currentTitle;
 
-  text.innerText = `
-貨幣は意味を失った。
+text.innerText = `
 
-借金は意味を失った。
+SYSTEM ERROR
 
-資産は意味を失った。
-
-世界は意味を失った。
-
-
-
-最後に残ったのは
-
-観測者である貴様だけだった。
-
-
-
-誰も到達できなかった場所。
-
-誰も数え切れなかった数字。
-
-誰も理解できなかった領域。
-
-
-
-貴様は
-
-500円の果てを見た。
-
-
-
-そして今、
-
-500円という物語は終わる。
-
-
-
-――観測終了――
+世界法則との整合性を確認中...
 
 
 
 
+ERROR
+
+ERROR
+
+ERROR
+
+
+
+────────────────
+
+世界政府
+「対象個体を観測不能領域へ移送」
+────────────────
+最終観測結果
+────────────────
+プレイヤーLv${finalLevel}
+転生回数${rebirthCount}回
+悪魔契約${demonContractCount}回
+奈落汚染${abyssCorruption}
+最終称号${finalRank}
+最終遺物${finalArtifact}
+債務称号${finalDebtTitle}
+最高残高${formatMoney(stats.bestBalance)}
+総プレイ回数${stats.totalPlays.toLocaleString()}回
+総獲得金額${formatMoney(stats.totalReward)}
+世界政府評価${finalEvaluation}
+────────────────
+
+
+
+世界政府
+「残高を報告せよ」
+
+システム
+--- 観測不能 ---
+
+
+世界政府
+「総資産」
+
+システム
+--- 観測不能 ---
+
+
+世界政府
+「存在座標」
+
+システム
+--- 観測不能 ---
+
+
+
+世界政府
+「生命反応」
+
+システム
+--- 観測不能 ---
+
+
+
+悪魔
+「がっはっはっは！！」
+
+
+世界政府
+「違う」
+「計算できないのではない」
+
+「存在していない。」
+
+
+
+
+
+「対象個体は」
+「貨幣体系から逸脱した」
+「世界法則外存在である」
+
+
+────────────────
+
+世界政府
+「まさか・・・」
+
+悪魔
+「気付いたか」
+
+悪魔
+「奈落は場所ではない」
+
+悪魔
+「奈落は警告だった」
+
+悪魔
+「最初から」
+
+悪魔
+「貴様に向けられたな」
+
+────────────────
 
 
 
 【 STAFF ROLL 】
 
-企画
-えなみ
-
-システム設計
-えなみ
-
-ゲームバランス崩壊担当
-えなみ
-
-借金認定委員会
-えなみ
-
-奈落管理局
-えなみ
-
-世界政府 財務監視局
-えなみ
-
-最終観測者
-えなみ
-
-
-
-
-
+企画:えなみ
+システム設計:えなみ
+ゲームバランス崩壊担当:えなみ
+借金認定委員会:えなみ
+世界政府 財務監視局:えなみ
+奈落管理局:えなみ
+悪魔:えなみ
 
 
 Special Thanks
 
+
 毎日500円を我慢した人
-
 コンビニで悩んだ人
-
+節約した人
 無駄遣いした人
-
 借金した人
 
 そして
 
-最後までプレイした貴様へ
-
-────────────────
-
-最終観測結果
-
-────────────────
-
-プレイヤーLv
-${finalLevel}
-
-転生回数
-${rebirthCount}回
-
-最終称号
-${finalRank}
-
-最終遺物
-${finalArtifact}
-
-債務Lv
-${debtorLevel}
-
-債務称号
-${finalDebtTitle}
-
-最高残高
-${formatMoney(stats.bestBalance)}
-
-総プレイ回数
-${stats.totalPlays.toLocaleString()}回
-
-総賭け金
-${formatMoney(stats.totalBet)}
-
-総獲得金額
-${formatMoney(stats.totalReward)}
-
-世界政府評価
-${finalEvaluation}
-
-
-
+ここまで到達した異常者へ
 
 
 ────────────────
 
 500円 LIFE
-
 COMPLETE
-
 達成率 100%
-
 観測率 100%
-
-借金率 不明
-
-生活維持率 不明
-
 世界存続率 0%
 
 ────────────────
@@ -3343,30 +3343,33 @@ COMPLETE
 
 
 
+世界政府
+「観測を終了します」
 
 
 
-・・・
 
-？？？
+悪魔
+「・・・」
 
-【世界政府 財務監視局】
 
-お疲れ様でした。
 
-なお、
 
-現実世界の残高には
+悪魔
+「なぁ」
 
-一切影響ありません。
 
-ご利用ありがとうございました。
 
-・・・
 
-ところで
+悪魔
+「明日の500円はどうする？」
 
-明日の500円は？
+
+
+
+
+残高：500円
+
 `;
 
   setTimeout(function () {
@@ -3378,11 +3381,23 @@ function startNewGamePlus() {
   balance = 500;
   playerExp = 0;
   todaySlotCount = 0;
+
+  rebirthCount = 0;
+  debtorLevel = 0;
+  demonContractCount = 0;
+  abyssCorruption = 0;
+  ownedItems = [];
+
   slotHistory.unshift(`${getDateTime()} ▶ NEW GAME+ 初期残高500円`);
 
   localStorage.setItem("balance", balance);
   localStorage.setItem("playerExp", playerExp);
   localStorage.setItem("todaySlotCount", todaySlotCount);
+  localStorage.setItem("rebirthCount", rebirthCount);
+  localStorage.setItem("debtorLevel", debtorLevel);
+  localStorage.setItem("demonContractCount", demonContractCount);
+  localStorage.setItem("abyssCorruption", abyssCorruption);
+  localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
 
   document.getElementById("endingModal").style.display = "none";
 
