@@ -1910,11 +1910,6 @@ function getShopBuffs() {
     }
   });
 
-  slotBonus *= buffMultiplier;
-  premiumBonus *= buffMultiplier;
-  continueBonus *= buffMultiplier;
-  expBonus *= buffMultiplier;
-
   return {
     slotBonus,
     premiumBonus,
@@ -1925,24 +1920,36 @@ function getShopBuffs() {
   };
 }
 
+function getBuffScale() {
+
+  const multiplier =
+
+    getShopBuffs().buffMultiplier || 1;
+
+  return Math.sqrt(multiplier);
+
+}
+
 function getDailySlotLimit() {
   const buffs = getShopBuffs();
   const levelBuffs = getLevelBuffs();
   const rebirth = getRebirthBuffs();
   const demon = getDemonBuffs();
 
-  let total =
-    50 +
-    buffs.slotBonus +
-    levelBuffs.slotBonus +
-    rebirth.slotBonus +
-    demon.slotBonus;
+let total =
+  50 +
+  buffs.slotBonus +
+  levelBuffs.slotBonus +
+  rebirth.slotBonus +
+  demon.slotBonus;
 
-  if (demon.doubleBuff) {
-    total *= 2;
-  }
+total *= getBuffScale();
 
-  return total;
+if (demon.doubleBuff) {
+  total *= 2;
+}
+
+return Math.floor(total);
 }
 
 function getPremiumRate() {
@@ -1951,18 +1958,20 @@ function getPremiumRate() {
   const rebirth = getRebirthBuffs();
   const demon = getDemonBuffs();
 
-  let total =
-    0.005 +
-    buffs.premiumBonus +
-    levelBuffs.premiumBonus +
-    rebirth.premiumBonus +
-    demon.premiumBonus;
+let total =
+  0.005 +
+  buffs.premiumBonus +
+  levelBuffs.premiumBonus +
+  rebirth.premiumBonus +
+  demon.premiumBonus;
 
-  if (demon.doubleBuff) {
-    total *= 2;
-  }
+total *= getBuffScale();
 
-  return total;
+if (demon.doubleBuff) {
+  total *= 2;
+}
+
+return total;
 }
 
 function getContinueRate() {
@@ -1971,17 +1980,19 @@ function getContinueRate() {
   const rebirth = getRebirthBuffs();
   const demon = getDemonBuffs();
 
-  let total =
-    buffs.continueBonus +
-    levelBuffs.continueBonus +
-    rebirth.continueBonus +
-    demon.continueBonus;
+let total =
+  buffs.continueBonus +
+  levelBuffs.continueBonus +
+  rebirth.continueBonus +
+  demon.continueBonus;
 
-  if (demon.doubleBuff) {
-    total *= 2;
-  }
+total *= getBuffScale();
 
-  return total;
+if (demon.doubleBuff) {
+  total *= 2;
+}
+
+return total;
 }
 
 function getExpRate() {
@@ -1991,6 +2002,7 @@ function getExpRate() {
   let total =
     (1 + rebirthCount) *
     (1 + demon.expBonus + (buffs.expBonus || 0));
+total *= getBuffScale();
 
   if (demon.doubleBuff) {
     total *= 2;
@@ -2017,7 +2029,7 @@ function getGuerillaRate() {
     rate += 0.03;
   }
 
-  return rate * buffs.buffMultiplier;
+return rate * getBuffScale();
 }
 
 /* ゲリラ賭け金上限（残高50%） */
@@ -2598,14 +2610,12 @@ function updateCompressDisplay() {
 }
 
 function getAbyssRate() {
-  const buffs = getShopBuffs();
-
   let rate = 0.001;
 
   if (ownedItems.includes("end6")) rate += 0.02;
   if (ownedItems.includes("end10")) rate += 0.03;
 
-  return rate * buffs.buffMultiplier;
+  return rate * getBuffScale();
 }
 
 function maybeTriggerAbyss() {
