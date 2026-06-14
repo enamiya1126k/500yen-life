@@ -904,6 +904,16 @@ window.setMaxBet = function () {
 };
 
 function formatMoney(num) {
+  if (!Number.isFinite(num)) {
+    return "観測不能円";
+  }
+
+  const observationLimit = 1e72;
+
+  if (num >= observationLimit) {
+    return num.toExponential(2) + "観測不能円";
+  }
+
   const units = [
     { value: 1e68, name: "無量大数" },
     { value: 1e64, name: "不可思議" },
