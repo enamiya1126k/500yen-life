@@ -1787,7 +1787,7 @@ end6: {
   name: "時空の亀裂",
   price: 1e46,
   type: "end",
-  abyssBonus: 0.005,
+  abyssBonus: 0.01,
 },
 
 end7: {
