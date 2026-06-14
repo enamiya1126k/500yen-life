@@ -3398,12 +3398,26 @@ function startNewGamePlus() {
   balance = 500;
   playerExp = 0;
   todaySlotCount = 0;
+lastSlotDate = new Date().toDateString();
 
   rebirthCount = 0;
   debtorLevel = 0;
   demonContractCount = 0;
   abyssCorruption = 0;
   ownedItems = [];
+
+continueRushCount = 0;
+stRushNoSlotCount = 0;
+isContinueFreeSpin = false;
+isMaxBetMode = false;
+premiumRush = false;
+nextSlotPremium = false;
+
+localStorage.setItem("continueRushCount", continueRushCount);
+localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
+localStorage.setItem("isContinueFreeSpin", "false");
+localStorage.setItem("isMaxBetMode", "false");
+localStorage.removeItem("lastBet");
 
   stats = {
     bestBalance: 500,
@@ -3413,11 +3427,18 @@ function startNewGamePlus() {
     totalReward: 0,
   };
 
-  slotHistory.unshift(`${getDateTime()} ▶ YES`);
+history = [];
+slotHistory = [];
+
+slotHistory.unshift(`${getDateTime()} ▶ YES`);
+
+localStorage.setItem("history", JSON.stringify(history));
+localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
 
   localStorage.setItem("balance", balance);
   localStorage.setItem("playerExp", playerExp);
   localStorage.setItem("todaySlotCount", todaySlotCount);
+  localStorage.setItem("lastSlotDate", lastSlotDate);
   localStorage.setItem("rebirthCount", rebirthCount);
   localStorage.setItem("debtorLevel", debtorLevel);
   localStorage.setItem("demonContractCount", demonContractCount);
