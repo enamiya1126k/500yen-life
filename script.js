@@ -170,8 +170,8 @@ function judgeContinue() {
 
   const continueRate = Math.min(rate, 0.9);
 
-  // 7連までは世界財閥なし
-  if (continueRushCount < 8) {
+  // 10連までは世界財閥なし
+  if (continueRushCount < 11) {
     return "continue";
   }
 
@@ -495,10 +495,13 @@ if (totalReward > stats.bestWin) {
 if (!wasContinueFreeSpin) {
   let rushEntryRate = 0;
 
+if (!wasContinueFreeSpin) {
+  let rushEntryRate = 0;
+
   if (strongestHit.symbol === "🎰") {
-    rushEntryRate = isPremium ? 0.90 : 0.60;
+    rushEntryRate = isPremium ? 0.35 : 0.20;
   } else if (strongestHit.symbol === "☄️") {
-    rushEntryRate = 0.45;
+    rushEntryRate = 0.08;
   }
 
   if (canEnterRush && Math.random() < rushEntryRate) {
