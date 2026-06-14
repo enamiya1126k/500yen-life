@@ -3405,6 +3405,14 @@ function startNewGamePlus() {
   abyssCorruption = 0;
   ownedItems = [];
 
+  stats = {
+    bestBalance: 500,
+    bestWin: 0,
+    totalPlays: 0,
+    totalBet: 0,
+    totalReward: 0,
+  };
+
   slotHistory.unshift(`${getDateTime()} ▶ YES`);
 
   localStorage.setItem("balance", balance);
@@ -3415,6 +3423,7 @@ function startNewGamePlus() {
   localStorage.setItem("demonContractCount", demonContractCount);
   localStorage.setItem("abyssCorruption", abyssCorruption);
   localStorage.setItem("ownedItems", JSON.stringify(ownedItems));
+localStorage.setItem("stats", JSON.stringify(stats));
 
   document.getElementById("endingModal").style.display = "none";
 
