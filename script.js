@@ -1720,6 +1720,10 @@ function getShopBuffs() {
     if (item.type === "title") {
       currentTitle = item.name;
     }
+    
+    if (item.type === "end") {
+  currentTitle = item.name;
+}
 
     if (item.specialTitle) {
       currentTitle = item.specialTitle;
