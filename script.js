@@ -1635,18 +1635,9 @@ function getGovernmentTitle() {
 function getGovernmentMessage() {
   const threat = getGovernmentThreatLevel();
 
-function getGovernmentTaxEventRate() {
-  const threat = getGovernmentThreatLevel();
-
-  if (threat.includes("レベル7")) return 0.20;
-  if (threat.includes("レベル6")) return 0.12;
-  if (threat.includes("レベル5")) return 0.08;
-  if (threat.includes("レベル4")) return 0.05;
-  if (threat.includes("レベル3")) return 0.03;
-  if (threat.includes("レベル2")) return 0.01;
-
-  return 0;
-}
+  if (demonContractCount >= 15) {
+    return "封印指定存在との融合を確認。排除を開始します。";
+  }
 
   if (threat.includes("レベル7")) return "対象個体は世界法則を逸脱。排除準備中。";
   if (threat.includes("レベル6")) return "奈落存在との接触を確認。";
@@ -1661,6 +1652,19 @@ function getGovernmentTaxEventRate() {
   if (balance >= 1e8) return "資産増加傾向を確認。";
 
   return "正常な市民です。";
+}
+
+function getGovernmentTaxEventRate() {
+  const threat = getGovernmentThreatLevel();
+
+  if (threat.includes("レベル7")) return 0.20;
+  if (threat.includes("レベル6")) return 0.12;
+  if (threat.includes("レベル5")) return 0.08;
+  if (threat.includes("レベル4")) return 0.05;
+  if (threat.includes("レベル3")) return 0.03;
+  if (threat.includes("レベル2")) return 0.01;
+
+  return 0;
 }
 
 function getGovernmentTaxRate() {
@@ -1680,23 +1684,6 @@ function getGovernmentTaxRate() {
   }
 
   return rate;
-}
-
-function getGovernmentTaxEventRate() {
-  const threat = getGovernmentThreatLevel();
-
-if (demonContractCount >= 15) {
-  return "封印指定存在との融合を確認。排除を開始します。";
-}
-
-  if (threat.includes("レベル7")) return 0.20;
-  if (threat.includes("レベル6")) return 0.12;
-  if (threat.includes("レベル5")) return 0.08;
-  if (threat.includes("レベル4")) return 0.05;
-  if (threat.includes("レベル3")) return 0.03;
-  if (threat.includes("レベル2")) return 0.01;
-
-  return 0;
 }
 
 function getWealthTaxRate() {
