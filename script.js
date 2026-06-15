@@ -770,13 +770,6 @@ function save() {
 
     update();
 
-if (
-  !firstGovernmentContact &&
-  balance >= 100000000
-) {
-  triggerGovernmentFirstContact();
-}
-
     previousBalanceForJackpot = balance;
 
     showDebtModal();
@@ -1549,8 +1542,9 @@ function triggerGovernmentFirstContact() {
 
   slotHistory.unshift(`${getDateTime()} 🏛️世界政府初接触`);
 
-  firstGovernmentContact = true;
-  localStorage.setItem("firstGovernmentContact", "true");
+firstGovernmentContact = true;
+localStorage.setItem("firstGovernmentContact", "true");
+localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
 }
 
 function triggerGovernmentTax() {
@@ -3536,6 +3530,8 @@ isContinueFreeSpin = false;
 isMaxBetMode = false;
 premiumRush = false;
 nextSlotPremium = false;
+firstGovernmentContact = false;
+localStorage.setItem("firstGovernmentContact", "false");
 
 localStorage.setItem("continueRushCount", continueRushCount);
 localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
