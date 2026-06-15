@@ -67,6 +67,9 @@ let abyssCorruption =
 
 let previousBalanceForJackpot = balance;
 
+let firstGovernmentContact =
+  localStorage.getItem("firstGovernmentContact") === "true";
+
 window.onload = function () {
   const lastBet = localStorage.getItem("lastBet");
 
@@ -760,6 +763,13 @@ function save() {
 
     update();
 
+if (
+  !firstGovernmentContact &&
+  balance >= 100000000
+) {
+  triggerGovernmentFirstContact();
+}
+
     previousBalanceForJackpot = balance;
 
     showDebtModal();
@@ -785,6 +795,13 @@ localStorage.setItem(
 localStorage.setItem("abyssCorruption", abyssCorruption);
 
   update();
+
+if (
+  !firstGovernmentContact &&
+  balance >= 100000000
+) {
+  triggerGovernmentFirstContact();
+}
 
   if (
   beforeBalance > 0 &&
@@ -907,6 +924,11 @@ setText(
 setText(
   "governmentMessage",
   getGovernmentMessage()
+);
+
+setText(
+  "governmentTitle",
+  getGovernmentTitle()
 );
 
 setText("abyssCorruption", abyssCorruption);
@@ -1466,6 +1488,14 @@ function getGovernmentThreatLevel() {
   const wealth = Math.log10(Math.max(balance, 1));
   const multiplier = getShopBuffs().buffMultiplier || 1;
 
+let assetThreat = 0;
+
+if (balance >= 1e8) assetThreat += 100;
+if (balance >= 1e9) assetThreat += 150;
+if (balance >= 1e10) assetThreat += 250;
+if (balance >= 1e12) assetThreat += 400;
+if (balance >= 1e16) assetThreat += 800;
+
   const threatScore =
     premium * 5 +
     continueRate * 0.7 +
@@ -1484,6 +1514,65 @@ abyssCorruption * 12;
   if (threatScore >= 100) return "レベル2(注意)";
 
   return "レベル1(正常)";
+}
+
+function triggerGovernmentFirstContact() {
+
+  alert(
+`🏛️世界政府 財務監視局
+
+対象個体を確認
+
+────────────────
+
+資産総額
+
+100,000,000円突破
+
+────────────────
+
+異常蓄財行為を検知
+
+監視対象として登録します。
+
+納税義務を忘れないように。
+
+────────────────`
+  );
+
+  slotHistory.unshift(
+    `${getDateTime()} 🏛️世界政府初接触`
+  );
+
+  firstGovernmentContact = true;
+
+  localStorage.setItem(
+    "firstGovernmentContact",
+    "true"
+  );
+}
+
+function triggerGovernmentFirstContact() {
+  alert(
+`🏛️世界政府 財務監視局
+
+対象個体を確認
+
+資産総額 1億円 突破
+
+異常蓄財行為を検知
+
+これより監視対象として登録します。
+
+納税義務を忘れないように。`
+  );
+
+  slotHistory.unshift(`${getDateTime()} 🏛️世界政府初接触`);
+
+  firstGovernmentContact = true;
+  localStorage.setItem("firstGovernmentContact", "true");
+
+  save();
 }
 
 function triggerGovernmentTax() {
@@ -1524,6 +1613,31 @@ function triggerGovernmentTax() {
 
 function getGovernmentMessage() {
 
+function getGovernmentTitle() {
+
+  if (balance >= 1e16) {
+    return "☠️排除対象";
+  }
+
+  if (balance >= 1e12) {
+    return "🚨国家財政脅威";
+  }
+
+  if (balance >= 1e10) {
+    return "⚠️異常蓄財個体";
+  }
+
+  if (balance >= 1e9) {
+    return "🔍重点監視対象";
+  }
+
+  if (balance >= 1e8) {
+    return "📋資産監視対象";
+  }
+
+  return "一般市民";
+}
+
   const threat = getGovernmentThreatLevel();
 
   if (threat.includes("レベル7")) {
@@ -1545,6 +1659,26 @@ function getGovernmentMessage() {
   if (threat.includes("レベル3")) {
     return "軽度の異常を観測。";
   }
+
+if (balance >= 1e16) {
+  return "国家予算規模を超過。";
+}
+
+if (balance >= 1e12) {
+  return "重点監視対象。";
+}
+
+if (balance >= 1e10) {
+  return "異常蓄財個体。";
+}
+
+if (balance >= 1e9) {
+  return "納税調査対象。";
+}
+
+if (balance >= 1e8) {
+  return "資産増加傾向を確認。";
+}
 
   return "正常な市民です。";
 }
