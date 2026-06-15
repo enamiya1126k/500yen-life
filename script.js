@@ -1545,7 +1545,12 @@ function triggerGovernmentFirstContact() {
 firstGovernmentContact = true;
 localStorage.setItem("firstGovernmentContact", "true");
 localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
+
+update();
+
 }
+
+
 
 function triggerGovernmentTax() {
   const threat = getGovernmentThreatLevel();
@@ -1648,18 +1653,28 @@ function getGovernmentMessage() {
 function getGovernmentTaxRate() {
   const threat = getGovernmentThreatLevel();
 
-  if (threat.includes("レベル7")) return 0.35;
-  if (threat.includes("レベル6")) return 0.25;
-  if (threat.includes("レベル5")) return 0.15;
-  if (threat.includes("レベル4")) return 0.10;
-  if (threat.includes("レベル3")) return 0.02;
-  if (threat.includes("レベル2")) return 0.01;
+  let rate = 0;
 
-  return 0;
+  if (threat.includes("レベル7")) rate = 0.35;
+  else if (threat.includes("レベル6")) rate = 0.25;
+  else if (threat.includes("レベル5")) rate = 0.15;
+  else if (threat.includes("レベル4")) rate = 0.10;
+  else if (threat.includes("レベル3")) rate = 0.02;
+  else if (threat.includes("レベル2")) rate = 0.01;
+
+  if (demonContractCount >= 15) {
+    rate *= 2;
+  }
+
+  return rate;
 }
 
 function getGovernmentTaxEventRate() {
   const threat = getGovernmentThreatLevel();
+
+if (demonContractCount >= 15) {
+  return "封印指定存在との融合を確認。排除を開始します。";
+}
 
   if (threat.includes("レベル7")) return 0.20;
   if (threat.includes("レベル6")) return 0.12;
@@ -1675,10 +1690,14 @@ function getWealthTaxRate() {
   if (balance >= 1e16) return 0.05;
   if (balance >= 1e12) return 0.03;
   if (balance >= 1e10) return 0.02;
-  if (balance >= 1e9) return 0.01;
-  if (balance >= 1e8) return 0.005;
+  if (balance >= 1e9) return 0.015;
+  if (balance >= 1e8) return 0.01;
 
   return 0;
+}
+
+if (demonContractCount >= 15) {
+  rate *= 2;
 }
 
 function addExp(amount) {
@@ -2209,7 +2228,8 @@ taxBlockRate:
       )
     : 0),
 
-    doubleBuff: false
+doubleBuff:
+  demonContractCount >= 15
   };
 }
 
@@ -2243,6 +2263,47 @@ if (demonContractCount === 2) {
 }
 
   return "1回 / 契約成立";
+}
+
+function triggerDemonAwakening() {
+
+  alert(
+`😈封印解除😈
+
+悪魔
+「思い出したか？」
+
+「ワシを封じたのは
+世界政府だ」
+
+────────────────
+
+封印解除
+
+プレミア率2倍
+継続率2倍
+EXP2倍
+スロット回数2倍
+
+ただし
+
+徴税率2倍
+
+────────────────
+
+悪魔
+「代償は必要だろう？」
+`
+  );
+
+  slotHistory.unshift(
+    `${getDateTime()} 😈封印解除`
+  );
+
+  localStorage.setItem(
+    "slotHistory",
+    JSON.stringify(slotHistory)
+  );
 }
 
 function getDemonComment() {
@@ -3235,9 +3296,13 @@ ${getDemonComment()}
     return;
   }
 
-  balance -= totalCost;
+balance -= totalCost;
 
-  demonContractCount++;
+demonContractCount++;
+
+if (demonContractCount === 15) {
+  triggerDemonAwakening();
+}
 
 localStorage.setItem("demonContractCount", demonContractCount);
 
