@@ -1696,10 +1696,6 @@ function getWealthTaxRate() {
   return 0;
 }
 
-if (demonContractCount >= 15) {
-  rate *= 2;
-}
-
 function addExp(amount) {
 
   playerExp += Math.floor(
