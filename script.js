@@ -1635,6 +1635,19 @@ function getGovernmentTitle() {
 function getGovernmentMessage() {
   const threat = getGovernmentThreatLevel();
 
+function getGovernmentTaxEventRate() {
+  const threat = getGovernmentThreatLevel();
+
+  if (threat.includes("レベル7")) return 0.20;
+  if (threat.includes("レベル6")) return 0.12;
+  if (threat.includes("レベル5")) return 0.08;
+  if (threat.includes("レベル4")) return 0.05;
+  if (threat.includes("レベル3")) return 0.03;
+  if (threat.includes("レベル2")) return 0.01;
+
+  return 0;
+}
+
   if (threat.includes("レベル7")) return "対象個体は世界法則を逸脱。排除準備中。";
   if (threat.includes("レベル6")) return "奈落存在との接触を確認。";
   if (threat.includes("レベル5")) return "異常な資産増加を検知。";
@@ -2230,6 +2243,10 @@ doubleBuff:
 }
 
 function getDemonBuffText() {
+
+if (demonContractCount >= 15) {
+  return `${demonContractCount}回 / 😈封印解除 / 全バフ2倍 / 徴税2倍`;
+}
 
   if (demonContractCount <= 0) {
     return "未契約";
