@@ -1503,7 +1503,8 @@ if (balance >= 1e10) assetThreat += 250;
 if (balance >= 1e12) assetThreat += 400;
 if (balance >= 1e16) assetThreat += 800;
 
-  const threatScore =
+const threatScore =
+    assetThreat +
     premium * 5 +
     continueRate * 0.7 +
     abyss * 12 +
@@ -1524,7 +1525,6 @@ abyssCorruption * 12;
 }
 
 function triggerGovernmentFirstContact() {
-
   alert(
 `🏛️世界政府 財務監視局
 
@@ -1540,46 +1540,17 @@ function triggerGovernmentFirstContact() {
 
 異常蓄財行為を検知
 
-監視対象として登録します。
+これより監視対象として登録します。
 
 納税義務を忘れないように。
 
 ────────────────`
   );
 
-  slotHistory.unshift(
-    `${getDateTime()} 🏛️世界政府初接触`
-  );
-
-  firstGovernmentContact = true;
-
-  localStorage.setItem(
-    "firstGovernmentContact",
-    "true"
-  );
-}
-
-function triggerGovernmentFirstContact() {
-  alert(
-`🏛️世界政府 財務監視局
-
-対象個体を確認
-
-資産総額 1億円 突破
-
-異常蓄財行為を検知
-
-これより監視対象として登録します。
-
-納税義務を忘れないように。`
-  );
-
   slotHistory.unshift(`${getDateTime()} 🏛️世界政府初接触`);
 
   firstGovernmentContact = true;
   localStorage.setItem("firstGovernmentContact", "true");
-
-  save();
 }
 
 function triggerGovernmentTax() {
@@ -1595,17 +1566,33 @@ function triggerGovernmentTax() {
 
   if (taxRate <= 0) return;
 
-  if (demonContractCount >= 4 && Math.random() < 0.90) {
-    showToast("😈悪魔が徴税官を追い返した");
+  const demon = getDemonBuffs();
 
+  if (
+    demon.taxBlockRate > 0 &&
+    Math.random() < demon.taxBlockRate
+  ) {
+    showToast("😈悪魔が徴税官を追い返した");
     slotHistory.unshift(`${getDateTime()} 😈税金阻止`);
     save();
-
     return;
   }
 
-function triggerWealthTax() {
+  const tax = Math.floor(balance * taxRate);
+  if (tax <= 0) return;
 
+  balance -= tax;
+
+  slotHistory.unshift(
+    `${getDateTime()} 🏛️世界政府徴税 -${formatMoney(tax)}`
+  );
+
+  showToast(`🏛️世界政府徴税\n-${formatMoney(tax)}`);
+
+  save();
+}
+
+function triggerWealthTax() {
   const rate = getWealthTaxRate();
 
   if (rate <= 0) return;
@@ -1616,40 +1603,13 @@ function triggerWealthTax() {
     demon.taxBlockRate > 0 &&
     Math.random() < demon.taxBlockRate
   ) {
-
-    showToast(
-      "😈悪魔が資産税徴収官を追い返した"
-    );
-
-    slotHistory.unshift(
-      `${getDateTime()} 😈資産税阻止`
-    );
-
+    showToast("😈悪魔が資産税徴収官を追い返した");
+    slotHistory.unshift(`${getDateTime()} 😈資産税阻止`);
     save();
-
     return;
   }
 
-  const tax = Math.floor(
-    balance * rate
-  );
-
-  if (tax <= 0) return;
-
-  balance -= tax;
-
-  slotHistory.unshift(
-    `${getDateTime()} 🏛️資産保有税 -${formatMoney(tax)}`
-  );
-
-  showToast(
-    `🏛️資産保有税\n-${formatMoney(tax)}`
-  );
-
-  save();
-}
-
-  const tax = Math.floor(balance * taxRate);
+  const tax = Math.floor(balance * rate);
   if (tax <= 0) return;
 
   balance -= tax;
@@ -1663,74 +1623,30 @@ function triggerWealthTax() {
   save();
 }
 
-function getGovernmentMessage() {
-
 function getGovernmentTitle() {
-
-  if (balance >= 1e16) {
-    return "☠️排除対象";
-  }
-
-  if (balance >= 1e12) {
-    return "🚨国家財政脅威";
-  }
-
-  if (balance >= 1e10) {
-    return "⚠️異常蓄財個体";
-  }
-
-  if (balance >= 1e9) {
-    return "🔍重点監視対象";
-  }
-
-  if (balance >= 1e8) {
-    return "📋資産監視対象";
-  }
+  if (balance >= 1e16) return "☠️排除対象";
+  if (balance >= 1e12) return "🚨国家財政脅威";
+  if (balance >= 1e10) return "⚠️異常蓄財個体";
+  if (balance >= 1e9) return "🔍重点監視対象";
+  if (balance >= 1e8) return "📋資産監視対象";
 
   return "一般市民";
 }
 
+function getGovernmentMessage() {
   const threat = getGovernmentThreatLevel();
 
-  if (threat.includes("レベル7")) {
-    return "対象個体は世界法則を逸脱。排除準備中。";
-  }
+  if (threat.includes("レベル7")) return "対象個体は世界法則を逸脱。排除準備中。";
+  if (threat.includes("レベル6")) return "奈落存在との接触を確認。";
+  if (threat.includes("レベル5")) return "異常な資産増加を検知。";
+  if (threat.includes("レベル4")) return "監視対象として記録。";
+  if (threat.includes("レベル3")) return "軽度の異常を観測。";
 
-  if (threat.includes("レベル6")) {
-    return "奈落存在との接触を確認。";
-  }
-
-  if (threat.includes("レベル5")) {
-    return "異常な資産増加を検知。";
-  }
-
-  if (threat.includes("レベル4")) {
-    return "監視対象として記録。";
-  }
-
-  if (threat.includes("レベル3")) {
-    return "軽度の異常を観測。";
-  }
-
-if (balance >= 1e16) {
-  return "国家予算規模を超過。";
-}
-
-if (balance >= 1e12) {
-  return "重点監視対象。";
-}
-
-if (balance >= 1e10) {
-  return "異常蓄財個体。";
-}
-
-if (balance >= 1e9) {
-  return "納税調査対象。";
-}
-
-if (balance >= 1e8) {
-  return "資産増加傾向を確認。";
-}
+  if (balance >= 1e16) return "国家予算規模を超過。";
+  if (balance >= 1e12) return "重点監視対象。";
+  if (balance >= 1e10) return "異常蓄財個体。";
+  if (balance >= 1e9) return "納税調査対象。";
+  if (balance >= 1e8) return "資産増加傾向を確認。";
 
   return "正常な市民です。";
 }
@@ -1762,16 +1678,11 @@ function getGovernmentTaxEventRate() {
 }
 
 function getWealthTaxRate() {
-
-  if (balance >= 1e16) return 0.05; // 京以上
-
-  if (balance >= 1e12) return 0.03; // 1兆
-
-  if (balance >= 1e10) return 0.02; // 100億
-
-  if (balance >= 1e9) return 0.01; // 10億
-
-  if (balance >= 1e8) return 0.005; // 1億
+  if (balance >= 1e16) return 0.05;
+  if (balance >= 1e12) return 0.03;
+  if (balance >= 1e10) return 0.02;
+  if (balance >= 1e9) return 0.01;
+  if (balance >= 1e8) return 0.005;
 
   return 0;
 }
