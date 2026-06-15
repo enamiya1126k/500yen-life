@@ -638,6 +638,13 @@ if (Math.random() < getGovernmentTaxEventRate()) {
   triggerGovernmentTax();
 }
 
+if (
+  balance >= 100000000 &&
+  Math.random() < 0.08
+) {
+  triggerWealthTax();
+}
+
 isPremium = false;
 }
 
@@ -1597,6 +1604,51 @@ function triggerGovernmentTax() {
     return;
   }
 
+function triggerWealthTax() {
+
+  const rate = getWealthTaxRate();
+
+  if (rate <= 0) return;
+
+  const demon = getDemonBuffs();
+
+  if (
+    demon.taxBlockRate > 0 &&
+    Math.random() < demon.taxBlockRate
+  ) {
+
+    showToast(
+      "😈悪魔が資産税徴収官を追い返した"
+    );
+
+    slotHistory.unshift(
+      `${getDateTime()} 😈資産税阻止`
+    );
+
+    save();
+
+    return;
+  }
+
+  const tax = Math.floor(
+    balance * rate
+  );
+
+  if (tax <= 0) return;
+
+  balance -= tax;
+
+  slotHistory.unshift(
+    `${getDateTime()} 🏛️資産保有税 -${formatMoney(tax)}`
+  );
+
+  showToast(
+    `🏛️資産保有税\n-${formatMoney(tax)}`
+  );
+
+  save();
+}
+
   const tax = Math.floor(balance * taxRate);
   if (tax <= 0) return;
 
@@ -1705,6 +1757,21 @@ function getGovernmentTaxEventRate() {
   if (threat.includes("レベル4")) return 0.05;
   if (threat.includes("レベル3")) return 0.03;
   if (threat.includes("レベル2")) return 0.01;
+
+  return 0;
+}
+
+function getWealthTaxRate() {
+
+  if (balance >= 1e16) return 0.05; // 京以上
+
+  if (balance >= 1e12) return 0.03; // 1兆
+
+  if (balance >= 1e10) return 0.02; // 100億
+
+  if (balance >= 1e9) return 0.01; // 10億
+
+  if (balance >= 1e8) return 0.005; // 1億
 
   return 0;
 }
