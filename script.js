@@ -2488,14 +2488,17 @@ function getTimingMultiplier() {
 
 function updateRebirthButton() {
   const btn = document.getElementById("rebirthBtn");
-
   if (!btn) return;
 
-  if (getLevel() >= 1000) {
-    btn.style.opacity = "1";
-  } else {
-    btn.style.opacity = "0.35";
-  }
+  const canRebirth = getLevel() >= 1000;
+
+  btn.classList.toggle("rebirth-ready", canRebirth);
+  btn.classList.toggle("rebirth-locked", !canRebirth);
+
+  btn.innerText = canRebirth ? "🪽転生可能" : "🪽";
+  btn.title = canRebirth
+    ? "転生できます"
+    : `Lv1000で転生可能 / 現在Lv${getLevel()}`;
 }
 
 window.rebirth = function () {
