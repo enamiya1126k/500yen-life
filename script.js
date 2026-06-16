@@ -2072,14 +2072,14 @@ end13: {
 },
 
 end14: {
-  name: "虚構",
+  name: "宇宙会計監査院",
   price: 1e100,
   type: "end",
   buffMultiplier: 1.5,
 },
 
 end15: {
-  name: "概念外存在",
+  name: "観測終了",
   price: 1e200,
   type: "end",
   ending: true,
