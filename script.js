@@ -907,6 +907,8 @@ function updateStats() {
     stats.bestBalance = balance;
   }
 
+setText("governmentLaw", getGovernmentLawText());
+
   const profit = stats.totalReward - stats.totalBet;
 
   setText("bestBalance", formatMoney(stats.bestBalance));
@@ -1517,6 +1519,9 @@ if (balance >= 1e10) assetThreat += 250;
 if (balance >= 1e12) assetThreat += 400;
 if (balance >= 1e16) assetThreat += 800;
 
+let recognizedThreat =
+  localStorage.getItem("abyssRecognized") === "true" ? 300 : 0;
+
 const threatScore =
     assetThreat +
     premium * 5 +
@@ -1525,8 +1530,9 @@ const threatScore =
     wealth * 2.5 +
     multiplier * 25 +
     rebirthCount * 1.5 +
-demonContractCount * 1.0 +
-abyssCorruption * 12;
+    demonContractCount * 1.0 +
+    abyssCorruption * 12 +
+    recognizedThreat;
 
   if (threatScore >= 2000) return "レベル7(世界崩壊級)🚨";
   if (threatScore >= 1200) return "レベル6(排除対象)🚨";
@@ -3010,7 +3016,10 @@ function chooseAbyss(index) {
 abyssCorruption++;
 localStorage.setItem("abyssCorruption", abyssCorruption);
 
-if (abyssCorruption >= 100) {
+if (
+  abyssCorruption >= 100 &&
+  localStorage.getItem("abyssRecognized") !== "true"
+) {
   triggerAbyssRecognition();
 }
 
@@ -3756,4 +3765,18 @@ function getFinalEvaluation() {
   if (debtorLevel >= 50) return "要監視対象";
   if (debtorLevel >= 10) return "要観察個体";
   return "優良観測個体";
+}
+
+function getGovernmentLawText() {
+  const law = localStorage.getItem("governmentLaw");
+  const lawDate = localStorage.getItem("governmentLawDate");
+  const today = new Date().toDateString();
+
+  if (lawDate !== today) return "なし";
+
+  if (law === "lobsterTax") return "🦞海産物税：🦞配当半減";
+  if (law === "slotTax") return "🎰娯楽抑制令：🎰配当半減";
+  if (law === "taxUp") return "🏛️富裕者監視強化：徴税発生率3倍";
+
+  return "なし";
 }
