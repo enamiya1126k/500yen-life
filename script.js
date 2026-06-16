@@ -418,6 +418,20 @@ function finishSlot(result, bet) {
     if (a === b && b === c) {
       let reward = bet * payout[a];
 
+const law = localStorage.getItem("governmentLaw");
+const lawDate = localStorage.getItem("governmentLawDate");
+const today = new Date().toDateString();
+
+if (lawDate === today) {
+  if (law === "lobsterTax" && a === "🦞") {
+    reward *= 0.5;
+  }
+
+  if (law === "slotTax" && a === "🎰") {
+    reward *= 0.5;
+  }
+}
+
       if (isPremium) {
         reward *= 10;
       }
@@ -643,6 +657,13 @@ if (
   Math.random() < 0.08
 ) {
   triggerWealthTax();
+}
+
+if (
+  balance >= 100000000 &&
+  Math.random() < 0.03
+) {
+  triggerGovernmentCouncil();
 }
 
 isPremium = false;
@@ -1622,6 +1643,47 @@ function triggerWealthTax() {
   save();
 }
 
+function triggerGovernmentCouncil() {
+  const laws = [
+    {
+      name: "海産物税",
+      message: "本日は海産物税導入\n🦞配当半減",
+      effect: "lobsterTax"
+    },
+    {
+      name: "娯楽抑制令",
+      message: "本日は娯楽抑制令\n🎰配当半減",
+      effect: "slotTax"
+    },
+    {
+      name: "富裕者監視強化",
+      message: "貴様の資産は異常だ\n徴税イベント発生率上昇",
+      effect: "taxUp"
+    }
+  ];
+
+  const law = laws[Math.floor(Math.random() * laws.length)];
+
+  localStorage.setItem("governmentLaw", law.effect);
+  localStorage.setItem("governmentLawDate", new Date().toDateString());
+
+  alert(
+`🏛️世界政府評議会
+
+「貴様の資産は異常だ」
+
+────────────────
+
+${law.message}
+
+────────────────`
+  );
+
+  slotHistory.unshift(`${getDateTime()} 🏛️世界政府評議会 ${law.name}`);
+
+  save();
+}
+
 function getGovernmentTitle() {
   if (balance >= 1e16) return "☠️排除対象";
   if (balance >= 1e12) return "🚨国家財政脅威";
@@ -1657,14 +1719,24 @@ function getGovernmentMessage() {
 function getGovernmentTaxEventRate() {
   const threat = getGovernmentThreatLevel();
 
-  if (threat.includes("レベル7")) return 0.20;
-  if (threat.includes("レベル6")) return 0.12;
-  if (threat.includes("レベル5")) return 0.08;
-  if (threat.includes("レベル4")) return 0.05;
-  if (threat.includes("レベル3")) return 0.03;
-  if (threat.includes("レベル2")) return 0.01;
+  let rate = 0;
 
-  return 0;
+  if (threat.includes("レベル7")) rate = 0.20;
+  else if (threat.includes("レベル6")) rate = 0.12;
+  else if (threat.includes("レベル5")) rate = 0.08;
+  else if (threat.includes("レベル4")) rate = 0.05;
+  else if (threat.includes("レベル3")) rate = 0.03;
+  else if (threat.includes("レベル2")) rate = 0.01;
+
+  const law = localStorage.getItem("governmentLaw");
+  const lawDate = localStorage.getItem("governmentLawDate");
+  const today = new Date().toDateString();
+
+  if (lawDate === today && law === "taxUp") {
+    rate *= 3;
+  }
+
+  return rate;
 }
 
 function getGovernmentTaxRate() {
@@ -2187,7 +2259,7 @@ function getRebirthBuffs() {
     // 転生1回につき +0.1%
     premiumBonus: rebirthCount * 0.001,
 
-    continueBonus: rebirthCount * 0.1,
+    continueBonus: rebirthCount * 0.02,
   };
 }
 
@@ -2797,6 +2869,10 @@ function getAbyssRate() {
   if (ownedItems.includes("end6")) rate += 0.015;
   if (ownedItems.includes("end10")) rate += 0.015;
 
+  if (localStorage.getItem("abyssRecognized") === "true") {
+    rate *= 10;
+  }
+
   return rate * getBuffScale();
 }
 
@@ -2933,6 +3009,10 @@ function chooseAbyss(index) {
 
 abyssCorruption++;
 localStorage.setItem("abyssCorruption", abyssCorruption);
+
+if (abyssCorruption >= 100) {
+  triggerAbyssRecognition();
+}
 
 if (result === "wealthCrash") {
   const lossRate = 0.5 + Math.random() * 4.5;
@@ -3167,6 +3247,38 @@ function closeAbyssChallenge(message) {
       abyssCard.style.display = "none";
     }, 1500);
   }
+}
+
+function triggerAbyssRecognition() {
+  if (localStorage.getItem("abyssRecognized") === "true") return;
+
+  localStorage.setItem("abyssRecognized", "true");
+
+  alert(
+`🕳️奈落がこちらを認識しました。
+
+────────────────
+
+世界政府
+「観測対象ではない」
+
+「観測者が、観測されている」
+
+悪魔
+「……目を合わせるな」
+
+────────────────
+
+奈落汚染 100 到達
+
+奈落発生率が大幅上昇
+世界政府の脅威判定上昇
+`
+  );
+
+  slotHistory.unshift(`${getDateTime()} 🕳️奈落認識`);
+
+  save();
 }
 
 function playAbyssBadEffect() {
