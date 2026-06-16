@@ -49,6 +49,9 @@ let abyssActive = false;
 let abyssResults = [];
 let nextSlotPremium = false;
 let premiumRush = false;
+let lastSlotMessage = "";
+let eventMessageTimer = null;
+
 
 let isContinueFreeSpin =
   localStorage.getItem("isContinueFreeSpin") === "true";
@@ -649,6 +652,8 @@ if (!wasContinueFreeSpin) {
 
   document.getElementById("slotMessage").innerText = message;
 
+lastSlotMessage = message;
+
   slotHistory.unshift(`${getDateTime()} 🎰 ${result.join("")} ${message}`);
 
   save();
@@ -1001,6 +1006,23 @@ function setText(id, text) {
   document.querySelectorAll(`#${id}`).forEach(function (el) {
     el.innerText = text;
   });
+}
+
+function showEventMessage(text, seconds = 5) {
+  const slotMessage = document.getElementById("slotMessage");
+  if (!slotMessage) return;
+
+  if (eventMessageTimer) {
+    clearTimeout(eventMessageTimer);
+  }
+
+  slotMessage.innerText = text;
+
+  eventMessageTimer = setTimeout(function () {
+    if (!spinning) {
+      slotMessage.innerText = lastSlotMessage || "";
+    }
+  }, seconds * 1000);
 }
 
 window.setBet = function (amount) {
@@ -1646,7 +1668,10 @@ function triggerGovernmentTax() {
     `${getDateTime()} 🏛️世界政府徴税 -${formatMoney(tax)}`
   );
 
-  showToast(`🏛️世界政府徴税\n-${formatMoney(tax)}`);
+showEventMessage(
+  `🏛️ 世界政府徴税\n-${formatMoney(tax)}`,
+  5
+);
 
   save();
 }
@@ -1677,7 +1702,10 @@ function triggerWealthTax() {
     `${getDateTime()} 🏛️資産保有税 -${formatMoney(tax)}`
   );
 
-  showToast(`🏛️資産保有税\n-${formatMoney(tax)}`);
+  showEventMessage(
+  `🏛️ 資産保有税\n-${formatMoney(tax)}`,
+  5
+);
 
   save();
 }
@@ -1706,17 +1734,14 @@ function triggerGovernmentCouncil() {
   localStorage.setItem("governmentLaw", law.effect);
   localStorage.setItem("governmentLawDate", new Date().toDateString());
 
-  alert(
-`🏛️世界政府評議会
+showEventMessage(
+`🏛️ 世界政府評議会
 
-「貴様の資産は異常だ」
+貴様の資産は異常だ。
 
-────────────────
-
-${law.message}
-
-────────────────`
-  );
+${law.message}`,
+5
+);
 
   slotHistory.unshift(`${getDateTime()} 🏛️世界政府評議会 ${law.name}`);
 
@@ -3267,6 +3292,11 @@ slotHistory.unshift(
 localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
 
 save();
+
+showEventMessage(
+  `🟣 奈落接触\n\n${message}`,
+  5
+);
 
 closeAbyssChallenge(
   "奈落は閉じた。\n世界法則の破損だけが残った。"
