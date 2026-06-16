@@ -1867,7 +1867,7 @@ title2: {
   name: "👁️金喰天狗の魔眼",
   price: 10000000, // 1000万円
   type: "title",
-  slotBonus: 20,
+  slotBonus: 5,
 },
 
 title3: {
