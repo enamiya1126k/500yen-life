@@ -251,9 +251,32 @@ let bet = Number(document.getElementById("betAmount").value);
 if (isContinueFreeSpin) {
   bet = Number(localStorage.getItem("lastBet")) || bet || 5;
 
+  const rushMaxBet = Math.min(
+    balance,
+    Math.max(5, Math.floor(balance * 0.1))
+  );
+
+  if (balance <= 0) {
+    setContinueFreeSpin(false);
+    continueRushCount = 0;
+    stRushNoSlotCount = 0;
+
+    localStorage.setItem("continueRushCount", continueRushCount);
+    localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
+
+    alert("残高が尽きたため、ST RUSHは強制終了しました。");
+    update();
+    return;
+  }
+
+  bet = Math.min(bet, rushMaxBet);
+
   document.getElementById("betAmount").value = bet;
   document.getElementById("betDisplay").innerText = formatMoney(bet);
-} else {
+  localStorage.setItem("lastBet", bet);
+}
+
+else {
   if (isMaxBetMode) {
     bet = maxBet;
     document.getElementById("betAmount").value = bet;
