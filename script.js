@@ -3285,9 +3285,10 @@ function triggerAbyssRecognition() {
 `
   );
 
-  slotHistory.unshift(`${getDateTime()} 🕳️奈落認識`);
+slotHistory.unshift(`${getDateTime()} 🕳️奈落認識`);
+localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
 
-  save();
+update();
 }
 
 function playAbyssBadEffect() {
