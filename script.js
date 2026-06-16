@@ -3063,7 +3063,7 @@ if (result === "wealthBoost") {
 
 if (result === "governmentError") {
   const tax = balance;
-  balance = 0;
+  balance = 1;
 
   message =
 `🚨ABYSS ERROR🚨
