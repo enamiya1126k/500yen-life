@@ -3294,7 +3294,7 @@ localStorage.setItem("slotHistory", JSON.stringify(slotHistory));
 save();
 
 showEventMessage(
-  `🟣 奈落接触\n\n${message}`,
+  `🟣 奈落接触\n\n${message.split("────────────────")[0]}`,
   5
 );
 
