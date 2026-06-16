@@ -979,7 +979,7 @@ setText(
 
 setText(
   "governmentThreat",
-  getGovernmentThreatLevel()
+  getGovernmentDisplayThreatLevel()
 );
 
 setText(
@@ -1566,13 +1566,64 @@ function getGovernmentThreatLevel() {
   const wealth = Math.log10(Math.max(balance, 1));
   const multiplier = getShopBuffs().buffMultiplier || 1;
 
+  let assetThreat = 0;
+
+  if (balance >= 1e8) assetThreat += 100;
+  if (balance >= 1e9) assetThreat += 150;
+  if (balance >= 1e10) assetThreat += 250;
+  if (balance >= 1e12) assetThreat += 400;
+  if (balance >= 1e16) assetThreat += 800;
+
+  let recognizedThreat =
+    localStorage.getItem("abyssRecognized") === "true" ? 300 : 0;
+
+  const threatScore =
+    assetThreat +
+    premium * 5 +
+    continueRate * 0.7 +
+    abyss * 12 +
+    wealth * 2.5 +
+    multiplier * 25 +
+    rebirthCount * 1.5 +
+    demonContractCount * 1.0 +
+    abyssCorruption * 12 +
+    recognizedThreat;
+
+  if (threatScore >= 2000) return "レベル7🚨";
+  if (threatScore >= 1200) return "レベル6🚨";
+  if (threatScore >= 750) return "レベル5⚠️";
+  if (threatScore >= 450) return "レベル4⚠️";
+  if (threatScore >= 250) return "レベル3(注)";
+  if (threatScore >= 100) return "レベル2(注)";
+
+  return "レベル1(正常)";
+}
+
+function getGovernmentDisplayThreatLevel() {
+  const premium = getPremiumRate() * 100;
+  const continueRate = getContinueRate() * 100;
+  const abyss = getAbyssRate() * 100;
+  const wealth = Math.log10(Math.max(balance, 1));
+  const multiplier = getShopBuffs().buffMultiplier || 1;
+
 let assetThreat = 0;
 
-if (balance >= 1e8) assetThreat += 100;
-if (balance >= 1e9) assetThreat += 150;
-if (balance >= 1e10) assetThreat += 250;
-if (balance >= 1e12) assetThreat += 400;
-if (balance >= 1e16) assetThreat += 800;
+if (balance >= 1e8)  assetThreat += 10;
+if (balance >= 1e12) assetThreat += 20;
+if (balance >= 1e16) assetThreat += 30;
+if (balance >= 1e20) assetThreat += 40;
+if (balance >= 1e24) assetThreat += 50;
+if (balance >= 1e28) assetThreat += 60;
+if (balance >= 1e32) assetThreat += 80;
+if (balance >= 1e36) assetThreat += 100;
+if (balance >= 1e40) assetThreat += 130;
+if (balance >= 1e44) assetThreat += 170;
+if (balance >= 1e48) assetThreat += 250;
+if (balance >= 1e52) assetThreat += 400;
+if (balance >= 1e56) assetThreat += 700;
+if (balance >= 1e60) assetThreat += 1200;
+if (balance >= 1e64) assetThreat += 1800;
+if (balance >= 1e68) assetThreat += 3000;
 
 let recognizedThreat =
   localStorage.getItem("abyssRecognized") === "true" ? 300 : 0;
@@ -1749,17 +1800,20 @@ ${law.message}`,
 }
 
 function getGovernmentTitle() {
-  if (balance >= 1e16) return "☠️排除対象";
-  if (balance >= 1e12) return "🚨国家財政脅威";
-  if (balance >= 1e10) return "⚠️異常蓄財個体";
-  if (balance >= 1e9) return "🔍重点監視対象";
-  if (balance >= 1e8) return "📋資産監視対象";
+  const threat = getGovernmentDisplayThreatLevel();
+
+  if (threat.includes("レベル7")) return "☠️世界法則外存在";
+  if (threat.includes("レベル6")) return "🚨排除対象";
+  if (threat.includes("レベル5")) return "⚠️国家財政脅威";
+  if (threat.includes("レベル4")) return "🔍重点監視対象";
+  if (threat.includes("レベル3")) return "📋資産監視対象";
+  if (threat.includes("レベル2")) return "軽度監視対象";
 
   return "一般市民";
 }
 
 function getGovernmentMessage() {
-  const threat = getGovernmentThreatLevel();
+const threat = getGovernmentDisplayThreatLevel();
 
   if (demonContractCount >= 15) {
     return "封印指定存在との融合を確認。排除を開始します。";
