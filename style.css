@@ -1690,3 +1690,38 @@ button[id^="shop-end"]{
   font-size:11px !important;
   line-height:1.15 !important;
 }
+
+.level-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#rebirthBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(120, 255, 120, 0.6);
+  background: radial-gradient(circle, #111, #000);
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0, 255, 120, 0.4);
+}
+
+#rebirthBtn.rebirth-locked {
+  opacity: 0.35;
+}
+
+#rebirthBtn.rebirth-ready {
+  opacity: 1;
+  width: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  animation: rebirthPulse 1s infinite;
+}
+
+@keyframes rebirthPulse {
+  0% { box-shadow: 0 0 8px rgba(0,255,120,0.5); }
+  50% { box-shadow: 0 0 22px rgba(255,0,255,0.9); }
+  100% { box-shadow: 0 0 8px rgba(0,255,120,0.5); }
+}
