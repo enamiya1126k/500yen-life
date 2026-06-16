@@ -239,10 +239,10 @@ if (!isContinueFreeSpin && todaySlotCount >= getDailySlotLimit()) {
   return;
 }
 
-  if (balance <= 0) {
-    alert("残高がないのでスロットできません！");
-    return;
-  }
+if (!isContinueFreeSpin && balance <= 0) {
+  alert("残高がないのでスロットできません！");
+  return;
+}
 
 const maxBet = Math.min(balance, Math.max(5, Math.floor(balance * 0.1)));
 
@@ -906,6 +906,11 @@ function updateStats() {
   if (balance > stats.bestBalance) {
     stats.bestBalance = balance;
   }
+
+setText(
+  "abyssRecognizedDisplay",
+  localStorage.getItem("abyssRecognized") === "true" ? "認識済み" : "未認識"
+);
 
 setText("governmentLaw", getGovernmentLawText());
 
@@ -1827,7 +1832,7 @@ title1: {
   name: "🩸契約の第一硬貨",
   price: 10000, // 1万円
   type: "title",
-  slotBonus: 10,
+  slotBonus: 5,
 },
 
 title2: {
@@ -3719,7 +3724,9 @@ premiumRush = false;
 nextSlotPremium = false;
 firstGovernmentContact = false;
 localStorage.setItem("firstGovernmentContact", "false");
-
+localStorage.removeItem("abyssRecognized");
+localStorage.removeItem("governmentLaw");
+localStorage.removeItem("governmentLawDate");
 localStorage.setItem("continueRushCount", continueRushCount);
 localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
 localStorage.setItem("isContinueFreeSpin", "false");
