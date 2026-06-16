@@ -682,10 +682,15 @@ if (
   triggerWealthTax();
 }
 
+const councilToday = localStorage.getItem("governmentCouncilDate");
+const today = new Date().toDateString();
+
 if (
   balance >= 100000000 &&
-  Math.random() < 0.03
+  councilToday !== today &&
+  Math.random() < 0.01
 ) {
+  localStorage.setItem("governmentCouncilDate", today);
   triggerGovernmentCouncil();
 }
 
@@ -3758,6 +3763,7 @@ localStorage.setItem("stRushNoSlotCount", stRushNoSlotCount);
 localStorage.setItem("isContinueFreeSpin", "false");
 localStorage.setItem("isMaxBetMode", "false");
 localStorage.removeItem("lastBet");
+localStorage.removeItem("governmentCouncilDate");
 
   stats = {
     bestBalance: 500,
@@ -3766,6 +3772,8 @@ localStorage.removeItem("lastBet");
     totalBet: 0,
     totalReward: 0,
   };
+
+
 
 history = [];
 slotHistory = [];
