@@ -1874,21 +1874,21 @@ title3: {
   name: "🐉黄金龍王の逆鱗",
   price: 10000000000, // 100億円
   type: "title",
-  slotBonus: 30,
+  slotBonus: 5,
 },
 
 title4: {
   name: "☠️財禍鬼神の心核",
   price: 1000000000000000, // 1000兆円
   type: "title",
-  slotBonus: 60,
+  slotBonus: 5,
 },
 
 title5: {
   name: "📜貨幣大明王の禁書",
   price: 100000000000000000000, // 100垓円
   type: "title",
-  slotBonus: 2000,
+  slotBonus: 5,
 },
 
 skin1: {
@@ -1977,7 +1977,7 @@ effect3: {
   name: "🌈輪廻ラッシュ",
   price: 10000000000000,
   type: "effect",
-  continueBonus: 0.2,
+  continueBonus: 0.15,
 },
 
 end1: {
