@@ -1802,14 +1802,13 @@ ${law.message}`,
 function getGovernmentTitle() {
   const threat = getGovernmentDisplayThreatLevel();
 
-  if (threat.includes("レベル7")) return "☠️世界法則外存在";
-  if (threat.includes("レベル6")) return "🚨排除対象";
-  if (threat.includes("レベル5")) return "⚠️国家財政脅威";
-  if (threat.includes("レベル4")) return "🔍重点監視対象";
-  if (threat.includes("レベル3")) return "📋資産監視対象";
-  if (threat.includes("レベル2")) return "軽度監視対象";
-
-  return "一般市民";
+if (level.includes("レベル7")) return "☠️ SSR級浪費家";
+if (level.includes("レベル6")) return "🚨 S級浪費家";
+if (level.includes("レベル5")) return "⚠️ A級浪費家";
+if (level.includes("レベル4")) return "🔍 B級浪費家";
+if (level.includes("レベル3")) return "📋 C級浪費家";
+if (level.includes("レベル2")) return "✅ 一般プレイヤー";
+return "🌱 節約マスター";
 }
 
 function getGovernmentMessage() {
@@ -1825,11 +1824,11 @@ const threat = getGovernmentDisplayThreatLevel();
   if (threat.includes("レベル4")) return "監視対象として記録。";
   if (threat.includes("レベル3")) return "軽度の異常を観測。";
 
-  if (balance >= 1e16) return "国家予算規模を超過。";
-  if (balance >= 1e12) return "重点監視対象。";
-  if (balance >= 1e10) return "異常蓄財個体。";
-  if (balance >= 1e9) return "納税調査対象。";
-  if (balance >= 1e8) return "資産増加傾向を確認。";
+  if (balance >= 1e16) return "「国家予算規模を超過。」";
+  if (balance >= 1e12) return "「重点監視対象。」";
+  if (balance >= 1e10) return "「異常蓄財個体。」";
+  if (balance >= 1e9) return "「納税調査対象。」";
+  if (balance >= 1e8) return "「資産増加傾向を確認。」";
 
   return "正常な市民です。";
 }
