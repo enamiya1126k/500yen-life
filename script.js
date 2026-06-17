@@ -1589,14 +1589,14 @@ function getGovernmentThreatLevel() {
     abyssCorruption * 12 +
     recognizedThreat;
 
-  if (threatScore >= 2000) return "レベル7🚨";
-  if (threatScore >= 1200) return "レベル6🚨";
-  if (threatScore >= 750) return "レベル5⚠️";
-  if (threatScore >= 450) return "レベル4⚠️";
-  if (threatScore >= 250) return "レベル3(注)";
-  if (threatScore >= 100) return "レベル2(注)";
+  if (threatScore >= 2000) return "7/";
+  if (threatScore >= 1200) return "6/";
+  if (threatScore >= 750) return "5/";
+  if (threatScore >= 450) return "4/";
+  if (threatScore >= 250) return "3/";
+  if (threatScore >= 100) return "2/";
 
-  return "レベル1(正常)";
+  return "1/";
 }
 
 function getGovernmentDisplayThreatLevel() {
