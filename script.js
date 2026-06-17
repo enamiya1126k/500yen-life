@@ -1640,14 +1640,14 @@ const threatScore =
     abyssCorruption * 12 +
     recognizedThreat;
 
-  if (threatScore >= 2000) return "レベル7(世界崩壊級)🚨";
-  if (threatScore >= 1200) return "レベル6(排除対象)🚨";
-  if (threatScore >= 750) return "レベル5(危険)⚠️";
-  if (threatScore >= 450) return "レベル4(要監視)⚠️";
-  if (threatScore >= 250) return "レベル3(観察対象)";
-  if (threatScore >= 100) return "レベル2(注意)";
+  if (threatScore >= 2000) return "7/";
+  if (threatScore >= 1200) return "6/";
+  if (threatScore >= 750) return "5/";
+  if (threatScore >= 450) return "4/";
+  if (threatScore >= 250) return "3/";
+  if (threatScore >= 100) return "2/";
 
-  return "レベル1(正常)";
+  return "1/";
 }
 
 function triggerGovernmentFirstContact() {
