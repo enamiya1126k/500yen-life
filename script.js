@@ -1589,14 +1589,14 @@ function getGovernmentThreatLevel() {
     abyssCorruption * 12 +
     recognizedThreat;
 
-  if (threatScore >= 2000) return "7/";
-  if (threatScore >= 1200) return "6/";
-  if (threatScore >= 750) return "5/";
-  if (threatScore >= 450) return "4/";
-  if (threatScore >= 250) return "3/";
-  if (threatScore >= 100) return "2/";
+if (threatScore >= 2000) return "レベル7";
+if (threatScore >= 1200) return "レベル6";
+if (threatScore >= 750) return "レベル5";
+if (threatScore >= 450) return "レベル4";
+if (threatScore >= 250) return "レベル3";
+if (threatScore >= 100) return "レベル2";
 
-  return "1/";
+return "レベル1";
 }
 
 function getGovernmentDisplayThreatLevel() {
@@ -1802,13 +1802,13 @@ ${law.message}`,
 function getGovernmentTitle() {
   const threat = getGovernmentDisplayThreatLevel();
 
-if (level.includes("レベル7")) return "☠️ SSR級浪費家";
-if (level.includes("レベル6")) return "🚨 S級浪費家";
-if (level.includes("レベル5")) return "⚠️ A級浪費家";
-if (level.includes("レベル4")) return "🔍 B級浪費家";
-if (level.includes("レベル3")) return "📋 C級浪費家";
-if (level.includes("レベル2")) return "✅ 一般プレイヤー";
-return "🌱 節約マスター";
+  if (threat.includes("レベル7")) return "☠️ SSR級浪費家";
+  if (threat.includes("レベル6")) return "🚨 S級浪費家";
+  if (threat.includes("レベル5")) return "⚠️ A級浪費家";
+  if (threat.includes("レベル4")) return "🔍 B級浪費家";
+  if (threat.includes("レベル3")) return "📋 C級浪費家";
+  if (threat.includes("レベル2")) return "✅ 一般プレイヤー";
+  return "🌱 節約マスター";
 }
 
 function getGovernmentMessage() {
