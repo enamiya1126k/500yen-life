@@ -2957,11 +2957,11 @@ window.compressMoney = function (baseCost, exp) {
 
 function updateCompressDisplay() {
   const compressItems = [
-    { id: "compressCost1", cost: getCompressCost(10000000) },
-    { id: "compressCost2", cost: getCompressCost(100000000) },
-    { id: "compressCost3", cost: getCompressCost(1000000000) },
-    { id: "compressCost4", cost: getCompressCost(1000000000000) },
-    { id: "compressCost5", cost: getCompressCost(100000000000000) },
+    { id: "compressCost1", cost: getCompressCost(100000000) },
+    { id: "compressCost2", cost: getCompressCost(1000000000) },
+    { id: "compressCost3", cost: getCompressCost(10000000000) },
+    { id: "compressCost4", cost: getCompressCost(10000000000000) },
+    { id: "compressCost5", cost: getCompressCost(1000000000000000) },
   ];
 
   compressItems.forEach(function (item) {
