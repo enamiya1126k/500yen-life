@@ -1640,14 +1640,14 @@ const threatScore =
     abyssCorruption * 12 +
     recognizedThreat;
 
-  if (threatScore >= 2000) return "7/";
-  if (threatScore >= 1200) return "6/";
-  if (threatScore >= 750) return "5/";
-  if (threatScore >= 450) return "4/";
-  if (threatScore >= 250) return "3/";
-  if (threatScore >= 100) return "2/";
+  if (threatScore >= 2000) return "レベル7";
+  if (threatScore >= 1200) return "レベル6";
+  if (threatScore >= 750) return "レベル5";
+  if (threatScore >= 450) return "レベル4";
+  if (threatScore >= 250) return "レベル3";
+  if (threatScore >= 100) return "レベル2";
 
-  return "1/";
+  return "レベル1";
 }
 
 function triggerGovernmentFirstContact() {
@@ -1836,14 +1836,14 @@ const threat = getGovernmentDisplayThreatLevel();
 function getGovernmentTaxEventRate() {
   const threat = getGovernmentThreatLevel();
 
-  let rate = 0;
+  let rate = 0.02; // 最低2%
 
-  if (threat.includes("レベル7")) rate = 0.20;
-  else if (threat.includes("レベル6")) rate = 0.12;
-  else if (threat.includes("レベル5")) rate = 0.08;
-  else if (threat.includes("レベル4")) rate = 0.05;
-  else if (threat.includes("レベル3")) rate = 0.03;
-  else if (threat.includes("レベル2")) rate = 0.01;
+  if (threat.includes("レベル7")) rate = 0.30;
+  else if (threat.includes("レベル6")) rate = 0.22;
+  else if (threat.includes("レベル5")) rate = 0.16;
+  else if (threat.includes("レベル4")) rate = 0.10;
+  else if (threat.includes("レベル3")) rate = 0.06;
+  else if (threat.includes("レベル2")) rate = 0.03;
 
   const law = localStorage.getItem("governmentLaw");
   const lawDate = localStorage.getItem("governmentLawDate");
@@ -1853,7 +1853,7 @@ function getGovernmentTaxEventRate() {
     rate *= 3;
   }
 
-  return rate;
+  return Math.min(rate, 0.8);
 }
 
 function getGovernmentTaxRate() {
